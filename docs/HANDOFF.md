@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-26
-version: 1.60
+version: 1.61
 status: active
 ---
 
@@ -9,32 +9,29 @@ status: active
 
 ## Completed outcome
 
-CSS audit remediation is implemented and received a same-scope `PASS`. External font loading now belongs to the document head; confirmed dead and redundant CSS was removed; viewport, spacing, and forced-colors handling were improved without changing routes, content, or dependencies.
+Atelier Florae is published as an independent Experiment and received a same-scope `PASS` after the review fix. The AI-generated brand board was removed; the 100 g label sheet and botanical seal remain as visuals. The two-area evidence structure is retained, and the project-pages work is defined in a PRD and queued in `TODO.md`.
 
 ## Next task candidate
 
-None.
+A. Project pages and area indexes
 
 ## Roadmap position
 
 - **Milestone:** Milestone 5 - Evidence-Driven Evolution.
-- **Workflow stage:** CSS audit remediation is complete; begin `plan-next-task` only when a new TODO candidate is selected.
+- **Workflow stage:** Atelier Florae is complete; begin `plan-next-task` for the next task candidate.
 
 ## Evidence pointers
 
 - `TODO.md`
-- `PRODUCT_REQUIREMENTS.md`
-- `ROADMAP.md`
-- `docs/ARCHITECTURE.md`
-- `index.html`
-- `src/index.css`
-- `src/styles/reset.css`
-- `src/styles/tokens.css`
-- `src/styles/global.css`
-- `src/styles/patterns.css`
-- `src/pages/ExperiencePage.css`
-- `e2e/critical-journeys.spec.ts`
-- `docs/plans/2026-09-26-css-audit-remediation.md`
+- `docs/DECISIONS.md` (2026-09-26 and 2026-09-25 evidence-area decisions)
+- `docs/plans/2026-09-26-project-pages-prd.md`
+- `docs/plans/2026-09-26-atelier-florae-experiment.md`
+- `src/content/evidence-content.ts`
+- `src/app/router.tsx`
+- `src/pages/CaseStudiesPage.tsx`
+- `src/pages/ExperimentsPage.tsx`
+- `src/components/CaseStudyGallery.tsx`
+- `public/sitemap.xml`
 
 ## Blockers
 
@@ -42,4 +39,4 @@ None.
 
 ## Constraints and deferred work
 
-The site retains externally hosted Google Fonts as an accepted task constraint. Commented earlier-career content and broader styling-system migrations remain deferred.
+Project-page prototypes were built without repository access; use them for interaction patterns only. The per-project hero image review is deferred to task C.

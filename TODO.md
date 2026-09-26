@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.45
+version: 1.46
 status: active
 ---
 
@@ -349,6 +349,48 @@ Completed and reviewed with `PASS`. The approved scope and acceptance criteria a
 - [x] Update the home Experiments link, sitemap, current product and engineering guidance, and focused unit and browser coverage.
 - [x] Pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
 - [x] Complete formal review and close the task.
+
+### Add Atelier Florae as an Experiment
+
+Completed and reviewed with `PASS`. The approved scope and acceptance criteria are recorded in `docs/plans/2026-09-26-atelier-florae-experiment.md`.
+
+- [x] Add the Atelier Florae Project record, public-safe visuals, and focused Experiments page assertions.
+- [x] Remove the AI-generated brand board at review; record user-confirmed repeat purchases in the plan's evidence boundary.
+- [x] Pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e` (developer-run after the review fix).
+- [x] Complete formal review and close the task with `PASS`.
+
+### Project pages within Case Studies and Experiments
+
+Developer-directed. Scope, layout, and constraints are defined in `docs/plans/2026-09-26-project-pages-prd.md` under the 2026-09-26 decision to keep the two evidence areas.
+
+- **Problem:** `/case-studies` and `/projects` render every project in full on one page; there is no single-project page, no scannable list, and no in-page navigation.
+- **Evidence:** the live site; the problem grows as Experiments gain UV Insect Trap and Atelier Florae.
+- **Objective:** supports job applications (4.1) by giving each project a directly linkable, consistently structured page.
+- **Why now:** new Experiments are being added, and each one lengthens the concatenated pages.
+
+Complete these tasks in order. Plan each one separately with `plan-next-task`.
+
+#### A. Project pages and area indexes
+
+- [ ] Add `/case-studies/<slug>` and `/projects/<slug>` routes with one shared project-page layout for both content types: header, tags strip, body sections, hero only where a real result image exists, "Continue exploring", and next project within the same area.
+- [ ] Convert `/case-studies` and `/projects` into card-grid indexes linking to the project pages.
+- [ ] Add project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
+- [ ] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+
+If the plan is too large for one reviewable task, deliver Case Studies first with the shared layout, then Experiments as a follow-up task.
+
+#### B. Project-page section navigation
+
+- [ ] Add the section index: sticky right rail above `56rem`, inline and wrapping below it.
+- [ ] Highlight the active section on scroll; tune the scroll-spy threshold against real project pages.
+- [ ] Anchor links work without JavaScript; add focused coverage and pass the standard checks.
+
+#### C. Gallery and lightbox
+
+- [ ] Normalise gallery images per kind (`4:3` landscape photos, `1:2` portrait screenshots) with thumbnails as buttons.
+- [ ] Add a full-size view with caption using the native `<dialog>` element: Escape and click-outside close, focus contained and returned.
+- [ ] Complete the per-project hero image review and add heroes only where a real result image exists.
+- [ ] Add focused accessibility and browser coverage; pass the standard checks.
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-09-26
 updatedAt: 2026-09-26
-version: 1.0
-status: approved
+version: 1.1
+status: complete
 ---
 
 # Atelier Florae Experiment
@@ -15,7 +15,7 @@ Add an independent Experiment documenting the Atelier Florae launch work from fo
 
 - Add one manually curated `Project` record to `src/content/evidence-content.ts`.
 - Use the existing Experiment page and content contract without adding a route or schema.
-- Add the accessible botanical seal, brand board, and 100 g label sheet as public-safe visual references.
+- Add the accessible botanical seal and 100 g label sheet as public-safe visual references. The brand board was removed at review: it is an AI-generated concept with inaccurate details and a larger-format jar, not the final identity.
 - Describe the beauty-salon and word-of-mouth launch channels, 85 candles sold over two months, and the five-response survey as evidence-qualified outcomes.
 - Add focused assertions for the new narrative, outcomes, and visual assets.
 
@@ -30,7 +30,7 @@ Add an independent Experiment documenting the Atelier Florae launch work from fo
 ## Evidence boundary
 
 - Brand and packaging decisions are supported by the Atelier Florae export and supplied design files.
-- Sales quantity, channels, and the decision not to publish financial figures are user-confirmed.
+- Sales quantity, channels, anecdotal repeat purchases by some customers (no recorded count), and the decision not to publish financial figures are user-confirmed.
 - Survey ratings and qualitative feedback are supported by the anonymous five-response CSV.
 - Survey findings are early directional feedback, not representative validation or observed repeat purchasing.
 

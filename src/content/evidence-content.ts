@@ -208,14 +208,6 @@ export const projects: readonly Project[] = [
 			"These references show the visual system and the 100 g launch materials. Customer details, payment information, and financial records are intentionally excluded.",
 		visuals: [
 			{
-				src: "/images/atelier-florae/atelier-florae-brand-kit.jpeg",
-				alt: "Atelier Florae brand board showing botanical seal variants, a warm neutral palette, serif typography, candle and soap packaging, and label directions.",
-				title: "The brand system",
-				caption:
-					"The identity work brought the botanical seal, palette, typography, packaging direction, and label variations into one visual system.",
-				layout: "grid",
-			},
-			{
 				src: "/images/atelier-florae/atelier-florae-100g-labels.png",
 				alt: "A printable sheet of Atelier Florae 100 g scented candle labels and circular botanical seal stickers in five fragrance variants.",
 				title: "The 100 g launch labels",
