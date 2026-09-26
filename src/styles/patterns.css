@@ -110,6 +110,7 @@
 	font-size: var(--font-size-label);
 	letter-spacing: var(--letter-spacing-label);
 	line-height: var(--line-height-label);
+	text-decoration: none;
 	text-transform: uppercase;
 }
 
