@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router";
 import { caseStudyPath, routes } from "../app/routes.ts";
-import CaseStudyGallery from "../components/CaseStudyGallery.tsx";
+import ProjectGallery from "../components/ProjectGallery.tsx";
 import ProjectPageLayout, {
 	type ProjectPageSection,
 } from "../components/ProjectPageLayout.tsx";
@@ -99,7 +99,12 @@ function CaseStudyPage() {
 		sections.push({
 			id: `${caseStudy.slug}-gallery`,
 			heading: "App screens",
-			content: <CaseStudyGallery visuals={caseStudy.visuals} />,
+			content: (
+				<ProjectGallery
+					intro="These screenshots are from the Alfred app. The onboarding screens use Alfred’s earlier WhatNext name."
+					visuals={caseStudy.visuals}
+				/>
+			),
 		});
 	}
 

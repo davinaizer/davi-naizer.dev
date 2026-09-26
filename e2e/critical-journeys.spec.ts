@@ -144,6 +144,67 @@ test("resets the section-nav active state when moving to the next case study", a
 	).toHaveAttribute("aria-current", "true");
 });
 
+test("links from the Experiments index to a project page", async ({ page }) => {
+	await page.goto("/projects");
+	await page
+		.getByRole("link", { name: "Atelier Florae: From Brand to Product" })
+		.click();
+
+	await expect(page).toHaveURL(/\/projects\/atelier-florae$/);
+	await expect(
+		page.getByRole("heading", {
+			level: 1,
+			name: "Atelier Florae: From Brand to Product",
+		}),
+	).toBeVisible();
+});
+
+test("opens an experiment project page directly and navigates its section nav", async ({
+	page,
+}) => {
+	await page.goto("/projects/atelier-florae");
+
+	await expect(
+		page.getByRole("heading", {
+			level: 1,
+			name: "Atelier Florae: From Brand to Product",
+		}),
+	).toBeVisible();
+	await page.reload();
+	await expect(
+		page.getByRole("heading", {
+			level: 1,
+			name: "Atelier Florae: From Brand to Product",
+		}),
+	).toBeVisible();
+
+	const sectionNav = page.getByRole("navigation", { name: "Sections" });
+	await sectionNav.getByRole("link", { name: "Reflection" }).click();
+
+	await expect(page).toHaveURL(/#atelier-florae-reflection$/);
+	await expect(
+		page.getByRole("heading", { level: 2, name: "Reflection" }),
+	).toBeInViewport();
+});
+
+test("continues to the next experiment and back to the index from a project page", async ({
+	page,
+}) => {
+	await page.goto("/projects/atelier-florae");
+
+	const continuation = page.getByRole("navigation", {
+		name: "Continue exploring",
+	});
+	await continuation.getByRole("link", { name: /^Next experiment:/ }).click();
+	await expect(page).toHaveURL(/\/projects\/uv-insect-trap$/);
+
+	await page.getByRole("link", { name: "All experiments" }).click();
+	await expect(page).toHaveURL(/\/projects$/);
+	await expect(
+		page.getByRole("heading", { name: "Experiments" }),
+	).toBeVisible();
+});
+
 test("navigates through the shell and Work routes", async ({ page }) => {
 	await page.goto("/");
 	await page
@@ -178,6 +239,12 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 	await page.reload();
 	await expect(
 		page.getByRole("heading", { name: "UV Insect Trap" }),
+	).toBeVisible();
+
+	await page.getByRole("link", { name: "UV Insect Trap" }).click();
+	await expect(page).toHaveURL(/\/projects\/uv-insect-trap$/);
+	await expect(
+		page.getByRole("heading", { level: 1, name: "UV Insect Trap" }),
 	).toBeVisible();
 
 	await page.setViewportSize({ width: 320, height: 900 });

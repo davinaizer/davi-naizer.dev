@@ -4,6 +4,7 @@ export const routes = {
 	experience: "/experience",
 	work: "/work",
 	experiments: "/projects",
+	experiment: "/projects/:slug",
 	caseStudies: "/case-studies",
 	caseStudy: "/case-studies/:slug",
 	resume: "/resume",
@@ -14,4 +15,8 @@ export type AppRoute = (typeof routes)[keyof typeof routes];
 
 export function caseStudyPath(slug: string): string {
 	return `${routes.caseStudies}/${slug}`;
+}
+
+export function experimentPath(slug: string): string {
+	return `${routes.experiments}/${slug}`;
 }

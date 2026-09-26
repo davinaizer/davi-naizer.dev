@@ -3,6 +3,14 @@ export type Outcome = {
 	detail?: string;
 };
 
+export type Visual = {
+	src: string;
+	alt: string;
+	title: string;
+	caption: string;
+	layout: "flow" | "screen" | "grid";
+};
+
 export type EvidenceReference =
 	| { kind: "project"; slug: string }
 	| { kind: "case-study"; slug: string };
@@ -24,13 +32,7 @@ export type Project = EvidenceBase & {
 	reflection?: string;
 	visualsHeading?: string;
 	visualsIntro?: string;
-	visuals?: readonly {
-		src: string;
-		alt: string;
-		title: string;
-		caption: string;
-		layout: "flow" | "screen" | "grid";
-	}[];
+	visuals?: readonly Visual[];
 	relatedExperienceSlugs?: readonly string[];
 	capabilities?: readonly string[];
 	technologies?: readonly string[];
@@ -42,13 +44,7 @@ export type CaseStudy = EvidenceBase & {
 	context: string;
 	problem: string;
 	role: string;
-	visuals?: readonly {
-		src: string;
-		alt: string;
-		title: string;
-		caption: string;
-		layout: "flow" | "screen" | "grid";
-	}[];
+	visuals?: readonly Visual[];
 	constraints: readonly string[];
 	decisions: readonly string[];
 	productAndUx: string;

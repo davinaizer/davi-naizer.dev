@@ -1,16 +1,15 @@
-import type { CaseStudy } from "../types/evidence.ts";
+import type { ReactNode } from "react";
+import type { Visual } from "../types/evidence.ts";
 
-function CaseStudyGallery({
-	visuals,
-}: {
-	visuals: NonNullable<CaseStudy["visuals"]>;
-}) {
+type ProjectGalleryProps = {
+	intro?: ReactNode;
+	visuals: readonly Visual[];
+};
+
+function ProjectGallery({ intro, visuals }: ProjectGalleryProps) {
 	return (
 		<>
-			<p className="project-page__gallery-intro">
-				These screenshots are from the Alfred app. The onboarding screens use
-				Alfred’s earlier WhatNext name.
-			</p>
+			{intro ? <p className="project-page__gallery-intro">{intro}</p> : null}
 			<ul className="project-page__visual-grid">
 				{visuals.map((visual) => (
 					<li
@@ -42,4 +41,4 @@ function CaseStudyGallery({
 	);
 }
 
-export default CaseStudyGallery;
+export default ProjectGallery;

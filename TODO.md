@@ -379,11 +379,11 @@ Complete these tasks in order. Plan each one separately with `plan-next-task`.
 - [x] Add the case-study project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
 - [x] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
 
-**Experiments — not started.**
+**Experiments — complete.** Delivered per `docs/plans/2026-09-26-experiments-project-pages.md`.
 
-- [ ] Reuse the shared `ProjectPageLayout` component for `/projects/<slug>` routes and convert `/projects` into a card-grid index, following the Case Studies pattern.
-- [ ] Add the experiment project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
-- [ ] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Reuse the shared `ProjectPageLayout` component for `/projects/<slug>` routes and convert `/projects` into a card-grid index, following the Case Studies pattern.
+- [x] Add the experiment project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
+- [x] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
 
 #### B. Project-page section navigation
 
