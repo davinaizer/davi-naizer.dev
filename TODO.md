@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-26
-version: 1.53
+updatedAt: 2026-09-27
+version: 1.54
 status: active
 ---
 
@@ -433,13 +433,15 @@ Delivered and reviewed with `PASS`. The approved scope, the card-image decision 
 - [x] Update Home and any other links to the area pages, the sitemap, and `docs/ARCHITECTURE.md` routes; add a test that slugs are unique across both content types.
 - [x] Add focused unit and browser coverage; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
 
-#### E. Project-page visual alignment
+#### E. Project-page visual alignment — Complete
 
-- [ ] Remove the empty band between the summary and the tags strip.
-- [ ] Section nav follows the prototype: “On this page” label, sentence-case links without underline, and a left accent bar marking the active section; the inline mobile version wraps under the title.
-- [ ] Section headings use the prototype's small uppercase monospace label style; the summary uses the prototype's italic serif treatment; the back link is not underlined.
-- [ ] Keep Role and Constraints as named sections, the hero rule, the `56rem` breakpoint, and the existing lightbox behaviour.
-- [ ] Verify at desktop and 320 px widths against the prototype screenshots; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+Delivered and reviewed with `PASS`. The approved scope, the `aria-labelledby` nav-name assumption, and acceptance criteria are recorded in `docs/plans/2026-09-26-project-page-visual-alignment.md`.
+
+- [x] Remove the empty band between the summary and the tags strip.
+- [x] Section nav follows the prototype: “On this page” label, sentence-case links without underline, and a left accent bar marking the active section; the inline mobile version wraps under the title.
+- [x] Section headings use the prototype's small uppercase monospace label style; the summary uses the prototype's italic serif treatment; the back link is not underlined.
+- [x] Keep Role and Constraints as named sections, the hero rule, the `56rem` breakpoint, and the existing lightbox behaviour.
+- [x] Verify at desktop and 320 px widths against the prototype screenshots; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
 
 #### F. Experience page section navigation
 

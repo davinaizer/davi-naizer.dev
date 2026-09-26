@@ -135,7 +135,7 @@ test("opens a case-study project page directly and navigates its section nav", a
 		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
 	).toBeVisible();
 
-	const sectionNav = page.getByRole("navigation", { name: "Sections" });
+	const sectionNav = page.getByRole("navigation", { name: "On this page" });
 	await sectionNav.getByRole("link", { name: "Reflection" }).click();
 
 	await expect(page).toHaveURL(/#alfred-what-to-do-next-reflection$/);
@@ -150,7 +150,7 @@ test("keeps the project-page section nav beside the content on desktop and inlin
 	await page.setViewportSize({ width: 1024, height: 900 });
 	await page.goto("/work/alfred-what-to-do-next");
 
-	const nav = page.getByRole("navigation", { name: "Sections" });
+	const nav = page.getByRole("navigation", { name: "On this page" });
 	const content = page.locator(".project-page__content");
 	const desktopNavBox = await nav.boundingBox();
 	const desktopContentBox = await content.boundingBox();
@@ -203,7 +203,7 @@ test("resets the section-nav active state when moving to the next case study", a
 }) => {
 	await page.goto("/work/alfred-what-to-do-next");
 
-	const sectionNav = page.getByRole("navigation", { name: "Sections" });
+	const sectionNav = page.getByRole("navigation", { name: "On this page" });
 	const contextLink = sectionNav.getByRole("link", { name: "Context" });
 	await expect(contextLink).toHaveAttribute("aria-current", "true");
 
@@ -242,7 +242,7 @@ test("opens an experiment project page directly and navigates its section nav", 
 		}),
 	).toBeVisible();
 
-	const sectionNav = page.getByRole("navigation", { name: "Sections" });
+	const sectionNav = page.getByRole("navigation", { name: "On this page" });
 	await sectionNav.getByRole("link", { name: "Reflection" }).click();
 
 	await expect(page).toHaveURL(/#atelier-florae-reflection$/);

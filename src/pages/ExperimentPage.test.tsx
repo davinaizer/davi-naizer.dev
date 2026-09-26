@@ -33,7 +33,7 @@ describe("ExperimentPage", () => {
 		).toBeInTheDocument();
 		expect(screen.getByText(project.summary)).toBeInTheDocument();
 
-		const sectionNav = screen.getByRole("navigation", { name: "Sections" });
+		const sectionNav = screen.getByRole("navigation", { name: "On this page" });
 		expect(
 			within(sectionNav)
 				.getAllByRole("link")

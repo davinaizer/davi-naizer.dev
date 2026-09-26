@@ -89,6 +89,7 @@ function ProjectPageLayout({
 	);
 	const activeId = useActiveSectionId(sectionIds);
 	const titleId = `${id}-title`;
+	const navLabelId = `${id}-nav-label`;
 
 	return (
 		<article aria-labelledby={titleId} className="project-page page-section">
@@ -102,7 +103,10 @@ function ProjectPageLayout({
 			</header>
 
 			<div className="project-page__layout">
-				<nav aria-label="Sections" className="project-page__nav">
+				<nav aria-labelledby={navLabelId} className="project-page__nav">
+					<p className="project-page__nav-label" id={navLabelId}>
+						On this page
+					</p>
 					<ul>
 						{sections.map((section) => (
 							<li key={section.id}>
