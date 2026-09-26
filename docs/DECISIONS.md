@@ -1,12 +1,24 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-25
-version: 1.24
+updatedAt: 2026-09-26
+version: 1.25
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Do not merge Case Studies and Experiments; revamp project-page UX within the two areas — 2026-09-26
+
+**Decision:** Do not merge Case Studies and Experiments into a single route or evidence area. The two-area structure from 2026-09-25 stands: `/work` remains the chooser, `/case-studies` holds professional evidence, and `/projects` remains the stable public URL for Experiments. Replace the planned merge work with a UX/UI revamp of how projects are presented inside those areas: individual project pages, a shared project-page layout, and area index pages that preview projects instead of rendering every project in full. The detailed scope, routes, and acceptance criteria belong to the approved task plan.
+
+**Rationale:** The merge was proposed before UV Insect Trap and Atelier Florae were identified as further independent experiments. With more experiments to add, the professional versus independent distinction carries more weight, and the observed problem is the presentation within each area (every project concatenated on one page, no single-project page, no in-page navigation, inconsistent visuals) rather than the existence of two areas. Revamping presentation addresses that problem without route churn or breaking URLs already shared.
+
+**Consequence:** The flat `/work/<slug>` routing and removal of the Work chooser proposed in the 2026-09-26 project-page design PRD are not adopted. Project pages must remain within their existing area, and the primary navigation, sitemap entries for `/work`, `/case-studies`, and `/projects`, and the `CaseStudy` and `Project` content types are retained unless the task plan justifies a specific change.
+
+**Review triggers:** Reconsider a merged or flattened structure only under the 2026-09-25 review triggers, in particular if visitor evidence shows the Work chooser is unclear.
+
+**Supersedes:** The earlier plan to merge Case Studies and Experiments into one area.
 
 ## Keep professional Case Studies and independent Experiments as distinct Work destinations — 2026-09-25
 
