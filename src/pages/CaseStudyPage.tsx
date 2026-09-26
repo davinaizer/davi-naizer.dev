@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router";
-import { caseStudyPath, routes } from "../app/routes.ts";
+import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
 import ProjectGallery from "../components/ProjectGallery.tsx";
 import ProjectPageLayout, {
 	type ProjectPageSection,
@@ -111,7 +111,10 @@ function CaseStudyPage() {
 	return (
 		<ProjectPageLayout
 			areaLabel="Case study"
-			backLink={{ to: routes.caseStudies, label: "All case studies" }}
+			backLink={{
+				to: workSectionPath("caseStudies"),
+				label: "All case studies",
+			}}
 			continuation={
 				<nav aria-label="Continue exploring" className="project-page__continue">
 					<h2 id={`${caseStudy.slug}-continue-exploring-heading`}>
@@ -127,7 +130,7 @@ function CaseStudyPage() {
 						))}
 						{nextCaseStudy ? (
 							<li>
-								<Link to={caseStudyPath(nextCaseStudy.slug)}>
+								<Link to={workProjectPath(nextCaseStudy.slug)}>
 									Next case study: {nextCaseStudy.title}
 								</Link>
 							</li>

@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router";
-import { experimentPath, routes } from "../app/routes.ts";
+import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
 import ProjectGallery from "../components/ProjectGallery.tsx";
 import ProjectPageLayout, {
 	type ProjectPageSection,
@@ -121,7 +121,10 @@ function ExperimentPage() {
 	return (
 		<ProjectPageLayout
 			areaLabel="Independent experiment"
-			backLink={{ to: routes.experiments, label: "All experiments" }}
+			backLink={{
+				to: workSectionPath("experiments"),
+				label: "All experiments",
+			}}
 			continuation={
 				<nav aria-label="Continue exploring" className="project-page__continue">
 					<h2 id={`${project.slug}-continue-exploring-heading`}>
@@ -137,7 +140,7 @@ function ExperimentPage() {
 						))}
 						{nextProject ? (
 							<li>
-								<Link to={experimentPath(nextProject.slug)}>
+								<Link to={workProjectPath(nextProject.slug)}>
 									Next experiment: {nextProject.title}
 								</Link>
 							</li>

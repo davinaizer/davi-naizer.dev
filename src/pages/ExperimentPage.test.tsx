@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { describe, expect, it } from "vitest";
-import { experimentPath, routes } from "../app/routes.ts";
+import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
 import { projects } from "../content/evidence-content.ts";
 import { axe } from "../test/axe.ts";
 import ExperimentPage from "./ExperimentPage.tsx";
@@ -10,7 +10,7 @@ import NotFoundPage from "./NotFoundPage.tsx";
 function renderExperimentPage(path: string) {
 	const router = createMemoryRouter(
 		[
-			{ path: routes.experiment, Component: ExperimentPage },
+			{ path: routes.workProject, Component: ExperimentPage },
 			{ path: "*", Component: NotFoundPage },
 		],
 		{ initialEntries: [path] },
@@ -26,7 +26,7 @@ describe("ExperimentPage", () => {
 			throw new Error("Expected the Atelier Florae experiment to exist.");
 		}
 
-		renderExperimentPage(experimentPath(project.slug));
+		renderExperimentPage(workProjectPath(project.slug));
 
 		expect(
 			await screen.findByRole("heading", { level: 1, name: project.title }),
@@ -66,7 +66,7 @@ describe("ExperimentPage", () => {
 		}
 
 		const backLink = screen.getByRole("link", { name: "All experiments" });
-		expect(backLink).toHaveAttribute("href", routes.experiments);
+		expect(backLink).toHaveAttribute("href", workSectionPath("experiments"));
 	});
 
 	it("links the next experiment in Continue exploring", async () => {
@@ -76,7 +76,7 @@ describe("ExperimentPage", () => {
 			throw new Error("Expected at least two published experiments.");
 		}
 
-		renderExperimentPage(experimentPath(project.slug));
+		renderExperimentPage(workProjectPath(project.slug));
 		await screen.findByRole("heading", { level: 1, name: project.title });
 
 		const continuation = screen.getByRole("navigation", {
@@ -90,13 +90,13 @@ describe("ExperimentPage", () => {
 			within(continuation).getByRole("link", {
 				name: `Next experiment: ${nextProject.title}`,
 			}),
-		).toHaveAttribute("href", experimentPath(nextProject.slug));
+		).toHaveAttribute("href", workProjectPath(nextProject.slug));
 	});
 
 	it("omits the next-experiment link for the last experiment in the area", async () => {
 		const lastProject = projects[projects.length - 1];
 
-		renderExperimentPage(experimentPath(lastProject.slug));
+		renderExperimentPage(workProjectPath(lastProject.slug));
 		await screen.findByRole("heading", { level: 1, name: lastProject.title });
 
 		const continuation = screen.getByRole("navigation", {
@@ -115,7 +115,9 @@ describe("ExperimentPage", () => {
 			throw new Error("Expected the UV Insect Trap experiment to have a hero.");
 		}
 
-		const { unmount } = renderExperimentPage(experimentPath(uvInsectTrap.slug));
+		const { unmount } = renderExperimentPage(
+			workProjectPath(uvInsectTrap.slug),
+		);
 		expect(
 			await screen.findByRole("heading", {
 				level: 1,
@@ -135,7 +137,7 @@ describe("ExperimentPage", () => {
 			throw new Error("Expected the Atelier Florae experiment to exist.");
 		}
 
-		renderExperimentPage(experimentPath(atelierFlorae.slug));
+		renderExperimentPage(workProjectPath(atelierFlorae.slug));
 		await screen.findByRole("heading", { level: 1, name: atelierFlorae.title });
 		expect(
 			screen.queryByRole("img", { name: uvInsectTrap.hero.alt }),
@@ -143,7 +145,7 @@ describe("ExperimentPage", () => {
 	});
 
 	it("renders the not-found page for an unknown experiment slug", async () => {
-		renderExperimentPage(experimentPath("does-not-exist"));
+		renderExperimentPage(workProjectPath("does-not-exist"));
 
 		expect(
 			await screen.findByRole("heading", { name: "Page Not Found" }),
@@ -156,7 +158,7 @@ describe("ExperimentPage", () => {
 			throw new Error("Expected the UV Insect Trap experiment to exist.");
 		}
 
-		const { container } = renderExperimentPage(experimentPath(project.slug));
+		const { container } = renderExperimentPage(workProjectPath(project.slug));
 		await screen.findByRole("heading", { level: 1, name: project.title });
 
 		expect((await axe(container)).violations).toHaveLength(0);

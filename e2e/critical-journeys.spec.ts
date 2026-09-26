@@ -4,49 +4,128 @@ test("renders a durable route when opened directly", async ({ page }) => {
 	await page.goto("/work");
 
 	await expect(page).toHaveURL(/\/work$/);
-	await expect(page.getByRole("heading", { name: "Work" })).toBeVisible();
-	await expect(page.getByRole("link", { name: "Work" })).toHaveAttribute(
-		"aria-current",
-		"page",
-	);
-	await page.reload();
-	await expect(page.getByRole("heading", { name: "Work" })).toBeVisible();
-
-	await page.goto("/projects");
 	await expect(
-		page.getByRole("heading", { name: "Experiments" }),
+		page.getByRole("heading", { level: 1, name: "Work" }),
 	).toBeVisible();
+	await expect(
+		page
+			.getByRole("navigation", { name: "Primary" })
+			.getByRole("link", { name: "Work" }),
+	).toHaveAttribute("aria-current", "page");
 	await page.reload();
 	await expect(
-		page.getByRole("heading", { name: "Experiments" }),
+		page.getByRole("heading", { level: 1, name: "Work" }),
 	).toBeVisible();
 
-	await page.goto("/case-studies");
 	await expect(
-		page.getByRole("heading", { name: "Case Studies" }),
+		page.getByRole("heading", { level: 2, name: "Case studies" }),
 	).toBeVisible();
-	await page.reload();
 	await expect(
-		page.getByRole("heading", { name: "Case Studies" }),
+		page.getByRole("heading", { level: 2, name: "Experiments" }),
 	).toBeVisible();
 });
 
-test("links from the Case Studies index to a project page", async ({
+test("lays out the Work cards in two columns on desktop and one column at 320 px", async ({
 	page,
 }) => {
-	await page.goto("/case-studies");
+	await page.setViewportSize({ width: 1280, height: 900 });
+	await page.goto("/work");
+
+	const cards = page.locator(".work__card");
+	const first = await cards.nth(0).boundingBox();
+	const second = await cards.nth(1).boundingBox();
+	if (!first || !second) {
+		throw new Error("Expected the Work cards to be measurable.");
+	}
+	expect(second.y).toBe(first.y);
+	expect(second.x).toBeGreaterThan(first.x);
+
+	await page.setViewportSize({ width: 320, height: 900 });
+	await page.goto("/work");
+	const narrowFirst = await cards.nth(0).boundingBox();
+	const narrowSecond = await cards.nth(1).boundingBox();
+	if (!narrowFirst || !narrowSecond) {
+		throw new Error("Expected the narrow Work cards to be measurable.");
+	}
+	expect(narrowSecond.y).toBeGreaterThan(narrowFirst.y);
+	expect(narrowSecond.x).toBe(narrowFirst.x);
+
+	const hasHorizontalOverflow = await page.evaluate(
+		() =>
+			document.documentElement.scrollWidth >
+			document.documentElement.clientWidth,
+	);
+	expect(hasHorizontalOverflow).toBe(false);
+});
+
+test("scrolls to the Experiments section when opened with its anchor", async ({
+	page,
+}) => {
+	await page.goto("/work#experiments");
+
+	await expect(
+		page.getByRole("heading", { level: 2, name: "Experiments" }),
+	).toBeInViewport();
+	await expect
+		.poll(() => page.evaluate(() => window.scrollY))
+		.toBeGreaterThan(0);
+});
+
+test("links from the Work index to a case-study and an experiment page", async ({
+	page,
+}) => {
+	await page.goto("/work");
 	await page.getByRole("link", { name: "Alfred: What To Do Next" }).click();
 
-	await expect(page).toHaveURL(/\/case-studies\/alfred-what-to-do-next$/);
+	await expect(page).toHaveURL(/\/work\/alfred-what-to-do-next$/);
 	await expect(
 		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
 	).toBeVisible();
+
+	await page.goto("/work");
+	await page
+		.getByRole("link", { name: "Atelier Florae: From Brand to Product" })
+		.click();
+
+	await expect(page).toHaveURL(/\/work\/atelier-florae$/);
+	await expect(
+		page.getByRole("heading", {
+			level: 1,
+			name: "Atelier Florae: From Brand to Product",
+		}),
+	).toBeVisible();
+});
+
+test("makes each Work card one link with an accent hover border and a visible focus ring", async ({
+	page,
+}) => {
+	await page.goto("/work");
+
+	const card = page.locator(".work__card").first();
+	const link = card.getByRole("link", { name: "Alfred: What To Do Next" });
+	await expect(card.getByRole("link")).toHaveCount(1);
+	await expect(link).toHaveCSS("text-decoration-line", "none");
+
+	const defaultBorder = await card.evaluate(
+		(element) => getComputedStyle(element).borderTopColor,
+	);
+	await card.hover();
+	await expect(card).not.toHaveCSS("border-top-color", defaultBorder);
+
+	await page.mouse.move(0, 0);
+	await page.keyboard.press("Tab");
+	await link.focus();
+	await expect(link).toBeFocused();
+	await expect(card).not.toHaveCSS("border-top-color", defaultBorder);
+
+	await card.click({ position: { x: 10, y: 10 } });
+	await expect(page).toHaveURL(/\/work\/alfred-what-to-do-next$/);
 });
 
 test("opens a case-study project page directly and navigates its section nav", async ({
 	page,
 }) => {
-	await page.goto("/case-studies/alfred-what-to-do-next");
+	await page.goto("/work/alfred-what-to-do-next");
 
 	await expect(
 		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
@@ -69,7 +148,7 @@ test("keeps the project-page section nav beside the content on desktop and inlin
 	page,
 }) => {
 	await page.setViewportSize({ width: 1024, height: 900 });
-	await page.goto("/case-studies/alfred-what-to-do-next");
+	await page.goto("/work/alfred-what-to-do-next");
 
 	const nav = page.getByRole("navigation", { name: "Sections" });
 	const content = page.locator(".project-page__content");
@@ -81,7 +160,7 @@ test("keeps the project-page section nav beside the content on desktop and inlin
 	expect(desktopNavBox.x).toBeGreaterThan(desktopContentBox.x);
 
 	await page.setViewportSize({ width: 320, height: 900 });
-	await page.goto("/case-studies/alfred-what-to-do-next");
+	await page.goto("/work/alfred-what-to-do-next");
 	const mobileNavBox = await nav.boundingBox();
 	const mobileContentBox = await content.boundingBox();
 	if (!mobileNavBox || !mobileContentBox) {
@@ -102,27 +181,27 @@ test("keeps the project-page section nav beside the content on desktop and inlin
 test("continues to the next case study and back to the index from a project page", async ({
 	page,
 }) => {
-	await page.goto("/case-studies/alfred-what-to-do-next");
+	await page.goto("/work/alfred-what-to-do-next");
 
 	const continuation = page.getByRole("navigation", {
 		name: "Continue exploring",
 	});
 	await continuation.getByRole("link", { name: /^Next case study:/ }).click();
 	await expect(page).toHaveURL(
-		/\/case-studies\/signal-vessel-list-template-administration$/,
+		/\/work\/signal-vessel-list-template-administration$/,
 	);
 
 	await page.getByRole("link", { name: "All case studies" }).click();
-	await expect(page).toHaveURL(/\/case-studies$/);
+	await expect(page).toHaveURL(/\/work#case-studies$/);
 	await expect(
-		page.getByRole("heading", { name: "Case Studies" }),
-	).toBeVisible();
+		page.getByRole("heading", { level: 2, name: "Case studies" }),
+	).toBeInViewport();
 });
 
 test("resets the section-nav active state when moving to the next case study", async ({
 	page,
 }) => {
-	await page.goto("/case-studies/alfred-what-to-do-next");
+	await page.goto("/work/alfred-what-to-do-next");
 
 	const sectionNav = page.getByRole("navigation", { name: "Sections" });
 	const contextLink = sectionNav.getByRole("link", { name: "Context" });
@@ -137,32 +216,17 @@ test("resets the section-nav active state when moving to the next case study", a
 		.click();
 
 	await expect(page).toHaveURL(
-		/\/case-studies\/signal-vessel-list-template-administration$/,
+		/\/work\/signal-vessel-list-template-administration$/,
 	);
 	await expect(
 		sectionNav.getByRole("link", { name: "Context" }),
 	).toHaveAttribute("aria-current", "true");
 });
 
-test("links from the Experiments index to a project page", async ({ page }) => {
-	await page.goto("/projects");
-	await page
-		.getByRole("link", { name: "Atelier Florae: From Brand to Product" })
-		.click();
-
-	await expect(page).toHaveURL(/\/projects\/atelier-florae$/);
-	await expect(
-		page.getByRole("heading", {
-			level: 1,
-			name: "Atelier Florae: From Brand to Product",
-		}),
-	).toBeVisible();
-});
-
 test("opens an experiment project page directly and navigates its section nav", async ({
 	page,
 }) => {
-	await page.goto("/projects/atelier-florae");
+	await page.goto("/work/atelier-florae");
 
 	await expect(
 		page.getByRole("heading", {
@@ -190,19 +254,19 @@ test("opens an experiment project page directly and navigates its section nav", 
 test("continues to the next experiment and back to the index from a project page", async ({
 	page,
 }) => {
-	await page.goto("/projects/atelier-florae");
+	await page.goto("/work/atelier-florae");
 
 	const continuation = page.getByRole("navigation", {
 		name: "Continue exploring",
 	});
 	await continuation.getByRole("link", { name: /^Next experiment:/ }).click();
-	await expect(page).toHaveURL(/\/projects\/uv-insect-trap$/);
+	await expect(page).toHaveURL(/\/work\/uv-insect-trap$/);
 
 	await page.getByRole("link", { name: "All experiments" }).click();
-	await expect(page).toHaveURL(/\/projects$/);
+	await expect(page).toHaveURL(/\/work#experiments$/);
 	await expect(
-		page.getByRole("heading", { name: "Experiments" }),
-	).toBeVisible();
+		page.getByRole("heading", { level: 2, name: "Experiments" }),
+	).toBeInViewport();
 });
 
 test("navigates through the shell and Work routes", async ({ page }) => {
@@ -210,10 +274,10 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 	await page
 		.getByRole("link", { name: "Explore my independent experiments" })
 		.click();
-	await expect(page).toHaveURL(/\/projects$/);
+	await expect(page).toHaveURL(/\/work#experiments$/);
 	await expect(
-		page.getByRole("heading", { name: "Experiments" }),
-	).toBeVisible();
+		page.getByRole("heading", { level: 2, name: "Experiments" }),
+	).toBeInViewport();
 
 	const primaryNavigation = page.getByRole("navigation", { name: "Primary" });
 	await page.goto("/");
@@ -224,25 +288,20 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 
 	await primaryNavigation.getByRole("link", { name: "Work" }).click();
 	await expect(page).toHaveURL(/\/work$/);
-	await expect(page.getByRole("heading", { name: "Work" })).toBeVisible();
-
-	await page.getByRole("link", { name: "Explore experiments" }).click();
-	await expect(page).toHaveURL(/\/projects$/);
 	await expect(
-		page.getByRole("heading", { name: "Experiments" }),
+		page.getByRole("heading", { level: 1, name: "Work" }),
 	).toBeVisible();
+
 	await expect(
-		page.getByRole("heading", {
-			name: "UV Insect Trap",
-		}),
+		page.getByRole("heading", { level: 3, name: "UV Insect Trap" }),
 	).toBeVisible();
 	await page.reload();
 	await expect(
-		page.getByRole("heading", { name: "UV Insect Trap" }),
+		page.getByRole("heading", { level: 3, name: "UV Insect Trap" }),
 	).toBeVisible();
 
 	await page.getByRole("link", { name: "UV Insect Trap" }).click();
-	await expect(page).toHaveURL(/\/projects\/uv-insect-trap$/);
+	await expect(page).toHaveURL(/\/work\/uv-insect-trap$/);
 	await expect(
 		page.getByRole("heading", { level: 1, name: "UV Insect Trap" }),
 	).toBeVisible();
@@ -261,12 +320,8 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 	);
 	expect(hasExperimentOverflow).toBe(false);
 
-	await page.goto("/work");
-	await page.getByRole("link", { name: "Read case studies" }).click();
-	await expect(page).toHaveURL(/\/case-studies$/);
-	await expect(
-		page.getByRole("heading", { name: "Case Studies" }),
-	).toBeVisible();
+	await primaryNavigation.getByRole("link", { name: "Work" }).click();
+	await expect(page).toHaveURL(/\/work$/);
 
 	await primaryNavigation.getByRole("link", { name: "Resume" }).click();
 	await expect(page).toHaveURL(/\/resume$/);
@@ -280,7 +335,7 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 test("opens the gallery lightbox from a thumbnail and closes it with Escape, returning focus", async ({
 	page,
 }) => {
-	await page.goto("/projects/uv-insect-trap");
+	await page.goto("/work/uv-insect-trap");
 
 	const gallery = page.getByRole("region", { name: "CAD design views" });
 	const thumbnail = gallery.getByRole("button", { name: /Angled CAD view/ });
@@ -300,7 +355,7 @@ test("opens the gallery lightbox from a thumbnail and closes it with Escape, ret
 test("closes the gallery lightbox on a backdrop click, returning focus to the thumbnail", async ({
 	page,
 }) => {
-	await page.goto("/projects/uv-insect-trap");
+	await page.goto("/work/uv-insect-trap");
 
 	const gallery = page.getByRole("region", { name: "CAD design views" });
 	const thumbnail = gallery.getByRole("button", { name: /Angled CAD view/ });
@@ -317,7 +372,7 @@ test("closes the gallery lightbox on a backdrop click, returning focus to the th
 test("opens the gallery lightbox with the keyboard and closes it with the close button", async ({
 	page,
 }) => {
-	await page.goto("/projects/uv-insect-trap");
+	await page.goto("/work/uv-insect-trap");
 
 	const gallery = page.getByRole("region", { name: "CAD design views" });
 	const thumbnail = gallery.getByRole("button", { name: /Angled CAD view/ });
@@ -358,16 +413,6 @@ test("continues between long-form routes", async ({ page }) => {
 			to: /\/work$/,
 		},
 		{
-			from: "/projects",
-			label: "Read the case studies",
-			to: /\/case-studies$/,
-		},
-		{
-			from: "/case-studies",
-			label: "View the career context",
-			to: /\/experience$/,
-		},
-		{
 			from: "/resume",
 			label: "Get in touch",
 			to: /\/contact$/,
@@ -389,8 +434,6 @@ test("keeps contextual continuations usable at a narrow viewport", async ({
 }) => {
 	const continuations = [
 		{ path: "/experience", label: "Explore selected work" },
-		{ path: "/projects", label: "Read the case studies" },
-		{ path: "/case-studies", label: "View the career context" },
 		{ path: "/resume", label: "Get in touch" },
 	] as const;
 
@@ -417,7 +460,7 @@ test("keeps contextual continuations usable at a narrow viewport", async ({
 test("does not duplicate list separators before continuations", async ({
 	page,
 }) => {
-	for (const path of ["/experience", "/projects", "/case-studies"]) {
+	for (const path of ["/experience"]) {
 		await page.goto(path);
 
 		await expect(
@@ -550,7 +593,14 @@ test("recovers from an unknown route", async ({ page }) => {
 });
 
 test("does not expose removed routes", async ({ page }) => {
-	for (const path of ["/engineering", "/summary"]) {
+	for (const path of [
+		"/engineering",
+		"/summary",
+		"/case-studies",
+		"/projects",
+		"/case-studies/alfred-what-to-do-next",
+		"/projects/atelier-florae",
+	]) {
 		await page.goto(path);
 		await expect(
 			page.getByRole("heading", { name: "Page Not Found" }),

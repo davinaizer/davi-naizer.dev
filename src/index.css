@@ -7,9 +7,7 @@
 @import "./styles/shell.css" layer(layout);
 @import "./pages/HomePage.css" layer(pages);
 @import "./pages/WorkPage.css" layer(pages);
-@import "./pages/ExperimentsPage.css" layer(pages);
 @import "./pages/ExperiencePage.css" layer(pages);
-@import "./pages/CaseStudiesPage.css" layer(pages);
 @import "./pages/ResumePage.css" layer(pages);
 @import "./pages/ContactPage.css" layer(pages);
 @import "./pages/NotFoundPage.css" layer(pages);

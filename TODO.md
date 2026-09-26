@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.50
+version: 1.53
 status: active
 ---
 
@@ -421,15 +421,17 @@ Developer-directed. Governed by the `DECISIONS.md` entry “Adopt the flattened 
 
 Complete these tasks in order. Plan each one separately with `plan-next-task`.
 
-#### D. Work card index and `/work/<slug>` routing
+#### D. Work card index and `/work/<slug>` routing — Complete
 
-- [ ] Turn `/work` into the card index: page lead, then a Case Studies section and an Experiments section, each with a short intro and a two-column card grid (one column on narrow screens), same card treatment in both.
-- [ ] Cards follow the prototype anatomy: image area at `16:10`, then area eyebrow, serif title (not underlined), one-line summary, and tags; the whole card is one link with a visible focus state and an accent border on hover and focus.
-- [ ] Resolve the one material decision in planning: what the card image area shows for projects without a real image (the prototype uses a plain panel with the project name).
-- [ ] Serve project pages at `/work/<slug>`; back link returns to `/work` (or the matching section); next-project link stays within the same section in content order.
-- [ ] Remove the `/case-studies` and `/projects` index routes; add `public/_redirects` sending `/case-studies`, `/projects`, `/case-studies/*`, and `/projects/*` to the matching `/work` locations.
-- [ ] Update Home and any other links to the area pages, the sitemap, and `docs/ARCHITECTURE.md` routes; add a test that slugs are unique across both content types.
-- [ ] Add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+Delivered and reviewed with `PASS`. The approved scope, the card-image decision (option A: a uniform typographic panel with the project name), and the amendment dropping redirects are recorded in `docs/plans/2026-09-26-work-index-routing.md`.
+
+- [x] Turn `/work` into the card index: page lead, then a Case Studies section and an Experiments section, each with a short intro and a two-column card grid (one column on narrow screens), same card treatment in both.
+- [x] Cards follow the prototype anatomy: image area at `16:10`, then area eyebrow, serif title (not underlined), one-line summary, and tags; the whole card is one link with a visible focus state and an accent border on hover and focus.
+- [x] Resolve the one material decision in planning: what the card image area shows for projects without a real image (option A: a uniform typographic panel with the project name).
+- [x] Serve project pages at `/work/<slug>`; back link returns to the matching `/work` section; next-project link stays within the same section in content order.
+- [x] Remove the `/case-studies` and `/projects` index and project routes outright; the old URLs render the existing not-found page (no redirects, per the developer's 2026-09-26 direction, since the site had just been published).
+- [x] Update Home and any other links to the area pages, the sitemap, and `docs/ARCHITECTURE.md` routes; add a test that slugs are unique across both content types.
+- [x] Add focused unit and browser coverage; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
 
 #### E. Project-page visual alignment
 
@@ -438,6 +440,20 @@ Complete these tasks in order. Plan each one separately with `plan-next-task`.
 - [ ] Section headings use the prototype's small uppercase monospace label style; the summary uses the prototype's italic serif treatment; the back link is not underlined.
 - [ ] Keep Role and Constraints as named sections, the hero rule, the `56rem` breakpoint, and the existing lightbox behaviour.
 - [ ] Verify at desktop and 320 px widths against the prototype screenshots; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+
+#### F. Experience page section navigation
+
+Developer-directed. Reuses the project-page section navigation so the Experience page gets the same way of moving between entries.
+
+- **Problem:** Experience is a long single page of role entries with no in-page navigation; reaching a specific role means scrolling.
+- **Evidence:** developer request; each entry already has a stable `id` (its slug) used by case-study links, so anchors exist but nothing lists them.
+- **Objective:** supports job applications (4.1) by letting recruiters jump straight to a role.
+- **Why now:** the section nav and scroll-spy exist and are being finalised in task E, so reuse is cheap; do this after E so the nav style is settled.
+
+- [ ] Extract the section nav and its scroll-spy from `ProjectPageLayout` into a shared component used by both the project pages and Experience, with no change to project-page behaviour.
+- [ ] Add the nav to Experience: sticky right rail above `56rem`, inline and wrapping below it, one link per role entry pointing at the existing entry `id`, active entry highlighted on scroll.
+- [ ] Resolve in planning: the link label for each entry (for example company and years, rather than the full role title).
+- [ ] Anchor links keep working without JavaScript and from existing case-study links; add focused coverage; verify at desktop and 320 px; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
 
 ---
 

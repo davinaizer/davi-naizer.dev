@@ -1,5 +1,42 @@
 import { Link } from "react-router";
-import { routes } from "../app/routes.ts";
+import { workProjectPath, workSectionIds } from "../app/routes.ts";
+import { caseStudies, projects } from "../content/evidence-content.ts";
+
+type WorkCardProps = {
+	slug: string;
+	title: string;
+	summary: string;
+	areaLabel: string;
+	tags?: readonly string[];
+};
+
+function WorkCard({ slug, title, summary, areaLabel, tags }: WorkCardProps) {
+	return (
+		<li className="work__card">
+			<article aria-labelledby={`${slug}-card-heading`}>
+				<div aria-hidden="true" className="work__card-image">
+					{title}
+				</div>
+				<div className="work__card-body">
+					<p className="work__card-label">{areaLabel}</p>
+					<h3 id={`${slug}-card-heading`}>
+						<Link className="work__card-link" to={workProjectPath(slug)}>
+							{title}
+						</Link>
+					</h3>
+					<p className="work__card-summary">{summary}</p>
+					{tags?.length ? (
+						<ul aria-label="Technologies" className="work__card-tags">
+							{tags.map((tag) => (
+								<li key={tag}>{tag}</li>
+							))}
+						</ul>
+					) : null}
+				</div>
+			</article>
+		</li>
+	);
+}
 
 function WorkPage() {
 	return (
@@ -13,31 +50,55 @@ function WorkPage() {
 				</p>
 			</header>
 
-			<section aria-label="Explore the evidence" className="work__areas">
-				<ul className="work__links">
-					<li className="work__link">
-						<p className="work__label">Detailed analysis</p>
-						<h2>Case studies</h2>
-						<p className="work__description">
-							More detailed accounts of how I approached a problem, the
-							decisions I made, and what I would do differently.
-						</p>
-						<Link className="work__action" to={routes.caseStudies}>
-							Read case studies
-						</Link>
-					</li>
+			<section
+				aria-labelledby="case-studies-heading"
+				className="work__section"
+				id={workSectionIds.caseStudies}
+			>
+				<h2 className="work__section-title" id="case-studies-heading">
+					Case studies
+				</h2>
+				<p className="work__section-intro">
+					Detailed accounts of how I approached a problem, the decisions I made,
+					and what I would do differently.
+				</p>
+				<ul className="work__grid">
+					{caseStudies.map((caseStudy) => (
+						<WorkCard
+							areaLabel="Product case study"
+							key={caseStudy.slug}
+							slug={caseStudy.slug}
+							summary={caseStudy.summary}
+							tags={caseStudy.technologies}
+							title={caseStudy.title}
+						/>
+					))}
+				</ul>
+			</section>
 
-					<li className="work__link">
-						<p className="work__label">Independent projects</p>
-						<h2>Experiments</h2>
-						<p className="work__description">
-							Prototypes and builds I’ve explored independently, with notes on
-							what I tried, observed, and would change.
-						</p>
-						<Link className="work__action" to={routes.experiments}>
-							Explore experiments
-						</Link>
-					</li>
+			<section
+				aria-labelledby="experiments-heading"
+				className="work__section"
+				id={workSectionIds.experiments}
+			>
+				<h2 className="work__section-title" id="experiments-heading">
+					Experiments
+				</h2>
+				<p className="work__section-intro">
+					Prototypes and builds I’ve explored independently, with notes on what
+					I tried, observed, and would change.
+				</p>
+				<ul className="work__grid">
+					{projects.map((project) => (
+						<WorkCard
+							areaLabel="Independent experiment"
+							key={project.slug}
+							slug={project.slug}
+							summary={project.summary}
+							tags={project.technologies}
+							title={project.title}
+						/>
+					))}
 				</ul>
 			</section>
 		</section>

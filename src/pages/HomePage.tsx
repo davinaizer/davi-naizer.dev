@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { routes } from "../app/routes.ts";
+import { routes, workSectionPath } from "../app/routes.ts";
 import { professionalContent } from "../content/professional-content.ts";
 
 function HomePage() {
@@ -52,7 +52,9 @@ function HomePage() {
 				<p className="eyebrow">A little about me</p>
 				<h2 id="about-heading">Beyond the work</h2>
 				<p>{summary.personalNote}</p>
-				<Link to={routes.experiments}>Explore my independent experiments</Link>
+				<Link to={workSectionPath("experiments")}>
+					Explore my independent experiments
+				</Link>
 			</section>
 		</section>
 	);

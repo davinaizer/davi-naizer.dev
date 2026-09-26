@@ -1,33 +1,9 @@
-.work__areas {
-	margin-block-start: var(--layout-section-gap);
-	border-block-start: var(--border-width-default) solid
-		var(--color-border-subtle);
+.work__section {
+	margin-block-start: var(--space-8);
 }
 
-.work__links {
-	padding-inline-start: 0;
-	list-style: none;
-}
-
-.work__link {
-	position: relative;
-	border-block-end: var(--border-width-default) solid var(--color-border-subtle);
-	padding-block: var(--space-6);
-	padding-inline-start: var(--space-6);
-}
-
-.work__link::before {
-	content: "";
-	position: absolute;
-	inset-block-start: calc(var(--space-6) + var(--space-marker-offset));
-	inset-inline-start: 0;
-	inline-size: var(--space-3);
-	block-size: var(--size-marker);
-	background: var(--color-accent);
-}
-
-.work__label,
-.work__action {
+.work__section-title {
+	color: var(--color-text-secondary);
 	font-family: var(--font-family-mono);
 	font-size: var(--font-size-label);
 	font-weight: var(--font-weight-medium);
@@ -36,38 +12,134 @@
 	text-transform: uppercase;
 }
 
-.work__label {
-	color: var(--color-accent-soft);
+.work__section-intro {
+	color: var(--color-text-secondary);
+	margin-block-start: var(--space-1);
 }
 
-.work__link h2 {
+.work__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-4);
+	list-style: none;
+	margin-block-start: var(--space-4);
+	padding-inline-start: 0;
+}
+
+.work__card {
+	position: relative;
+	border: var(--border-width-default) solid var(--color-border-subtle);
+}
+
+.work__card:hover,
+.work__card:focus-within {
+	border-color: var(--color-accent-border);
+}
+
+.work__card-image {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 16 / 10;
+	border-block-end: var(--border-width-default) solid var(--color-border-subtle);
+	background: var(--color-accent-subtle);
+	color: var(--color-accent-soft);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-body-lg);
+	letter-spacing: var(--letter-spacing-tag);
+	padding: var(--space-4);
+	text-align: center;
+	text-transform: uppercase;
+	text-wrap: balance;
+}
+
+.work__card-body {
+	padding: var(--space-3);
+}
+
+.work__card-label {
+	color: var(--color-accent-soft);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-label);
+	font-weight: var(--font-weight-medium);
+	letter-spacing: var(--letter-spacing-label);
+	line-height: var(--line-height-label);
+	text-transform: uppercase;
+}
+
+.work__card h3 {
 	font-size: var(--font-size-heading-md);
 	margin-block-start: var(--space-2);
 }
 
-.work__description {
-	max-inline-size: 55ch;
-	margin-block-start: var(--space-1);
-	color: var(--color-text-secondary);
+.work__card-link {
+	color: var(--color-text-primary);
+	text-decoration: none;
 }
 
-.work__action {
-	display: inline-block;
+.work__card-link::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+}
+
+.work__card-link:hover,
+.work__card-link:focus-visible {
+	color: var(--color-accent-soft);
+}
+
+.work__card-link:focus-visible {
+	outline: none;
+}
+
+.work__card-link:focus-visible::after {
+	outline: calc(var(--border-width-default) * 2) solid var(--color-focus);
+	outline-offset: var(--border-width-default);
+}
+
+.work__card-summary {
+	color: var(--color-text-secondary);
+	margin-block-start: var(--space-1);
+}
+
+.work__card-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-1);
+	list-style: none;
 	margin-block-start: var(--space-3);
-	text-decoration-thickness: var(--border-width-default);
+	padding-inline-start: 0;
+}
+
+.work__card-tags li {
+	border: var(--border-width-default) solid var(--color-border-subtle);
+	color: var(--color-text-secondary);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-label);
+	letter-spacing: var(--letter-spacing-tag);
+	padding: var(--space-tag-block) var(--space-1);
+}
+
+@media (forced-colors: active) {
+	.work__card-link:focus-visible::after {
+		outline-color: Highlight;
+	}
 }
 
 @media (max-width: 40rem) {
-	.work__areas {
+	.work__section {
 		margin-block-start: var(--space-6);
 	}
 
-	.work__link {
-		padding-block: var(--space-4);
-		padding-inline-start: var(--space-4);
+	.work__grid {
+		grid-template-columns: minmax(0, 1fr);
 	}
 
-	.work__link::before {
-		inset-block-start: calc(var(--space-4) + var(--space-marker-offset));
+	.work__card-image {
+		font-size: var(--font-size-caption);
+	}
+
+	.work__card-body {
+		padding: var(--space-2);
 	}
 }

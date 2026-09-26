@@ -5,7 +5,7 @@ import { professionalContent } from "../content/professional-content.ts";
 import HomePage from "../pages/HomePage.tsx";
 import { axe } from "../test/axe.ts";
 import App from "./App.tsx";
-import { routes } from "./routes.ts";
+import { routes, workSectionPath } from "./routes.ts";
 
 function renderApp() {
 	const router = createMemoryRouter(
@@ -54,7 +54,7 @@ describe("App", () => {
 			screen.getByRole("link", {
 				name: "Explore my independent experiments",
 			}),
-		).toHaveAttribute("href", routes.experiments);
+		).toHaveAttribute("href", workSectionPath("experiments"));
 		expect(screen.getByText("© 2026 Davi Naizer")).toBeInTheDocument();
 		const footerNavigation = screen.getByRole("navigation", {
 			name: "Social and contact links",
