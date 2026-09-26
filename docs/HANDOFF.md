@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-26
-version: 1.65
+version: 1.66
 status: active
 ---
 
@@ -13,7 +13,7 @@ The hero image lazy-loading fix is complete and received a same-scope `PASS`: th
 
 ## Next task candidate
 
-None queued. `TODO.md` has no remaining unchecked item. Per Milestone 5's framing, the next task should come from a demonstrated need (interview feedback, recruiter/hiring-manager conversations, implementation experience, maintenance pain, or content that is hard to reuse) rather than a pre-planned backlog item.
+D. Work card index and `/work/<slug>` routing
 
 ## Roadmap position
 
@@ -22,6 +22,8 @@ None queued. `TODO.md` has no remaining unchecked item. Per Milestone 5's framin
 
 ## Evidence pointers
 
+- `docs/DECISIONS.md` (“Adopt the flattened Work index (Option A)…” — 2026-09-26)
+- `docs/evidence/2026-09-26-option-a-prototypes/`
 - `TODO.md` ("Completed hero image lazy-loading fix")
 - `src/components/ProjectPageLayout.tsx` (hero `<img>` attributes)
 - `src/pages/ExperimentPage.test.tsx` (hero attribute assertions)

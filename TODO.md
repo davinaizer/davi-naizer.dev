@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.49
+version: 1.50
 status: active
 ---
 
@@ -409,6 +409,35 @@ Closes the non-blocking LCP-timing nicety noted at the Task C review: the hero `
 - [x] Change the hero `<img>` in `ProjectPageLayout.tsx` to `loading="eager"` with `fetchPriority="high"`.
 - [x] Extend the existing hero test in `ExperimentPage.test.tsx` to assert the new attributes; pass `pnpm typecheck`, `pnpm test`, and `pnpm build`.
 - [x] Complete formal review and close the task with `PASS`.
+
+### Apply Option A: Work index and prototype visuals
+
+Developer-directed. Governed by the `DECISIONS.md` entry “Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26.” Visual reference: `docs/evidence/2026-09-26-option-a-prototypes/`. Constraints settled in `docs/plans/2026-09-26-project-pages-prd.md` v4 still apply where the decision says so.
+
+- **Problem:** the implemented project pages kept the intermediate `/work` chooser and area index pages, and the visual treatment does not match the prototypes (for example, an empty band above the tags, underlined card titles, and a different section-nav style).
+- **Evidence:** comparison of the local build against the prototypes on 2026-09-26.
+- **Objective:** supports job applications (4.1) by reaching any project from `/work` in one step, with one consistent page experience.
+- **Why now:** most of the structure already exists; the remaining gap is routing, the index, and visuals.
+
+Complete these tasks in order. Plan each one separately with `plan-next-task`.
+
+#### D. Work card index and `/work/<slug>` routing
+
+- [ ] Turn `/work` into the card index: page lead, then a Case Studies section and an Experiments section, each with a short intro and a two-column card grid (one column on narrow screens), same card treatment in both.
+- [ ] Cards follow the prototype anatomy: image area at `16:10`, then area eyebrow, serif title (not underlined), one-line summary, and tags; the whole card is one link with a visible focus state and an accent border on hover and focus.
+- [ ] Resolve the one material decision in planning: what the card image area shows for projects without a real image (the prototype uses a plain panel with the project name).
+- [ ] Serve project pages at `/work/<slug>`; back link returns to `/work` (or the matching section); next-project link stays within the same section in content order.
+- [ ] Remove the `/case-studies` and `/projects` index routes; add `public/_redirects` sending `/case-studies`, `/projects`, `/case-studies/*`, and `/projects/*` to the matching `/work` locations.
+- [ ] Update Home and any other links to the area pages, the sitemap, and `docs/ARCHITECTURE.md` routes; add a test that slugs are unique across both content types.
+- [ ] Add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+
+#### E. Project-page visual alignment
+
+- [ ] Remove the empty band between the summary and the tags strip.
+- [ ] Section nav follows the prototype: “On this page” label, sentence-case links without underline, and a left accent bar marking the active section; the inline mobile version wraps under the title.
+- [ ] Section headings use the prototype's small uppercase monospace label style; the summary uses the prototype's italic serif treatment; the back link is not underlined.
+- [ ] Keep Role and Constraints as named sections, the hero rule, the `56rem` breakpoint, and the existing lightbox behaviour.
+- [ ] Verify at desktop and 320 px widths against the prototype screenshots; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
 
 ---
 

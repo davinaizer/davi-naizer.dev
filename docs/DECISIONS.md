@@ -1,14 +1,28 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.25
+version: 1.26
 status: active
 order: ASC
 ---
 
 # Decisions
 
+## Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26
+
+**Decision:** Make `/work` the single index for all project evidence, following the Option A prototypes. `/work` lists every project as a card in two sections: Case Studies first, then Experiments, with the same card treatment. Each card links directly to its project page at `/work/<slug>`. Remove the intermediate `/case-studies` and `/projects` index pages and redirect them, and any `/case-studies/<slug>` or `/projects/<slug>` path, to the matching `/work` location. Project pages keep the shared project-page layout, with the area shown by the eyebrow label and the card section rather than the URL. Apply the prototypes' visual treatment to the Work index and project pages, within the constraints already settled in `docs/plans/2026-09-26-project-pages-prd.md` v4: Role and Constraints as named sections, no stock or placeholder photographs presented as project images, the existing `56rem` breakpoint, and the native `<dialog>` lightbox.
+
+**Rationale:** The observed problem was the extra step between Work and a project, plus inconsistent project presentation. One index with direct links removes the intermediate pages, and one layout lets a reader who has seen a case study know what to expect from an experiment. The paid versus unpaid distinction is preserved structurally by the two card sections and their order, which is sufficient because Experiments can have lower prominence than Case Studies. The 2026-09-26 entry above conflated this option with the earlier plan to merge both areas into one undifferentiated area; Option A keeps the areas distinct.
+
+**Consequence:** `/case-studies` and `/projects` stop being destinations and become permanent redirects, so existing shared links keep working. The sitemap lists `/work` and each `/work/<slug>` page. Home and in-page links that pointed at the area pages point at the `/work` sections instead. Slugs must be unique across both content types. `CaseStudy` and `Project` remain separate content types. The prototype screenshots in `docs/evidence/2026-09-26-option-a-prototypes/` are the visual reference, because the prototype artifacts are not accessible to repository tooling.
+
+**Review triggers:** Reconsider if the Work index becomes hard to scan as projects are added, if visitors cannot distinguish professional from independent work, or if the redirects prove insufficient for shared links.
+
+**Supersedes:** The navigation and routing portions of “Do not merge Case Studies and Experiments; revamp project-page UX within the two areas — 2026-09-26” and the routing portions of `docs/plans/2026-09-26-project-pages-prd.md` v4. The PRD itself is kept unchanged as a historical record.
+
 ## Do not merge Case Studies and Experiments; revamp project-page UX within the two areas — 2026-09-26
+
+**Status:** The navigation and routing portions are superseded by “Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26.” The rejection of merging Case Studies and Experiments into one undifferentiated area still stands.
 
 **Decision:** Do not merge Case Studies and Experiments into a single route or evidence area. The two-area structure from 2026-09-25 stands: `/work` remains the chooser, `/case-studies` holds professional evidence, and `/projects` remains the stable public URL for Experiments. Replace the planned merge work with a UX/UI revamp of how projects are presented inside those areas: individual project pages, a shared project-page layout, and area index pages that preview projects instead of rendering every project in full. The detailed scope, routes, and acceptance criteria belong to the approved task plan.
 
