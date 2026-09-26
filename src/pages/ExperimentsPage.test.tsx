@@ -113,6 +113,13 @@ describe("ExperimentsPage", () => {
 	it("renders the UV experiment narrative, evidence, and visuals", () => {
 		renderExperimentsPage();
 
+		const uvProject = projects.find(
+			(project) => project.slug === "uv-insect-trap",
+		);
+		if (!uvProject) {
+			throw new Error("Expected the UV Insect Trap project to exist.");
+		}
+
 		const article = screen.getByRole("article", { name: "UV Insect Trap" });
 		expect(
 			within(article).getByRole("heading", { name: "What I built" }),
@@ -137,7 +144,41 @@ describe("ExperimentsPage", () => {
 				/From my notes and recollection, I went through at least seven versions\./,
 			),
 		).toBeInTheDocument();
-		for (const visual of projects[0].visuals ?? []) {
+		for (const visual of uvProject.visuals ?? []) {
+			expect(
+				within(article).getByRole("img", { name: visual.alt }),
+			).toHaveAttribute("src", visual.src);
+		}
+	});
+
+	it("renders the Atelier Florae launch narrative and evidence", () => {
+		renderExperimentsPage();
+
+		const project = projects.find((entry) => entry.slug === "atelier-florae");
+		if (!project) {
+			throw new Error("Expected the Atelier Florae project to exist.");
+		}
+
+		const article = screen.getByRole("article", {
+			name: "Atelier Florae: From Brand to Product",
+		});
+
+		expect(
+			within(article).getByText(
+				/100 g candle offer with a coherent brand, packaging system, and customer-feedback loop/i,
+			),
+		).toBeInTheDocument();
+		expect(
+			within(article).getByText(/sold 85 candles over two months/i),
+		).toBeInTheDocument();
+		expect(
+			within(article).getByText(/Five anonymous survey respondents/i),
+		).toBeInTheDocument();
+		expect(
+			within(article).getByText(/Bamboo fragrance slightly reminiscent/i),
+		).toBeInTheDocument();
+
+		for (const visual of project.visuals ?? []) {
 			expect(
 				within(article).getByRole("img", { name: visual.alt }),
 			).toHaveAttribute("src", visual.src);

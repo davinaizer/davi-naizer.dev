@@ -199,6 +199,83 @@ export const caseStudies: readonly CaseStudy[] = [
 
 export const projects: readonly Project[] = [
 	{
+		slug: "atelier-florae",
+		title: "Atelier Florae: From Brand to Product",
+		summary:
+			"An end-to-end brand and packaging system for a small artisanal candle launch, shaped through early market testing and customer feedback.",
+		visualsHeading: "Brand system and launch materials",
+		visualsIntro:
+			"These references show the visual system and the 100 g launch materials. Customer details, payment information, and financial records are intentionally excluded.",
+		visuals: [
+			{
+				src: "/images/atelier-florae/atelier-florae-brand-kit.jpeg",
+				alt: "Atelier Florae brand board showing botanical seal variants, a warm neutral palette, serif typography, candle and soap packaging, and label directions.",
+				title: "The brand system",
+				caption:
+					"The identity work brought the botanical seal, palette, typography, packaging direction, and label variations into one visual system.",
+				layout: "grid",
+			},
+			{
+				src: "/images/atelier-florae/atelier-florae-100g-labels.png",
+				alt: "A printable sheet of Atelier Florae 100 g scented candle labels and circular botanical seal stickers in five fragrance variants.",
+				title: "The 100 g launch labels",
+				caption:
+					"The first market test used a smaller 100 g candle so the business could explore an accessible entry price and learn from early customers.",
+				layout: "grid",
+			},
+			{
+				src: "/images/atelier-florae/atelier-florae-seal.svg",
+				alt: "Gold botanical lotus seal for the Atelier Florae identity.",
+				title: "Botanical seal",
+				caption:
+					"The seal gave the small business a recognisable mark that could carry across labels, packaging, signage, and customer materials.",
+				layout: "grid",
+			},
+		],
+		context:
+			"Atelier Florae was a small family business started in Brazil. Before the first candles went to market, I worked with the founder to understand her taste through a detailed questionnaire and used that to shape a restrained botanical direction.",
+		purpose:
+			"Test a lower-priced 100 g candle offer with a coherent brand, packaging system, and customer-feedback loop.",
+		problem:
+			"The business needed to enter the market without relying on generic handmade-product cues. The first launch also needed to make an unfamiliar small brand feel considered while keeping the product accessible enough to test demand and price.",
+		solution:
+			"I created the brand identity, botanical seal, wordmark direction, palette, typography, candle labels, seal stickers, table sign, and thank-you card. The initial candles were sold through a beauty salon and then through family and friends by word of mouth.",
+		role: "I led the brand and visual design work from discovery through launch materials. I used Gemini and GPT as iterative design and critique tools, while the questionnaire, selection, and final decisions remained mine.",
+		decisions: [
+			"Start with 100 g candles rather than a larger format so the business could test market entry and price with a lower commitment for customers.",
+			"Use a detailed questionnaire and iterative critique to understand the founder's taste and avoid a generic craft-market identity. AI tools supported exploration, but did not replace selection or judgement.",
+			"Build one botanical system across the seal, wordmark direction, palette, typography, labels, display sign, and thank-you card so the physical customer experience felt connected.",
+			"Add an anonymous survey invitation to the launch materials so early feedback could cover overall experience, aroma, packaging, and repeat-purchase intent.",
+		],
+		outcomes: [
+			{
+				statement:
+					"The initial launch sold 85 candles over two months through a beauty salon and word of mouth among family and friends.",
+			},
+			{
+				statement:
+					"Five anonymous survey respondents rated the overall experience 5 out of 5, with average aroma and packaging ratings of 4.8 out of 5.",
+				detail:
+					"All five said they would buy again. Some customers did return to buy more than once, although I do not have a recorded repeat-purchase count. The survey result was stated intent from a small self-selected sample, not representative market validation.",
+			},
+			{
+				statement:
+					"Early feedback supported the presentation and identified practical next steps for the product range.",
+				detail:
+					"One respondent found the Bamboo fragrance slightly reminiscent of cleaning products; other suggestions included individual fragrance testers and new fragrances.",
+			},
+		],
+		reflection:
+			"The project showed that a small physical-product launch depends on the system around the object as much as the object itself: positioning, label hierarchy, display information, payment and feedback touchpoints all shape the experience. If I continued, I would test fragrance options earlier and keep product variants explicit. Expansion into soaps was planned, but the work stopped when we moved to the UK, so this entry documents the initial launch rather than a finished product line.",
+		technologies: [
+			"Brand strategy",
+			"Visual identity",
+			"Packaging design",
+			"Print materials",
+			"Anonymous survey",
+		],
+	},
+	{
 		slug: "uv-insect-trap",
 		title: "UV Insect Trap",
 		summary:
