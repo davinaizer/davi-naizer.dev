@@ -135,6 +135,7 @@ function CaseStudyPage() {
 					</ul>
 				</nav>
 			}
+			hero={caseStudy.hero}
 			id={caseStudy.slug}
 			sections={sections}
 			summary={caseStudy.summary}

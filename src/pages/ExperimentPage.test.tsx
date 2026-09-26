@@ -107,6 +107,40 @@ describe("ExperimentPage", () => {
 		).not.toBeInTheDocument();
 	});
 
+	it("renders a hero image only for the experiment with a real result photo", async () => {
+		const uvInsectTrap = projects.find(
+			(entry) => entry.slug === "uv-insect-trap",
+		);
+		if (!uvInsectTrap?.hero) {
+			throw new Error("Expected the UV Insect Trap experiment to have a hero.");
+		}
+
+		const { unmount } = renderExperimentPage(experimentPath(uvInsectTrap.slug));
+		expect(
+			await screen.findByRole("heading", {
+				level: 1,
+				name: uvInsectTrap.title,
+			}),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("img", { name: uvInsectTrap.hero.alt }),
+		).toHaveAttribute("src", uvInsectTrap.hero.src);
+		unmount();
+
+		const atelierFlorae = projects.find(
+			(entry) => entry.slug === "atelier-florae",
+		);
+		if (!atelierFlorae) {
+			throw new Error("Expected the Atelier Florae experiment to exist.");
+		}
+
+		renderExperimentPage(experimentPath(atelierFlorae.slug));
+		await screen.findByRole("heading", { level: 1, name: atelierFlorae.title });
+		expect(
+			screen.queryByRole("img", { name: uvInsectTrap.hero.alt }),
+		).not.toBeInTheDocument();
+	});
+
 	it("renders the not-found page for an unknown experiment slug", async () => {
 		renderExperimentPage(experimentPath("does-not-exist"));
 

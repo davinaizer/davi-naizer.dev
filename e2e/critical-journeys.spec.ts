@@ -249,10 +249,10 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 
 	await page.setViewportSize({ width: 320, height: 900 });
 	const experimentVisuals = page.getByRole("region", {
-		name: "The final prototype and CAD",
+		name: "CAD design views",
 	});
 	await expect(experimentVisuals).toBeVisible();
-	await expect(experimentVisuals.getByRole("img")).toHaveCount(3);
+	await expect(experimentVisuals.getByRole("img")).toHaveCount(2);
 	await expect(experimentVisuals.getByRole("img").first()).toBeVisible();
 	const hasExperimentOverflow = await page.evaluate(
 		() =>
@@ -275,6 +275,61 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 	await page.getByRole("banner").getByRole("link", { name: "Contact" }).click();
 	await expect(page).toHaveURL(/\/contact$/);
 	await expect(page.getByRole("heading", { name: "Contact" })).toBeVisible();
+});
+
+test("opens the gallery lightbox from a thumbnail and closes it with Escape, returning focus", async ({
+	page,
+}) => {
+	await page.goto("/projects/uv-insect-trap");
+
+	const gallery = page.getByRole("region", { name: "CAD design views" });
+	const thumbnail = gallery.getByRole("button", { name: /Angled CAD view/ });
+	await thumbnail.click();
+
+	const dialog = page.getByRole("dialog", { name: "Enclosure and grille" });
+	await expect(dialog).toBeVisible();
+	await expect(
+		dialog.getByRole("img", { name: /Angled CAD view/ }),
+	).toBeVisible();
+
+	await page.keyboard.press("Escape");
+	await expect(dialog).not.toBeVisible();
+	await expect(thumbnail).toBeFocused();
+});
+
+test("closes the gallery lightbox on a backdrop click, returning focus to the thumbnail", async ({
+	page,
+}) => {
+	await page.goto("/projects/uv-insect-trap");
+
+	const gallery = page.getByRole("region", { name: "CAD design views" });
+	const thumbnail = gallery.getByRole("button", { name: /Angled CAD view/ });
+	await thumbnail.click();
+
+	const dialog = page.getByRole("dialog", { name: "Enclosure and grille" });
+	await expect(dialog).toBeVisible();
+
+	await page.mouse.click(5, 5);
+	await expect(dialog).not.toBeVisible();
+	await expect(thumbnail).toBeFocused();
+});
+
+test("opens the gallery lightbox with the keyboard and closes it with the close button", async ({
+	page,
+}) => {
+	await page.goto("/projects/uv-insect-trap");
+
+	const gallery = page.getByRole("region", { name: "CAD design views" });
+	const thumbnail = gallery.getByRole("button", { name: /Angled CAD view/ });
+	await thumbnail.focus();
+	await page.keyboard.press("Enter");
+
+	const dialog = page.getByRole("dialog", { name: "Enclosure and grille" });
+	await expect(dialog).toBeVisible();
+
+	await dialog.getByRole("button", { name: "Close" }).click();
+	await expect(dialog).not.toBeVisible();
+	await expect(thumbnail).toBeFocused();
 });
 
 test("restores the top of the destination after navigating from the bottom", async ({

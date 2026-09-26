@@ -8,7 +8,12 @@ export type Visual = {
 	alt: string;
 	title: string;
 	caption: string;
-	layout: "flow" | "screen" | "grid";
+	layout: "landscape" | "portrait";
+};
+
+export type Hero = {
+	src: string;
+	alt: string;
 };
 
 export type EvidenceReference =
@@ -21,6 +26,7 @@ type EvidenceBase = {
 	summary: string;
 	context?: string;
 	outcomes?: readonly Outcome[];
+	hero?: Hero;
 };
 
 export type Project = EvidenceBase & {

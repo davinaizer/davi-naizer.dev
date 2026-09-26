@@ -145,6 +145,7 @@ function ExperimentPage() {
 					</ul>
 				</nav>
 			}
+			hero={project.hero}
 			id={project.slug}
 			sections={sections}
 			summary={project.summary}

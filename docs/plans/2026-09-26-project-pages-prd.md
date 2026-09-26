@@ -1,13 +1,13 @@
 ---
 createdAt: 2026-09-26
 updatedAt: 2026-09-26
-version: 4.0
+version: 4.1
 status: approved
 ---
 
 # PRD: Project pages within Case Studies and Experiments
 
-**Status:** Direction and template decided. Not yet implemented.
+**Status:** Implemented. Tasks A, B, and C are complete and reviewed with `PASS`; see `docs/plans/2026-09-26-case-studies-project-pages.md`, `docs/plans/2026-09-26-experiments-project-pages.md`, and `docs/plans/2026-09-26-gallery-lightbox.md`.
 **Governing decision:** `docs/DECISIONS.md` — "Do not merge Case Studies and Experiments; revamp project-page UX within the two areas" (2026-09-26).
 **Scope:** Area index pages (`/case-studies`, `/projects`), individual project pages, and the shared project-page layout.
 

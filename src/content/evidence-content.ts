@@ -25,7 +25,7 @@ export const caseStudies: readonly CaseStudy[] = [
 				title: "Introducing Alfred",
 				caption:
 					"A short onboarding sequence establishes the product’s purpose before moving into authentication, keeping the path from first impression to entry focused and lightweight.",
-				layout: "flow",
+				layout: "landscape",
 			},
 			{
 				src: "/images/alfred/alfred-idea-flow.jpg",
@@ -33,7 +33,7 @@ export const caseStudies: readonly CaseStudy[] = [
 				title: "From an idea to a plan",
 				caption:
 					"The core experience follows a continuous decision loop: discover what matters now, capture an idea, develop it through recommendations, make a choice, and turn that choice into a scheduled event.",
-				layout: "flow",
+				layout: "landscape",
 			},
 		],
 		context:
@@ -213,7 +213,7 @@ export const projects: readonly Project[] = [
 				title: "The 100 g launch labels",
 				caption:
 					"The first market test used a smaller 100 g candle so the business could explore an accessible entry price and learn from early customers.",
-				layout: "grid",
+				layout: "portrait",
 			},
 			{
 				src: "/images/atelier-florae/atelier-florae-seal.svg",
@@ -221,7 +221,7 @@ export const projects: readonly Project[] = [
 				title: "Botanical seal",
 				caption:
 					"The seal gave the small business a recognisable mark that could carry across labels, packaging, signage, and customer materials.",
-				layout: "grid",
+				layout: "portrait",
 			},
 		],
 		context:
@@ -272,25 +272,20 @@ export const projects: readonly Project[] = [
 		title: "UV Insect Trap",
 		summary:
 			"A 3D-printed trap shaped through repeated work on airflow, grille noise, and cleaning.",
-		visualsHeading: "The final prototype and CAD",
-		visualsIntro:
-			"The final photo shows the assembled prototype; the CAD views show the enclosure and grille design.",
+		hero: {
+			src: "/images/uv-insect-trap/final-prototype.jpeg",
+			alt: "The assembled black 3D-printed insect trap on a wooden surface, with blue light visible around its upper grille.",
+		},
+		visualsHeading: "CAD design views",
+		visualsIntro: "These CAD views show the enclosure and grille design.",
 		visuals: [
-			{
-				src: "/images/uv-insect-trap/final-prototype.jpeg",
-				alt: "The assembled black 3D-printed insect trap on a wooden surface, with blue light visible around its upper grille.",
-				title: "Final prototype",
-				caption:
-					"The version I tested at home, photographed with the UV LEDs on.",
-				layout: "grid",
-			},
 			{
 				src: "/images/uv-insect-trap/cad-assembly-view.png",
 				alt: "Angled CAD view of the cylindrical trap body, circular upper grille, and central light tower.",
 				title: "Enclosure and grille",
 				caption:
 					"This view shows how the outer body, upper grille, and light tower fit together.",
-				layout: "grid",
+				layout: "landscape",
 			},
 			{
 				src: "/images/uv-insect-trap/cad-grille-top-view.png",
@@ -298,7 +293,7 @@ export const projects: readonly Project[] = [
 				title: "Grille geometry",
 				caption:
 					"The top view shows the curved vanes I adjusted while working on airflow and fan noise.",
-				layout: "grid",
+				layout: "landscape",
 			},
 		],
 		context:

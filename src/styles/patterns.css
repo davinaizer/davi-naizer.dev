@@ -157,6 +157,14 @@
 	padding-inline-start: var(--space-2);
 }
 
+.project-page__hero {
+	aspect-ratio: 16 / 9;
+	display: block;
+	inline-size: 100%;
+	object-fit: cover;
+	border: var(--border-width-default) solid var(--color-border-subtle);
+}
+
 .project-page__gallery-intro {
 	color: var(--color-text-secondary);
 	font-size: var(--font-size-caption);
@@ -179,10 +187,6 @@
 	display: flex;
 }
 
-.project-page__visual-item--flow {
-	grid-column: 1 / -1;
-}
-
 .project-page__visual {
 	background: var(--color-background);
 	border: var(--border-width-default) solid var(--color-border-subtle);
@@ -194,26 +198,34 @@
 	overflow: hidden;
 }
 
+.project-page__visual:hover,
+.project-page__visual:focus-within {
+	border-color: var(--color-accent-border);
+}
+
+.project-page__visual-trigger {
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	display: block;
+	inline-size: 100%;
+	padding: 0;
+}
+
 .project-page__visual-image {
 	align-items: center;
 	background: var(--color-background);
 	display: flex;
 	justify-content: center;
-}
-
-.project-page__visual--flow .project-page__visual-image {
-	aspect-ratio: 3 / 2;
-}
-
-.project-page__visual--screen .project-page__visual-image {
-	aspect-ratio: 9 / 16;
-	flex: 1;
 	padding: var(--space-1);
 }
 
-.project-page__visual--grid .project-page__visual-image {
+.project-page__visual--landscape .project-page__visual-image {
 	aspect-ratio: 4 / 3;
-	padding: var(--space-1);
+}
+
+.project-page__visual--portrait .project-page__visual-image {
+	aspect-ratio: 1 / 2;
 }
 
 .project-page__visual-image img {
@@ -221,21 +233,7 @@
 	block-size: 100%;
 	inline-size: 100%;
 	object-fit: contain;
-	object-position: center top;
-}
-
-.project-page__visual--grid .project-page__visual-image img {
 	object-position: center;
-}
-
-.project-page__visual--flow .project-page__visual-image img {
-	block-size: auto;
-	max-block-size: 100%;
-	max-inline-size: 100%;
-}
-
-.project-page__visual--screen .project-page__visual-image img {
-	max-block-size: 34rem;
 }
 
 .project-page__visual-grid figcaption {
@@ -261,8 +259,58 @@
 	margin: 0;
 }
 
-.project-page__visual--flow figcaption {
-	min-block-size: 0;
+.project-page__lightbox {
+	background: transparent;
+	border: 0;
+	margin: auto;
+	max-block-size: 92vh;
+	max-inline-size: min(92vw, 60rem);
+	padding: 0;
+}
+
+.project-page__lightbox::backdrop {
+	background: rgb(0 0 0 / 0.8);
+}
+
+.project-page__lightbox-inner {
+	position: relative;
+	background: var(--color-background);
+	border: var(--border-width-default) solid var(--color-border-strong);
+	max-block-size: 92vh;
+	overflow: auto;
+	padding: var(--space-3);
+}
+
+.project-page__lightbox-image {
+	display: block;
+	margin-inline: auto;
+	max-block-size: 70vh;
+	max-inline-size: 100%;
+	object-fit: contain;
+}
+
+.project-page__lightbox-close {
+	position: absolute;
+	inset-block-start: var(--space-2);
+	inset-inline-end: var(--space-2);
+	border: var(--border-width-default) solid var(--color-border-strong);
+	background: var(--color-background);
+	color: var(--color-text-primary);
+	cursor: pointer;
+	padding: var(--space-1) var(--space-2);
+}
+
+.project-page__lightbox-close:hover,
+.project-page__lightbox-close:focus-visible {
+	border-color: var(--color-accent);
+	color: var(--color-accent-soft);
+}
+
+.project-page__lightbox-inner figcaption {
+	margin-block-start: var(--space-2);
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-caption);
+	line-height: 1.5;
 }
 
 .project-page__continue {
@@ -312,16 +360,6 @@
 @media (max-width: 40rem) {
 	.project-page__visual-grid {
 		grid-template-columns: minmax(0, 1fr);
-	}
-
-	.project-page__visual-item--flow {
-		grid-column: auto;
-	}
-
-	.project-page__visual--screen {
-		margin-inline: auto;
-		max-inline-size: 22rem;
-		inline-size: 100%;
 	}
 
 	.project-page__summary {

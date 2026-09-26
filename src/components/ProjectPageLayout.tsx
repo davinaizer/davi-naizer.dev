@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
+import type { Hero } from "../types/evidence.ts";
 
 export type ProjectPageSection = {
 	id: string;
@@ -15,6 +16,7 @@ type ProjectPageLayoutProps = {
 	title: string;
 	summary: string;
 	tags?: readonly string[];
+	hero?: Hero;
 	sections: readonly ProjectPageSection[];
 	continuation: ReactNode;
 };
@@ -77,6 +79,7 @@ function ProjectPageLayout({
 	title,
 	summary,
 	tags,
+	hero,
 	sections,
 	continuation,
 }: ProjectPageLayoutProps) {
@@ -122,6 +125,16 @@ function ProjectPageLayout({
 								<li key={tag}>{tag}</li>
 							))}
 						</ul>
+					) : null}
+
+					{hero ? (
+						<img
+							alt={hero.alt}
+							className="project-page__hero"
+							decoding="async"
+							loading="lazy"
+							src={hero.src}
+						/>
 					) : null}
 
 					{sections.map((section) => (

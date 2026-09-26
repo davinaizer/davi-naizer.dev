@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.47
+version: 1.48
 status: active
 ---
 
@@ -395,10 +395,12 @@ Delivered for Case Studies as part of Task A: sticky right rail above `56rem`, i
 
 #### C. Gallery and lightbox
 
-- [ ] Normalise gallery images per kind (`4:3` landscape photos, `1:2` portrait screenshots) with thumbnails as buttons.
-- [ ] Add a full-size view with caption using the native `<dialog>` element: Escape and click-outside close, focus contained and returned.
-- [ ] Complete the per-project hero image review and add heroes only where a real result image exists.
-- [ ] Add focused accessibility and browser coverage; pass the standard checks.
+Completed and reviewed with `PASS`. The approved scope and acceptance criteria are recorded in `docs/plans/2026-09-26-gallery-lightbox.md`.
+
+- [x] Normalise gallery images per kind (`4:3` landscape photos, `1:2` portrait screenshots) with thumbnails as buttons.
+- [x] Add a full-size view with caption using the native `<dialog>` element: Escape and click-outside close, focus contained and returned.
+- [x] Complete the per-project hero image review and add heroes only where a real result image exists.
+- [x] Add focused accessibility and browser coverage; pass the standard checks.
 
 ---
 
