@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.48
+version: 1.49
 status: active
 ---
 
@@ -401,6 +401,14 @@ Completed and reviewed with `PASS`. The approved scope and acceptance criteria a
 - [x] Add a full-size view with caption using the native `<dialog>` element: Escape and click-outside close, focus contained and returned.
 - [x] Complete the per-project hero image review and add heroes only where a real result image exists.
 - [x] Add focused accessibility and browser coverage; pass the standard checks.
+
+### Completed hero image lazy-loading fix
+
+Closes the non-blocking LCP-timing nicety noted at the Task C review: the hero `<img>` used `loading="lazy"` despite rendering near the initial viewport.
+
+- [x] Change the hero `<img>` in `ProjectPageLayout.tsx` to `loading="eager"` with `fetchPriority="high"`.
+- [x] Extend the existing hero test in `ExperimentPage.test.tsx` to assert the new attributes; pass `pnpm typecheck`, `pnpm test`, and `pnpm build`.
+- [x] Complete formal review and close the task with `PASS`.
 
 ---
 

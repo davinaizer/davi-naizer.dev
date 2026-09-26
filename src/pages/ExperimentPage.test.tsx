@@ -122,9 +122,10 @@ describe("ExperimentPage", () => {
 				name: uvInsectTrap.title,
 			}),
 		).toBeInTheDocument();
-		expect(
-			screen.getByRole("img", { name: uvInsectTrap.hero.alt }),
-		).toHaveAttribute("src", uvInsectTrap.hero.src);
+		const heroImage = screen.getByRole("img", { name: uvInsectTrap.hero.alt });
+		expect(heroImage).toHaveAttribute("src", uvInsectTrap.hero.src);
+		expect(heroImage).toHaveAttribute("loading", "eager");
+		expect(heroImage).toHaveAttribute("fetchpriority", "high");
 		unmount();
 
 		const atelierFlorae = projects.find(

@@ -132,7 +132,8 @@ function ProjectPageLayout({
 							alt={hero.alt}
 							className="project-page__hero"
 							decoding="async"
-							loading="lazy"
+							fetchPriority="high"
+							loading="eager"
 							src={hero.src}
 						/>
 					) : null}

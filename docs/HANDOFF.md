@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-26
-version: 1.64
+version: 1.65
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-PRD Task C ("Gallery and lightbox") is complete and received a same-scope `PASS`: gallery visuals are normalised into two kinds (`landscape` 4:3, `portrait` 1:2, `object-fit: contain`, no cropping) with real `<button>` thumbnails; a native `<dialog>` lightbox shows the full image and caption, closing via a close button, Escape, or a backdrop click, with focus contained and returned to the triggering thumbnail. The per-project hero review added a single hero (UV Insect Trap's `final-prototype.jpeg`, 16:9, `object-fit: cover`); no other case study or experiment has a qualifying finished-result image. This closes out "Project pages within Case Studies and Experiments" (Tasks A, B, and C all complete).
+The hero image lazy-loading fix is complete and received a same-scope `PASS`: the hero `<img>` in `ProjectPageLayout.tsx` (UV Insect Trap, the only current hero) now uses `loading="eager"` and `fetchPriority="high"` instead of `loading="lazy"`, resolving the non-blocking LCP-timing nicety noted at the "Gallery and lightbox" review. This closes the small deferred-work item left after "Project pages within Case Studies and Experiments" completed.
 
 ## Next task candidate
 
@@ -18,16 +18,13 @@ None queued. `TODO.md` has no remaining unchecked item. Per Milestone 5's framin
 ## Roadmap position
 
 - **Milestone:** Milestone 5 - Evidence-Driven Evolution (ongoing; no fixed next milestone).
-- **Workflow stage:** Task C is complete; no task is currently approved, in progress, or under review.
+- **Workflow stage:** Task complete; no task is currently approved, in progress, or under review.
 
 ## Evidence pointers
 
-- `TODO.md` ("C. Gallery and lightbox", now complete)
-- `docs/plans/2026-09-26-gallery-lightbox.md` (approved plan and completion record)
-- `docs/plans/2026-09-26-project-pages-prd.md` (governing PRD, now marked implemented)
-- `src/components/ProjectGallery.tsx`, `src/components/ProjectPageLayout.tsx`
-- `src/types/evidence.ts` (`Visual.layout`, `Hero`)
-- `src/content/evidence-content.ts` (per-project `layout`/`hero` classification)
+- `TODO.md` ("Completed hero image lazy-loading fix")
+- `src/components/ProjectPageLayout.tsx` (hero `<img>` attributes)
+- `src/pages/ExperimentPage.test.tsx` (hero attribute assertions)
 
 ## Blockers
 
@@ -35,5 +32,5 @@ None.
 
 ## Constraints and deferred work
 
-- One non-blocking improvement noted at review: the hero `<img>` uses `loading="lazy"` despite rendering near the initial viewport; a minor LCP-timing nicety, not fixed as part of this task.
 - Hero classification: only UV Insect Trap has a hero (a real finished-result photo distinct from its gallery). Revisit only if a future case study or experiment gains a comparable finished-result image.
+- Non-blocking, pre-existing repository note: the composite `pnpm validate` script fails on `.claude/settings.local.json` formatting, a file gitignored via the developer's global gitignore and unrelated to any tracked task. Scoped checks (`pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`) are unaffected. Revisit only if this recurs and warrants a Biome ignore-rule task.
