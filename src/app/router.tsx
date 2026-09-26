@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import CaseStudiesPage from "../pages/CaseStudiesPage.tsx";
+import CaseStudyPage from "../pages/CaseStudyPage.tsx";
 import ContactPage from "../pages/ContactPage.tsx";
 import ExperiencePage from "../pages/ExperiencePage.tsx";
 import ExperimentsPage from "../pages/ExperimentsPage.tsx";
@@ -19,6 +20,7 @@ export default createBrowserRouter([
 			{ path: routes.work, Component: WorkPage },
 			{ path: routes.experiments, Component: ExperimentsPage },
 			{ path: routes.caseStudies, Component: CaseStudiesPage },
+			{ path: routes.caseStudy, Component: CaseStudyPage },
 			{ path: routes.resume, Component: ResumePage },
 			{ path: routes.contact, Component: ContactPage },
 			{ path: "*", Component: NotFoundPage },

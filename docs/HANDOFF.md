@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-26
-version: 1.61
+version: 1.62
 status: active
 ---
 
@@ -9,28 +9,27 @@ status: active
 
 ## Completed outcome
 
-Atelier Florae is published as an independent Experiment and received a same-scope `PASS` after the review fix. The AI-generated brand board was removed; the 100 g label sheet and botanical seal remain as visuals. The two-area evidence structure is retained, and the project-pages work is defined in a PRD and queued in `TODO.md`.
+Case Studies project pages are complete and received a same-scope `PASS`: `/case-studies/<slug>` routes on a shared `ProjectPageLayout` component (section nav with scroll-spy, tags strip, body sections, "Continue exploring"), and `/case-studies` converted to a card-grid index. Experiments (`/projects`) was deliberately excluded from this task and remains on the original single-page layout.
 
 ## Next task candidate
 
-A. Project pages and area indexes
+A. Project pages and area indexes — Experiments (reuse `ProjectPageLayout` for `/projects/<slug>` routes and convert `/projects` into a card-grid index, following the Case Studies pattern).
 
 ## Roadmap position
 
 - **Milestone:** Milestone 5 - Evidence-Driven Evolution.
-- **Workflow stage:** Atelier Florae is complete; begin `plan-next-task` for the next task candidate.
+- **Workflow stage:** Case Studies project pages are complete; begin `plan-next-task` for the Experiments project-pages task.
 
 ## Evidence pointers
 
-- `TODO.md`
-- `docs/DECISIONS.md` (2026-09-26 and 2026-09-25 evidence-area decisions)
-- `docs/plans/2026-09-26-project-pages-prd.md`
-- `docs/plans/2026-09-26-atelier-florae-experiment.md`
-- `src/content/evidence-content.ts`
-- `src/app/router.tsx`
+- `TODO.md` (Task A, Experiments sub-section; Task B is satisfied for Case Studies and carries to Experiments automatically via the shared component; Task C remains open)
+- `docs/plans/2026-09-26-project-pages-prd.md` (governing PRD)
+- `docs/plans/2026-09-26-case-studies-project-pages.md` (completed task plan, including the decision to split by area)
+- `docs/ARCHITECTURE.md` (routing section)
+- `src/components/ProjectPageLayout.tsx`
+- `src/pages/CaseStudyPage.tsx`
 - `src/pages/CaseStudiesPage.tsx`
-- `src/pages/ExperimentsPage.tsx`
-- `src/components/CaseStudyGallery.tsx`
+- `src/pages/ExperimentsPage.tsx` (not yet migrated)
 - `public/sitemap.xml`
 
 ## Blockers
@@ -39,4 +38,6 @@ None.
 
 ## Constraints and deferred work
 
-Project-page prototypes were built without repository access; use them for interaction patterns only. The per-project hero image review is deferred to task C.
+- Hero image sourcing and the gallery lightbox remain deferred to PRD Task C for both areas.
+- Project-page prototypes were built without repository access; use them for interaction patterns only.
+- Scroll-spy `rootMargin` was tuned against Case Studies' longest page (Alfred, ~10 sections); re-check against Experiments' longest page once it exists.

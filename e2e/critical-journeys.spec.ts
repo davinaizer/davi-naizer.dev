@@ -31,25 +31,117 @@ test("renders a durable route when opened directly", async ({ page }) => {
 	).toBeVisible();
 });
 
-test("keeps the Case Studies narrative flowing beside metadata", async ({
+test("links from the Case Studies index to a project page", async ({
+	page,
+}) => {
+	await page.goto("/case-studies");
+	await page.getByRole("link", { name: "Alfred: What To Do Next" }).click();
+
+	await expect(page).toHaveURL(/\/case-studies\/alfred-what-to-do-next$/);
+	await expect(
+		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
+	).toBeVisible();
+});
+
+test("opens a case-study project page directly and navigates its section nav", async ({
+	page,
+}) => {
+	await page.goto("/case-studies/alfred-what-to-do-next");
+
+	await expect(
+		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
+	).toBeVisible();
+	await page.reload();
+	await expect(
+		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
+	).toBeVisible();
+
+	const sectionNav = page.getByRole("navigation", { name: "Sections" });
+	await sectionNav.getByRole("link", { name: "Reflection" }).click();
+
+	await expect(page).toHaveURL(/#alfred-what-to-do-next-reflection$/);
+	await expect(
+		page.getByRole("heading", { level: 2, name: "Reflection" }),
+	).toBeInViewport();
+});
+
+test("keeps the project-page section nav beside the content on desktop and inline on mobile", async ({
 	page,
 }) => {
 	await page.setViewportSize({ width: 1024, height: 900 });
-	await page.goto("/case-studies");
+	await page.goto("/case-studies/alfred-what-to-do-next");
 
-	const article = page.getByRole("article", {
-		name: "Alfred: What To Do Next",
-	});
-	const decisions = article.getByRole("region", { name: "Decisions" });
-	const metadata = article.locator(".case-studies__metadata");
-	const decisionsBox = await decisions.boundingBox();
-	const metadataBox = await metadata.boundingBox();
-
-	if (!decisionsBox || !metadataBox) {
-		throw new Error("Expected Case Studies layout boxes to be measurable.");
+	const nav = page.getByRole("navigation", { name: "Sections" });
+	const content = page.locator(".project-page__content");
+	const desktopNavBox = await nav.boundingBox();
+	const desktopContentBox = await content.boundingBox();
+	if (!desktopNavBox || !desktopContentBox) {
+		throw new Error("Expected project-page layout boxes to be measurable.");
 	}
+	expect(desktopNavBox.x).toBeGreaterThan(desktopContentBox.x);
 
-	expect(decisionsBox.y).toBeLessThan(metadataBox.y + metadataBox.height);
+	await page.setViewportSize({ width: 320, height: 900 });
+	await page.goto("/case-studies/alfred-what-to-do-next");
+	const mobileNavBox = await nav.boundingBox();
+	const mobileContentBox = await content.boundingBox();
+	if (!mobileNavBox || !mobileContentBox) {
+		throw new Error(
+			"Expected mobile project-page layout boxes to be measurable.",
+		);
+	}
+	expect(mobileNavBox.y).toBeLessThan(mobileContentBox.y);
+
+	const hasHorizontalOverflow = await page.evaluate(
+		() =>
+			document.documentElement.scrollWidth >
+			document.documentElement.clientWidth,
+	);
+	expect(hasHorizontalOverflow).toBe(false);
+});
+
+test("continues to the next case study and back to the index from a project page", async ({
+	page,
+}) => {
+	await page.goto("/case-studies/alfred-what-to-do-next");
+
+	const continuation = page.getByRole("navigation", {
+		name: "Continue exploring",
+	});
+	await continuation.getByRole("link", { name: /^Next case study:/ }).click();
+	await expect(page).toHaveURL(
+		/\/case-studies\/signal-vessel-list-template-administration$/,
+	);
+
+	await page.getByRole("link", { name: "All case studies" }).click();
+	await expect(page).toHaveURL(/\/case-studies$/);
+	await expect(
+		page.getByRole("heading", { name: "Case Studies" }),
+	).toBeVisible();
+});
+
+test("resets the section-nav active state when moving to the next case study", async ({
+	page,
+}) => {
+	await page.goto("/case-studies/alfred-what-to-do-next");
+
+	const sectionNav = page.getByRole("navigation", { name: "Sections" });
+	const contextLink = sectionNav.getByRole("link", { name: "Context" });
+	await expect(contextLink).toHaveAttribute("aria-current", "true");
+
+	await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+	await expect(contextLink).not.toHaveAttribute("aria-current", "true");
+
+	await page
+		.getByRole("navigation", { name: "Continue exploring" })
+		.getByRole("link", { name: /^Next case study:/ })
+		.click();
+
+	await expect(page).toHaveURL(
+		/\/case-studies\/signal-vessel-list-template-administration$/,
+	);
+	await expect(
+		sectionNav.getByRole("link", { name: "Context" }),
+	).toHaveAttribute("aria-current", "true");
 });
 
 test("navigates through the shell and Work routes", async ({ page }) => {

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-26
-version: 1.46
+version: 1.47
 status: active
 ---
 
@@ -372,18 +372,26 @@ Complete these tasks in order. Plan each one separately with `plan-next-task`.
 
 #### A. Project pages and area indexes
 
-- [ ] Add `/case-studies/<slug>` and `/projects/<slug>` routes with one shared project-page layout for both content types: header, tags strip, body sections, hero only where a real result image exists, "Continue exploring", and next project within the same area.
-- [ ] Convert `/case-studies` and `/projects` into card-grid indexes linking to the project pages.
-- [ ] Add project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
-- [ ] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+**Case Studies — complete.** Delivered and reviewed with `PASS`. The approved scope, the decision to split this task by area, and acceptance criteria are recorded in `docs/plans/2026-09-26-case-studies-project-pages.md`.
 
-If the plan is too large for one reviewable task, deliver Case Studies first with the shared layout, then Experiments as a follow-up task.
+- [x] Add `/case-studies/<slug>` routes with a shared `ProjectPageLayout` component: header, section nav, tags strip, body sections, "Continue exploring", and next case study within the area. Hero remains omitted until a case study has a real result image distinct from its gallery (PRD Task C).
+- [x] Convert `/case-studies` into a card-grid index linking to the project pages.
+- [x] Add the case-study project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
+- [x] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+
+**Experiments — not started.**
+
+- [ ] Reuse the shared `ProjectPageLayout` component for `/projects/<slug>` routes and convert `/projects` into a card-grid index, following the Case Studies pattern.
+- [ ] Add the experiment project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
+- [ ] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
 
 #### B. Project-page section navigation
 
-- [ ] Add the section index: sticky right rail above `56rem`, inline and wrapping below it.
-- [ ] Highlight the active section on scroll; tune the scroll-spy threshold against real project pages.
-- [ ] Anchor links work without JavaScript; add focused coverage and pass the standard checks.
+Delivered for Case Studies as part of Task A: sticky right rail above `56rem`, inline and wrapping below it; `IntersectionObserver` scroll-spy tuned against Alfred's ~10 sections; anchor links work without JavaScript. The shared `ProjectPageLayout` component carries this behaviour to Experiments automatically once its Task A routes land — no separate implementation is expected.
+
+- [x] Add the section index: sticky right rail above `56rem`, inline and wrapping below it.
+- [x] Highlight the active section on scroll; tune the scroll-spy threshold against real project pages.
+- [x] Anchor links work without JavaScript; add focused coverage and pass the standard checks.
 
 #### C. Gallery and lightbox
 

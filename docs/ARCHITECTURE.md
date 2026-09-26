@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
-updatedAt: 2026-09-25
-version: 1.10
+updatedAt: 2026-09-26
+version: 1.11
 status: active
 ---
 
@@ -62,7 +62,7 @@ Keep selectors page-prefixed when they belong to one route. Add a shared selecto
 
 ## Navigation and rendering
 
-The root route renders the shared application shell and nested page routes through an outlet. The route configuration includes the implemented product areas, a Work index that links to professional Case Studies and independent Experiments, and a catch-all not-found page. Experiments is the route's user-facing name and route-constant key; it retains the existing `/projects` URL. The sitemap lists `/work`, `/case-studies`, and `/projects` as active evidence destinations.
+The root route renders the shared application shell and nested page routes through an outlet. The route configuration includes the implemented product areas, a Work index that links to professional Case Studies and independent Experiments, and a catch-all not-found page. Experiments is the route's user-facing name and route-constant key; it retains the existing `/projects` URL. `/case-studies` is a card-grid index; each card links to a `/case-studies/<slug>` page built on the shared `ProjectPageLayout` component, which renders a case study's sections with a scroll-spy section nav and a "Continue exploring" link to relevant experience and the next case study in the area. Unknown slugs render the existing not-found page rather than a route-level error boundary. Experiments (`/projects`) has not yet adopted this per-project page pattern; it remains a single page listing every project in full. The sitemap lists `/work`, `/case-studies` and its project-page URLs, and `/projects` as active evidence destinations.
 
 The shared shell provides a home-linked identity, direct routes to Experience, Work, and Resume, and a distinct Contact link. Experiments and Case Studies remain independently addressable but are not primary navigation destinations; Work is the chooser for both, and Home's “Beyond the work” section links to Experiments. Home owns the professional summary and focus-area content. There is no separate Engineering area; engineering judgement is communicated through experience, experiments, case studies, and the implementation itself. Use semantic links and document structure so navigation remains understandable and keyboard accessible. Prefer content that does not require unnecessary interaction to discover. Client-side routing is the current delivery architecture; progressive enhancement beyond semantic browser foundations remains subject to demonstrated product need and the review triggers in `docs/DECISIONS.md`.
 
