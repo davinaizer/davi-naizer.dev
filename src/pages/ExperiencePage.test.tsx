@@ -77,6 +77,29 @@ describe("ExperiencePage", () => {
 		}
 	});
 
+	it("lists one section-nav link per entry, in timeline order", () => {
+		renderExperiencePage();
+
+		const links = within(
+			screen.getByRole("navigation", { name: "On this page" }),
+		).getAllByRole("link");
+
+		expect(links.map((link) => link.getAttribute("href"))).toEqual(
+			professionalContent.experience.map(({ slug }) => `#${slug}`),
+		);
+		expect(links[0]).toHaveTextContent(
+			"Independent Product Project · 2025–Present",
+		);
+		expect(
+			within(
+				screen.getByRole("navigation", { name: "On this page" }),
+			).getByRole("link", { name: "The Signal Group · 2023–2024" }),
+		).toHaveAttribute(
+			"href",
+			"#signal-group-senior-frontend-software-engineer-2023-2024",
+		);
+	});
+
 	it("omits empty optional detail sections", () => {
 		renderExperiencePage();
 

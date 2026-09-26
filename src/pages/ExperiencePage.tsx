@@ -1,7 +1,21 @@
 import { routes } from "../app/routes.ts";
 import ContextualContinuation from "../components/ContextualContinuation.tsx";
+import SectionNav from "../components/SectionNav.tsx";
 import { professionalContent } from "../content/professional-content.ts";
 import type { ExperienceEntry } from "../types/professional.ts";
+
+function navLabel(entry: ExperienceEntry): string {
+	const startYear = entry.startDate.slice(-4);
+	const endYear = entry.endDate?.slice(-4) ?? "Present";
+	const years = startYear === endYear ? startYear : `${startYear}–${endYear}`;
+
+	return `${entry.company} · ${years}`;
+}
+
+const navItems = professionalContent.experience.map((entry) => ({
+	id: entry.slug,
+	label: navLabel(entry),
+}));
 
 function ExperienceTimeline({
 	entries,
@@ -33,6 +47,17 @@ function ExperienceTimeline({
 								</p>
 							</header>
 
+							{entry.technologies?.length ? (
+								<section className="experience__detail">
+									<h3>Technologies</h3>
+									<ul className="experience__technologies">
+										{entry.technologies.map((technology) => (
+											<li key={technology}>{technology}</li>
+										))}
+									</ul>
+								</section>
+							) : null}
+
 							{roleSummary ? (
 								<p className="experience__summary">{roleSummary}</p>
 							) : null}
@@ -43,17 +68,6 @@ function ExperienceTimeline({
 									<ul className="experience__contributions">
 										{entry.contributions.map((contribution) => (
 											<li key={contribution}>{contribution}</li>
-										))}
-									</ul>
-								</section>
-							) : null}
-
-							{entry.technologies?.length ? (
-								<section className="experience__detail experience__technology-group">
-									<h3>Technologies</h3>
-									<ul className="experience__technologies">
-										{entry.technologies.map((technology) => (
-											<li key={technology}>{technology}</li>
 										))}
 									</ul>
 								</section>
@@ -79,7 +93,12 @@ function ExperiencePage() {
 				</p>
 			</header>
 
-			<ExperienceTimeline entries={experience} />
+			<div className="section-layout experience__layout">
+				<SectionNav idPrefix="experience" items={navItems} />
+				<div className="section-layout__content">
+					<ExperienceTimeline entries={experience} />
+				</div>
+			</div>
 
 			{/*<section
 				aria-labelledby="experience-earlier-career-heading"

@@ -81,7 +81,7 @@
 	padding: var(--space-tag-block) var(--space-1);
 }
 
-.project-page__layout {
+.section-layout {
 	display: grid;
 	column-gap: var(--space-8);
 	grid-template-columns: minmax(0, 3fr) minmax(14rem, 1fr);
@@ -89,14 +89,14 @@
 	margin-block-start: var(--space-4);
 }
 
-.project-page__nav {
+.section-nav {
 	grid-column: 2;
 	grid-row: 1;
 	position: sticky;
 	inset-block-start: var(--space-4);
 }
 
-.project-page__nav-label {
+.section-nav__label {
 	color: var(--color-text-secondary);
 	font-family: var(--font-family-mono);
 	font-size: var(--font-size-label);
@@ -107,14 +107,14 @@
 	text-transform: uppercase;
 }
 
-.project-page__nav ul {
+.section-nav ul {
 	display: flex;
 	flex-direction: column;
 	list-style: none;
 	padding-inline-start: 0;
 }
 
-.project-page__nav-link {
+.section-nav__link {
 	display: block;
 	border-inline-start: var(--border-width-accent) solid
 		var(--color-border-subtle);
@@ -126,18 +126,18 @@
 	text-decoration: none;
 }
 
-.project-page__nav-link:hover,
-.project-page__nav-link:focus-visible {
+.section-nav__link:hover,
+.section-nav__link:focus-visible {
 	color: var(--color-accent-soft);
 }
 
-.project-page__nav-link[aria-current="true"] {
+.section-nav__link[aria-current="true"] {
 	border-inline-start-color: var(--color-accent);
 	color: var(--color-accent-soft);
 	font-weight: var(--font-weight-medium);
 }
 
-.project-page__content {
+.section-layout__content {
 	grid-column: 1;
 	grid-row: 1;
 	min-inline-size: 0;
@@ -354,30 +354,30 @@
 }
 
 @media (max-width: 56rem) {
-	.project-page__layout {
+	.section-layout {
 		grid-template-columns: minmax(0, 1fr);
 	}
 
-	.project-page__nav {
+	.section-nav {
 		grid-column: 1;
 		grid-row: 1;
 		margin-block-end: var(--space-4);
 		position: static;
 	}
 
-	.project-page__nav ul {
+	.section-nav ul {
 		flex-direction: row;
 		flex-wrap: wrap;
 		gap: var(--space-1) var(--space-2);
 	}
 
-	.project-page__nav-link {
+	.section-nav__link {
 		border-inline-start: 0;
 		padding-block: 0;
 		padding-inline-start: 0;
 	}
 
-	.project-page__content {
+	.section-layout__content {
 		grid-column: 1;
 		grid-row: 2;
 	}

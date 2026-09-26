@@ -198,6 +198,54 @@ test("continues to the next case study and back to the index from a project page
 	).toBeInViewport();
 });
 
+test("navigates Experience by role with a sticky rail on desktop and an inline nav on mobile", async ({
+	page,
+}) => {
+	await page.setViewportSize({ width: 1024, height: 900 });
+	await page.goto("/experience");
+
+	const nav = page.getByRole("navigation", { name: "On this page" });
+	const link = nav.getByRole("link", { name: "The Signal Group · 2023–2024" });
+	const navBox = await nav.boundingBox();
+	const timelineBox = await page.locator(".experience__timeline").boundingBox();
+	if (!navBox || !timelineBox) {
+		throw new Error("Expected Experience layout boxes to be measurable.");
+	}
+	expect(navBox.x).toBeGreaterThan(timelineBox.x);
+
+	await link.click();
+	await expect(page).toHaveURL(
+		/#signal-group-senior-frontend-software-engineer-2023-2024$/,
+	);
+	await expect(
+		page.getByRole("heading", {
+			level: 2,
+			name: "Senior Frontend Software Engineer",
+		}),
+	).toBeInViewport();
+	await expect(link).toHaveAttribute("aria-current", "true");
+
+	await page.setViewportSize({ width: 320, height: 900 });
+	await page.goto("/experience");
+	const mobileNavBox = await nav.boundingBox();
+	const mobileTimelineBox = await page
+		.locator(".experience__timeline")
+		.boundingBox();
+	if (!mobileNavBox || !mobileTimelineBox) {
+		throw new Error(
+			"Expected mobile Experience layout boxes to be measurable.",
+		);
+	}
+	expect(mobileNavBox.y).toBeLessThan(mobileTimelineBox.y);
+	expect(
+		await page.evaluate(
+			() =>
+				document.documentElement.scrollWidth >
+				document.documentElement.clientWidth,
+		),
+	).toBe(false);
+});
+
 test("resets the section-nav active state when moving to the next case study", async ({
 	page,
 }) => {

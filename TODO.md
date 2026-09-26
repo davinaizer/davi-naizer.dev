@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.54
+version: 1.55
 status: active
 ---
 
@@ -443,19 +443,15 @@ Delivered and reviewed with `PASS`. The approved scope, the `aria-labelledby` na
 - [x] Keep Role and Constraints as named sections, the hero rule, the `56rem` breakpoint, and the existing lightbox behaviour.
 - [x] Verify at desktop and 320 px widths against the prototype screenshots; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
 
-#### F. Experience page section navigation
+#### F. Experience page section navigation — Complete
 
-Developer-directed. Reuses the project-page section navigation so the Experience page gets the same way of moving between entries.
+Delivered and reviewed with `PASS`. The approved scope, the link-label decision (`Company · years`), and the deferral of the stale-highlight fix are recorded in `docs/plans/2026-09-27-experience-section-nav.md`.
 
-- **Problem:** Experience is a long single page of role entries with no in-page navigation; reaching a specific role means scrolling.
-- **Evidence:** developer request; each entry already has a stable `id` (its slug) used by case-study links, so anchors exist but nothing lists them.
-- **Objective:** supports job applications (4.1) by letting recruiters jump straight to a role.
-- **Why now:** the section nav and scroll-spy exist and are being finalised in task E, so reuse is cheap; do this after E so the nav style is settled.
-
-- [ ] Extract the section nav and its scroll-spy from `ProjectPageLayout` into a shared component used by both the project pages and Experience, with no change to project-page behaviour.
-- [ ] Add the nav to Experience: sticky right rail above `56rem`, inline and wrapping below it, one link per role entry pointing at the existing entry `id`, active entry highlighted on scroll.
-- [ ] Resolve in planning: the link label for each entry (for example company and years, rather than the full role title).
-- [ ] Anchor links keep working without JavaScript and from existing case-study links; add focused coverage; verify at desktop and 320 px; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Extract the section nav and its scroll-spy from `ProjectPageLayout` into a shared `SectionNav` component used by both the project pages and Experience, with no change to project-page behaviour.
+- [x] Add the nav to Experience: sticky right rail above `56rem`, inline and wrapping below it, one link per role entry pointing at the existing entry `id`, active entry highlighted on scroll.
+- [x] Resolve in planning: the link label for each entry (`Company · years`, for example `The Signal Group · 2023–2024`).
+- [x] Anchor links keep working without JavaScript and from existing case-study links; add focused coverage; verify at desktop and 320 px; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
+- [x] Developer-directed amendment: move each entry's Technologies list above its summary and make entries single-column for more horizontal space.
 
 ---
 
