@@ -23,7 +23,10 @@ function PrimaryNavigation() {
 					</ul>
 				</nav>
 
-				<Link className="site-header__contact" to={routes.contact}>
+				<Link
+					className="site-header__contact button--ghost"
+					to={routes.contact}
+				>
 					Contact
 				</Link>
 			</div>

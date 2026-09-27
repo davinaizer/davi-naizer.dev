@@ -510,6 +510,15 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Re-confirm `--color-border-strong` is still used (dialog and lightbox borders, `ContactPage.css`); no code change needed (T11).
 - [x] Verify computed styles (exact line-height ratios) and tag-pill rendering across Home, Work, Experience, and a project page; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
 
+### Batch 2: button consolidation (audit finding T8) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T8). The developer resolved T8's one material decision (a single primary-button hover) after reviewing the three existing hover treatments. T10 and T12 remain unbuilt future candidates; a follow-up live audit also queued T13 (Text/Link and Secondary button consolidation) into the same Batch 2 remainder.
+
+- [x] Add shared `.button--ghost` and `.button--primary` classes to `patterns.css`; skip a separate `.button` base class since ghost and primary share no properties beyond border width/style.
+- [x] Apply `.button--ghost` to the header Contact link (`PrimaryNavigation.tsx`, `shell.css`) and the résumé download link (`ResumePage.tsx`, `ResumePage.css`), removing the duplicated block.
+- [x] Apply `.button--primary` to Home's "Explore experience" button (`HomePage.tsx`, `HomePage.css`) and the analytics dialog's "Save preferences" button (`AnalyticsSettings.tsx`), unifying their hover to the developer's chosen "unfill" treatment (solid accent fades to transparent, text becomes accent-soft, border stays accent).
+- [x] Verify zero visual change on the header Contact and résumé buttons, zero visual change on Home's primary button (including a cascade-layer fix so all four border edges stay consistent), and the intended hover-only change on the analytics dialog's primary button; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
 ---
 
 ## Post-MVP Publication Follow-up

@@ -11,22 +11,3 @@
 .resume__action {
 	margin-block-start: var(--space-3);
 }
-
-.resume__action a {
-	display: inline-block;
-	border: var(--border-width-default) solid var(--color-accent-border);
-	background-color: var(--color-accent-subtle);
-	color: var(--color-accent-soft);
-	font-family: var(--font-family-sans);
-	font-size: var(--font-size-caption);
-	font-weight: var(--font-weight-medium);
-	line-height: var(--line-height-label);
-	padding: var(--space-1) var(--space-2);
-	text-decoration: none;
-}
-
-.resume__action a:hover {
-	border-color: var(--color-accent);
-	background-color: var(--color-accent);
-	color: var(--color-background);
-}

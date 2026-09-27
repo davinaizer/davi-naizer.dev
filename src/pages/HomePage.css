@@ -57,15 +57,8 @@
 }
 
 .home__action-primary a {
-	border: var(--border-width-default) solid var(--color-accent);
-	background: var(--color-accent);
-	color: var(--color-background);
+	border-block-end-color: var(--color-accent);
 	padding-inline: var(--space-2);
-}
-
-.home__action-primary a:hover {
-	background: transparent;
-	color: var(--color-accent-soft);
 }
 
 .home__highlight,

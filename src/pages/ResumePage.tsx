@@ -33,7 +33,7 @@ function ResumePage() {
 			) : null}
 
 			<p className="resume__action">
-				<a href={resume.url} download>
+				<a className="button--ghost" href={resume.url} download>
 					{resume.label}
 				</a>
 			</p>

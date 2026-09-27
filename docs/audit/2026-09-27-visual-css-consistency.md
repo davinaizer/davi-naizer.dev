@@ -27,7 +27,7 @@ The audit checklist is the "AI-generated design tells" list from the `frontend-d
 | Text contrast pairs failing WCAG AA | 0 |
 | Colours outside the token set | 2 (backdrop overlays) |
 | Border radius / shadows | 0 everywhere, except one glow ring |
-| Defects (D) | 23 (G1 counted once, as D/J) |
+| Defects (D) | 24 (G1 counted once, as D/J; T13 added 2026-09-27 from the follow-up buttons/links audit) |
 | Judgment calls (J) | 16 (G6 and G7 confirmed intentional by X4, no action) |
 | Defects fixed since audit | G5 (gradient removed); H5 pending |
 
@@ -90,6 +90,7 @@ Pure refactors that keep the token system honest. Ship as one small change with 
 | **T10** | Off-scale one-offs: `0.35rem`, `0.45rem`, `0.3rem`, `0.15rem`, `4.75rem`, `2rem` column, and six different max-widths (48–70rem). | Various | J | 2 | S | Low | Confirm each is deliberate. Add a comment or token where it is (for example `--space-tag-block` already exists). Consolidate the six max-widths into two or three measures. |
 | **T11** | ~~`--color-border-strong` is defined but unused on the main pages.~~ **Confirmed 2026-09-27: no action needed.** | `tokens.css` | J | 1 | XS | Done | Re-verified: still used in 5 places (dialog and lightbox borders in `patterns.css`, `ContactPage.css`). |
 | **T12** | The `oklch()` tokens are correct, but there is no fallback for older browsers. | `tokens.css` | J | 1 | S | Low | Confirm target browsers before adding fallbacks. |
+| **T13** | Follow-up live audit (`docs/audit/buttons-links-audit/`, 2026-09-27) found more interactive-element duplication beyond T8's primary/ghost buttons: three near-identical underlined text CTAs with no shared class (Home's "Download Resume", `.site-footer__text-link`, `.contextual-continuation__link`), and one bordered "secondary" button that exists only inline in one component (`.analytics-settings__button`'s "Close", no reusable class). `.site-footer__links a` (footer social icons) already matches `.button--ghost`'s hover recipe exactly but isn't wired to it. | `HomePage.css`, `shell.css`, `patterns.css`, `AnalyticsSettings.tsx` | D | 2 | S–M | Medium | Extract a shared `.button--secondary` class from `.analytics-settings__button`; unify the three Text/Link CTAs into one shared class; apply `.button--ghost` to `.site-footer__links a`. Keep `.primary-navigation a`, `.section-nav__link`, and `.project-page__back` separate from this consolidation — they carry active/current-state navigation semantics a generic Text/Link class would flatten. |
 
 ### Batch 3: Spacing normalisation (small visual change)
 

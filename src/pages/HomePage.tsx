@@ -20,7 +20,9 @@ function HomePage() {
 				>
 					<ul>
 						<li className="home__action-primary">
-							<Link to={routes.experience}>Explore experience</Link>
+							<Link className="button--primary" to={routes.experience}>
+								Explore experience
+							</Link>
 						</li>
 						<li>
 							<a download href={resume.url}>
