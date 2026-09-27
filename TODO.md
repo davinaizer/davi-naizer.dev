@@ -528,6 +528,14 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Accept the three resulting width changes: `.home__highlight` narrows 52→48rem (merged into the shared `.home__highlight, .home__about` selector alongside `.home__about`, which was already 48rem), the lightbox widens 60→62rem, and `.experience__entry` widens 68→70rem.
 - [x] Verify computed styles and visuals across Home, Experience, and the lightbox at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
+### Batch 2: target-browser policy and oklch() fallback close-out (audit finding T12) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T12). The developer's one decision — target modern evergreen browsers only, no `oklch()` fallback — is recorded in `docs/DECISIONS.md`. Documentation-only; no source code changed. T13 remains the last unbuilt Batch 2 candidate.
+
+- [x] Record the target-browser decision in `docs/DECISIONS.md`: evergreen browsers only (Safari 15.4+, Chrome/Edge 111+, Firefox 113+), no RGB/hex fallback for the `oklch()`-based color tokens in `tokens.css`.
+- [x] Mark T12 resolved in the audit doc, cross-referencing the decision.
+- [x] Confirm the repository still builds with `pnpm build` (sanity check; no source files changed).
+
 ---
 
 ## Post-MVP Publication Follow-up

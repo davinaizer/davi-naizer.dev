@@ -1,12 +1,22 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.31
+version: 1.32
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Target modern evergreen browsers only; no CSS fallback for `oklch()` — 2026-09-27
+
+**Decision:** The site targets modern evergreen browsers only — Safari 15.4+, Chrome/Edge 111+, Firefox 113+ — and does not add an RGB/hex fallback for the `oklch()`-based color tokens in `tokens.css` (`--color-accent` and its variants). No `browserslist` config or `@supports` fallback query is introduced.
+
+**Rationale:** `oklch()` has shipped in every major evergreen browser since roughly 2023, which comfortably covers the realistic audience for a personal professional-evidence site read by recruiters, hiring managers, and engineers on current tooling. Maintaining a parallel set of hex fallback values for every `oklch()` token would add ongoing upkeep (keeping two colour representations in sync) for a gap with no demonstrated visitor impact. This resolves audit finding T12 (`docs/audit/2026-09-27-visual-css-consistency.md`), which flagged the missing fallback as a low-ROI judgment call pending exactly this policy decision.
+
+**Consequence:** No code change. The existing `oklch()` tokens in `tokens.css` stand as the sole colour representation.
+
+**Review triggers:** Reconsider if analytics or direct evidence shows meaningful traffic from a pre-2023 browser, or if a future CSS feature under consideration has a similarly-scoped support gap that a blanket "evergreen only" policy doesn't cleanly resolve.
 
 ## Reserve all-caps mono for supplementary labels; move navigation, buttons and section headings to sentence-case Inter — 2026-09-27
 
