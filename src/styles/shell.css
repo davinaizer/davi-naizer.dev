@@ -19,12 +19,10 @@
 
 .primary-navigation a,
 .site-header__contact {
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
 	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
 	line-height: var(--line-height-label);
-	text-transform: uppercase;
 }
 
 .site-header__identity {

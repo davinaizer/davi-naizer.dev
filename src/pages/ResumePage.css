@@ -15,14 +15,12 @@
 	border: var(--border-width-default) solid var(--color-accent-border);
 	background-color: var(--color-accent-subtle);
 	color: var(--color-accent-soft);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
 	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
 	line-height: var(--line-height-label);
 	padding: var(--space-1) var(--space-2);
 	text-decoration: none;
-	text-transform: uppercase;
 }
 
 .resume__action a:hover {

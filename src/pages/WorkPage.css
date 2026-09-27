@@ -2,16 +2,6 @@
 	margin-block-start: var(--space-8);
 }
 
-.work__section-title {
-	color: var(--color-text-secondary);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
-	line-height: var(--line-height-label);
-	text-transform: uppercase;
-}
-
 .work__section-intro {
 	color: var(--color-text-secondary);
 	margin-block-start: var(--space-1);

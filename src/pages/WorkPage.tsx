@@ -55,7 +55,7 @@ function WorkPage() {
 				className="work__section"
 				id={workSectionIds.caseStudies}
 			>
-				<h2 className="work__section-title" id="case-studies-heading">
+				<h2 className="section-label-heading" id="case-studies-heading">
 					Case studies
 				</h2>
 				<p className="work__section-intro">
@@ -81,7 +81,7 @@ function WorkPage() {
 				className="work__section"
 				id={workSectionIds.experiments}
 			>
-				<h2 className="work__section-title" id="experiments-heading">
+				<h2 className="section-label-heading" id="experiments-heading">
 					Experiments
 				</h2>
 				<p className="work__section-intro">

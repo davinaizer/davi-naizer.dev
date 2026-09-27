@@ -13,9 +13,6 @@
 	--color-accent-subtle: oklch(74% 0.16 275 / 0.1);
 	--color-accent-border: oklch(74% 0.16 275 / 0.42);
 
-	--gradient-accent-start: oklch(40% 0.13 275 / 0.36) 0%;
-	--gradient-accent-middle: oklch(30% 0.08 275 / 0.25) 38%;
-
 	--color-link: var(--color-accent-soft);
 	--color-focus: var(--color-accent);
 

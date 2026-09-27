@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.55
+version: 1.56
 status: active
 ---
 
@@ -452,6 +452,26 @@ Delivered and reviewed with `PASS`. The approved scope, the link-label decision 
 - [x] Resolve in planning: the link label for each entry (`Company · years`, for example `The Signal Group · 2023–2024`).
 - [x] Anchor links keep working without JavaScript and from existing case-study links; add focused coverage; verify at desktop and 320 px; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
 - [x] Developer-directed amendment: move each entry's Technologies list above its summary and make entries single-column for more horizontal space.
+
+### Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation
+
+Developer-directed. Findings, ranked ROI, and fix batches are recorded in `docs/audit/2026-09-27-visual-css-consistency.md`. The Batch 0 decisions (X1–X6) and the gradient-removal reversal are recorded in `docs/DECISIONS.md`. Options for adding visual "life" without a gradient are captured, unbuilt, in `docs/design/2026-09-27-adding-life-without-gradient.md` for a future task.
+
+- [x] Run a Phase 1 visual/CSS consistency audit across the full site (type scale, colour tokens, spacing, component consistency, generic-pattern check, Google Fonts load).
+- [x] Decide the audit's Batch 0 questions: keep all three type families (X1); show an eyebrow only where it adds information (X2); `h2` is the 24px serif title (X3); confirm square corners and the work-card text plate as intentional, and reconcile the gradient and label-casing findings against the repo's own design docs (X4); reconcile `docs/design/DESIGN.md` with the shipped site (X5); reserve all-caps mono for supplementary labels only (X6).
+- [x] Remove the fixed background gradient wash (`--gradient-accent-start`/`--gradient-accent-middle`, and the `body` `background-image`) so the canvas matches `docs/DESIGN_PRINCIPLES.md`'s existing "no gradients" rule.
+- [x] Update `docs/design/DESIGN.md` to describe the shipped visual system (Newsreader/Inter/IBM Plex Mono roles, the OKLCH accent, no gradients, the mono-label split) instead of its original, superseded reference values.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Heading semantics and label casing (audit findings H1 and G3) — Complete
+
+Delivered and reviewed with `PASS`. Findings, decisions, and rationale are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (H1, G3) and `docs/DECISIONS.md` ("Reserve all-caps mono for supplementary labels…").
+
+- [x] Resolve `h2`'s two visual roles: keep the heading level unchanged everywhere (still `h2`, correct outline, consistent with the deferred `h3` sub-level in finding H4); give the small-label role a shared `.section-label-heading` class instead of an ancestor selector or a page-local class name.
+- [x] Apply `.section-label-heading` to project-page section headings (`ProjectPageLayout.tsx`), the "Continue exploring" heading (`CaseStudyPage.tsx`, `ExperimentPage.tsx`), and the Work index's section headings (`WorkPage.tsx`, replacing `.work__section-title`).
+- [x] Move all-caps tracked mono off essential UI text onto Inter, sentence case: primary navigation and the header Contact button (`shell.css`), home hero actions and inline links (`HomePage.css`), the résumé download button (`ResumePage.css`), the project-page back link and continuation links (`patterns.css`). Mono-caps stays only for eyebrows, the chronology line, tags, card area labels, and résumé metadata.
+- [x] Verify at desktop and the `56rem`/`40rem` breakpoints on Home, Work, a project page, Experience, and Résumé; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build` (no test needed updating: none asserted the old class names, mono styling, or heading levels).
+- [x] `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern but was out of scope; left mono-caps, tracked as a future candidate.
 
 ---
 

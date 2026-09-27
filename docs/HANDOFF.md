@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-27
-version: 1.69
+version: 1.70
 status: active
 ---
 
@@ -9,11 +9,11 @@ status: active
 
 ## Completed outcome
 
-The Experience page section navigation task is complete and received a same-scope `PASS`: `/experience` now has an "On this page" nav (sticky right rail above `56rem`, inline and wrapping below) with one link per role, labelled `Company · years`, targeting the existing entry ids. The nav and its scroll-spy were extracted into a shared `SectionNav` component that project pages also use, with no change to their behaviour. As a developer-directed amendment, each Experience entry now shows Technologies above its summary in a single-column layout.
+The 2026-09-27 CSS consistency audit's Batch 0 decisions (X1–X6) and its H1/G3 findings are complete. `h2` no longer means two things: the heading level is unchanged everywhere, and the small-label role (project-page section headings, "Continue exploring", the Work index's section headings) now uses a shared `.section-label-heading` class. All-caps tracked mono is reserved for supplementary metadata (eyebrows, chronology, tags, card labels, résumé metadata); navigation, buttons, the back link, continuation links, and section headings render in Inter, sentence case. The heading/label task received a same-scope `PASS`. Separately, developer-directed and validated but not run through the formal review stage: the fixed background gradient wash was removed to match `docs/DESIGN_PRINCIPLES.md`'s "no gradients" rule, and `docs/design/DESIGN.md` was rewritten to describe the shipped visual system instead of its original, superseded reference values.
 
 ## Next task candidate
 
-None. `TODO.md` has no incomplete task; the Option A sequence (D, E, F) is complete.
+None. `TODO.md` has no incomplete task.
 
 ## Roadmap position
 
@@ -22,11 +22,11 @@ None. `TODO.md` has no incomplete task; the Option A sequence (D, E, F) is compl
 
 ## Evidence pointers
 
-- `docs/plans/2026-09-27-experience-section-nav.md` (approved plan)
-- `src/components/SectionNav.tsx`, `src/components/ProjectPageLayout.tsx`, `src/pages/ExperiencePage.tsx`
-- `src/styles/patterns.css` (`.section-layout*`, `.section-nav*`), `src/pages/ExperiencePage.css`
-- `TODO.md` ("F. Experience page section navigation — Complete")
-- `docs/DECISIONS.md` (“Adopt the flattened Work index (Option A)…” — 2026-09-26)
+- `docs/audit/2026-09-27-visual-css-consistency.md` (full findings, ROI, and fix-batch order; H1 and G3 marked resolved)
+- `docs/DECISIONS.md` ("Reserve all-caps mono for supplementary labels…", "Remove the background gradient wash…", "Record the shipped visual system…" — all 2026-09-27)
+- `docs/design/DESIGN.md` (rewritten to match the shipped site)
+- `src/styles/patterns.css` (`.section-label-heading`), `src/components/ProjectPageLayout.tsx`, `src/pages/WorkPage.tsx`, `src/pages/CaseStudyPage.tsx`, `src/pages/ExperimentPage.tsx`
+- `TODO.md` ("Heading semantics and label casing (audit findings H1 and G3) — Complete"; "Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation")
 
 ## Blockers
 
@@ -34,7 +34,11 @@ None.
 
 ## Constraints and deferred work
 
-- Section-nav highlight can go stale (deliberately deferred in Task F): the scroll-spy in `SectionNav.tsx` only updates when a section crosses its 20–30% viewport band, so scrolling back to the top of a page leaves the last-read section highlighted, and jumping to a short late section (for example Reflection) can highlight the next one. Affects project pages and Experience; non-blocking.
+- The audit's remaining batches (spacing normalisation, token hygiene, other heading findings H2–H4, remaining generic-pattern items) are unbuilt. `docs/audit/2026-09-27-visual-css-consistency.md` has the full list, ranked, in fix-batch order.
+- `docs/design/2026-09-27-adding-life-without-gradient.md` has unbuilt options for adding visual "life" now that the gradient is gone (tonal surfaces, editorial typographic craft, one kinetic moment, larger real evidence imagery, Swiss print marks, grain — in that recommended order). Revisit when picked back up.
+- `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern as the rest of the G3 fix but was out of that task's approved scope; still mono-caps.
+- `docs/DECISIONS.md`'s "Remove the background gradient wash…" entry has a pre-existing wrong file reference (`docs/design/2026-09-27-visual-css-consistency.md`, should be `docs/audit/...`); cosmetic, noted during review, not yet fixed.
+- Section-nav highlight can go stale (deliberately deferred in an earlier task): the scroll-spy in `SectionNav.tsx` only updates when a section crosses its 20–30% viewport band. Affects project pages and Experience; non-blocking.
 - Two Experience nav labels wrap in the desktop rail ("Independent Product Project · 2025–Present", "Gamesys / Bally's Interactive · 2020–2022"); readable, revisit only if tighter labels are wanted.
 - No redirects: restore them only if evidence shows traffic arriving at the retired `/case-studies` or `/projects` URLs (review trigger in `docs/DECISIONS.md`).
 - Task D review improvements, non-blocking: `CaseStudyPage` and `ExperimentPage` keep an unreachable not-found fallback now that `WorkProjectPage` resolves slugs; the Work card e2e test does not assert the `::after` focus ring; the "does not duplicate list separators" e2e test loops over a single path.

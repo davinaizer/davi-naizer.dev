@@ -44,13 +44,11 @@
 .home__actions a {
 	display: inline-block;
 	border-block-end: var(--border-width-default) solid var(--color-accent-border);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
 	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
 	padding: var(--space-1) 0;
 	text-decoration: none;
-	text-transform: uppercase;
 }
 
 .home__actions a:hover {
@@ -119,11 +117,9 @@
 
 .home a {
 	display: inline-block;
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	letter-spacing: var(--letter-spacing-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
 	margin-block-start: var(--space-3);
-	text-transform: uppercase;
 }
 
 @media (max-width: 40rem) {

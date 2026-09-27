@@ -127,7 +127,10 @@ function ExperimentPage() {
 			}}
 			continuation={
 				<nav aria-label="Continue exploring" className="project-page__continue">
-					<h2 id={`${project.slug}-continue-exploring-heading`}>
+					<h2
+						className="section-label-heading"
+						id={`${project.slug}-continue-exploring-heading`}
+					>
 						Continue exploring
 					</h2>
 					<ul className="project-page__continue-links">

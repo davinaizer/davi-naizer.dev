@@ -1,12 +1,50 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-26
-version: 1.27
+updatedAt: 2026-09-27
+version: 1.31
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Reserve all-caps mono for supplementary labels; move navigation, buttons and section headings to sentence-case Inter — 2026-09-27
+
+**Decision:** IBM Plex Mono, uppercase and tracked, is used only for supplementary metadata: eyebrows, the chronology line, tags, and card area labels. Primary navigation, buttons, the project-page back link, continuation links, and project-page section headings (Context, Problem, Role…) are essential UI text and move to Inter, sentence case. `docs/design/DESIGN.md`'s Mono Labels rule is updated to state this split.
+
+**Rationale:** `DESIGN.md:98`'s existing rule already said mono labels must stay supplementary and essential information must not depend on them. The CSS audit (`docs/audit/2026-09-27-visual-css-consistency.md`, finding G3) found navigation, buttons and section headings in mono-caps regardless, which is essential information depending on the supplementary style, and a concrete instance where a project-page section heading and its own entry in the section-nav sidebar disagreed on casing for the identical word. Moving the essential-text uses to Inter also softens the all-caps template tell the audit's generic-pattern check flagged (finding G3, cross-referenced under the "AI-generated design tells" checklist).
+
+**Consequence:** `docs/design/DESIGN.md`'s Mono Labels rule reflects the split. Built 2026-09-27 alongside H1: project-page section headings (and the Work index's) got a shared `.section-label-heading` class, kept at `h2` with no heading-level change, so the sentence-case restyle could land on real markup. Navigation, the header Contact button, home hero actions and inline links, the résumé download button, the project-page back link, and continuation links all render in Inter, sentence case; mono-caps remains only for eyebrows, the chronology line, tags, card area labels, and résumé metadata. Touched `shell.css`, `patterns.css`, `HomePage.css`, `ResumePage.css`, `WorkPage.css`/`.tsx`, `ProjectPageLayout.tsx`, `CaseStudyPage.tsx`, and `ExperimentPage.tsx`; no test changed, since none asserted the old class names, mono styling, or heading levels. `NotFoundPage.css`'s `.not-found__action a` is the same pattern but was out of the approved scope and remains mono-caps; tracked as a future candidate in `docs/audit/2026-09-27-visual-css-consistency.md`.
+
+**Review triggers:** Reconsider if sentence-case navigation and buttons read as less distinctive than the mono treatment, now that it's built and screenshotted across Home, Work, a project page, Experience, and Résumé at desktop and the `56rem`/`40rem` breakpoints.
+
+## Remove the background gradient wash; hold DESIGN.md to DESIGN_PRINCIPLES.md's "no gradients" rule — 2026-09-27
+
+**Decision:** Remove the fixed radial accent gradient from the page background. The canvas is a flat `#131313` fill with no gradient anywhere, on the background or on any component. Remove `--gradient-accent-start` and `--gradient-accent-middle` from `src/styles/tokens.css` and the `background-image` rule on `body` in `src/styles/global.css`. Update `docs/design/DESIGN.md`'s Colors and Brand & Style sections to state "no gradients" plainly, matching `docs/DESIGN_PRINCIPLES.md`'s existing "decorative gradients" prohibition.
+
+**Rationale:** The gradient was recorded as a deliberate choice earlier the same day (see the superseded decision below), on the reasoning that the page felt empty without it. On reflection, the developer chose to resolve that tension by removing the gradient rather than carving an exception into `DESIGN_PRINCIPLES.md`, so the two documents stay in agreement instead of one excepting the other. The "life" the page needs is tracked separately as options that don't rely on a gradient, in `docs/design/2026-09-27-adding-life-without-gradient.md`, and remains unbuilt.
+
+**Consequence:** `docs/design/2026-09-27-visual-css-consistency.md` audit finding G5 is resolved by removal, not by exception. `DESIGN_PRINCIPLES.md` needs no change; its prohibition already covered this. The three type families, the OKLCH accent, and the other contents of the superseded decision below are unaffected and still stand.
+
+**Review triggers:** Reconsider if the page reads as empty once the options in `docs/design/2026-09-27-adding-life-without-gradient.md` are evaluated and none of them address it.
+
+**Supersedes:** The background-wash portion of "Record the shipped visual system: three type families, OKLCH accent, and an accent background wash — 2026-09-27," immediately below. The type-family and colour-token portions of that decision stand.
+
+## Record the shipped visual system: three type families, OKLCH accent, and an accent background wash — 2026-09-27
+
+**Status:** The background-wash portion is superseded by "Remove the background gradient wash; hold DESIGN.md to DESIGN_PRINCIPLES.md's 'no gradients' rule — 2026-09-27," above. The three-type-family and colour-token portions still stand.
+
+**Decision:** Treat the shipped visual system as the design baseline and update `docs/design/DESIGN.md` to match it. It uses three type families with fixed roles: Newsreader for headings, the wordmark and the project summary; Inter for body and interface text; IBM Plex Mono for labels and metadata. Colour tokens use the shipped values, including the OKLCH periwinkle accent (`oklch(74% 0.16 275)`) and `#aaa4a5` secondary text. ~~A single fixed, low-intensity radial accent gradient stays on the page background as a deliberate choice, limited to the page background.~~ All three families are kept rather than dropping to two, because Newsreader is suited to headings but not to body copy.
+
+**Rationale:** The site changed after `DESIGN.md` was written (editorial serif headings in `fb347d7`, the blue accent in `d934b20`, and later the OKLCH tokens). The audit in `docs/audit/2026-09-27-visual-css-consistency.md` found the reference document contradicting the shipped site on headline face, secondary and accent colours, label size and tracking, and the gradient. Under the repository authority order the reference documents govern, so leaving them stale would have made correct code look like a defect. The developer confirmed the type-family and colour changes were deliberate.
+
+**Consequence:** `DESIGN.md` now describes Newsreader, the OKLCH accent, and the button, card and navigation treatments as shipped. This supersedes “Use reference hex values for the initial CSS token foundation — 2026-08-10”: OKLCH tokens are in use. Newsreader is not to be used for body copy. Font requests must match rendered usage (audit findings F1–F3).
+
+**Review triggers:** Reconsider if the page needs a light or alternative colour mode, or if a third family stops earning its role.
+
+**Deferred:** Label casing for navigation and buttons (audit G3) is unresolved.
+
+**Supersedes:** “Use reference hex values for the initial CSS token foundation — 2026-08-10”.
 
 ## Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26
 

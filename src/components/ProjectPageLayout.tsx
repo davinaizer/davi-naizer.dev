@@ -81,7 +81,12 @@ function ProjectPageLayout({
 							id={section.id}
 							key={section.id}
 						>
-							<h2 id={`${section.id}-heading`}>{section.heading}</h2>
+							<h2
+								className="section-label-heading"
+								id={`${section.id}-heading`}
+							>
+								{section.heading}
+							</h2>
 							{section.content}
 						</section>
 					))}

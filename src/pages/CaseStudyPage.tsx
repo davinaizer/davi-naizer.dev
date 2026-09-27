@@ -117,7 +117,10 @@ function CaseStudyPage() {
 			}}
 			continuation={
 				<nav aria-label="Continue exploring" className="project-page__continue">
-					<h2 id={`${caseStudy.slug}-continue-exploring-heading`}>
+					<h2
+						className="section-label-heading"
+						id={`${caseStudy.slug}-continue-exploring-heading`}
+					>
 						Continue exploring
 					</h2>
 					<ul className="project-page__continue-links">

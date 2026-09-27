@@ -42,13 +42,11 @@
 .project-page__back {
 	display: inline-block;
 	color: var(--color-text-secondary);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
+	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-label);
 	text-decoration: none;
-	text-transform: uppercase;
 }
 
 .project-page__back:hover,
@@ -152,18 +150,15 @@
 	max-inline-size: var(--measure-content);
 }
 
-.project-page__section h2,
-.project-page__continue h2 {
+.section-label-heading {
 	color: var(--color-text-secondary);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-body);
 	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
 	line-height: var(--line-height-label);
-	text-transform: uppercase;
 }
 
-.project-page__section h2 {
+.project-page__section .section-label-heading {
 	margin-block-end: var(--space-2);
 }
 
@@ -403,12 +398,10 @@
 
 .contextual-continuation__link {
 	display: inline-block;
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
 	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
 	line-height: var(--line-height-label);
-	text-transform: uppercase;
 }
 
 .analytics-settings__dialog {
