@@ -318,17 +318,6 @@
 	position: absolute;
 	inset-block-start: var(--space-2);
 	inset-inline-end: var(--space-2);
-	border: var(--border-width-default) solid var(--color-border-strong);
-	background: var(--color-background);
-	color: var(--color-text-primary);
-	cursor: pointer;
-	padding: var(--space-1) var(--space-2);
-}
-
-.project-page__lightbox-close:hover,
-.project-page__lightbox-close:focus-visible {
-	border-color: var(--color-accent);
-	color: var(--color-accent-soft);
 }
 
 .project-page__lightbox-inner figcaption {
@@ -402,14 +391,6 @@
 	margin-block-start: var(--space-6);
 }
 
-.contextual-continuation__link {
-	display: inline-block;
-	font-family: var(--font-family-sans);
-	font-size: var(--font-size-caption);
-	font-weight: var(--font-weight-medium);
-	line-height: var(--line-height-label);
-}
-
 .analytics-settings__dialog {
 	inline-size: min(34rem, calc(100vw - 2rem));
 	max-block-size: calc(100dvh - 2rem);
@@ -472,6 +453,11 @@
 
 .analytics-settings__button {
 	min-block-size: var(--size-footer-link);
+	cursor: pointer;
+	padding: var(--space-1) var(--space-2);
+}
+
+.button--secondary {
 	border: var(--border-width-default) solid var(--color-border-strong);
 	background: transparent;
 	color: var(--color-text-primary);
@@ -479,9 +465,18 @@
 	padding: var(--space-1) var(--space-2);
 }
 
-.analytics-settings__button:hover {
+.button--secondary:hover,
+.button--secondary:focus-visible {
 	border-color: var(--color-accent);
 	color: var(--color-accent-soft);
+}
+
+.button--text {
+	display: inline-block;
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-label);
 }
 
 .button--ghost {

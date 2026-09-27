@@ -536,6 +536,17 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Mark T12 resolved in the audit doc, cross-referencing the decision.
 - [x] Confirm the repository still builds with `pnpm build` (sanity check; no source files changed).
 
+### Batch 2: extract shared Secondary and Text/Link button classes (audit finding T13) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T13). This closes Batch 2 of the CSS audit — all 13 findings resolved. The developer resolved T13's scope decisions (exclude the footer social icons and the footer's "Privacy & analytics" link; unify the Text/Link CTA on the underline style) and, mid-implementation, redirected Home's "Download Resume" to `.button--ghost` instead of the planned `.button--text`, to match the identical action on the Résumé page.
+
+- [x] Add `.button--secondary` to `patterns.css`, extracted from the byte-identical outline treatment already shared by `.analytics-settings__button` (the dialog's "Close") and `.project-page__lightbox-close` (the gallery lightbox's close button) — a duplicate the original audit note didn't catch. Apply it to both.
+- [x] Add `.button--text` to `patterns.css` for the shared CTA typography; apply it to the Experience and Résumé continuation links (`ContextualContinuation.tsx`), replacing `.contextual-continuation__link`.
+- [x] Developer-directed amendment: apply `.button--ghost` (not `.button--text`) to Home's "Download Resume" link, matching the Résumé page's identical action; add a local override in `HomePage.css` for the cascade-layer interaction this introduced.
+- [x] Exclude `.site-footer__text-link` and `.site-footer__links a` from this consolidation (per developer decision — the audit note's claim that the footer icons already matched `.button--ghost` was incorrect); exclude `.primary-navigation a`, `.section-nav__link`, and `.project-page__back` (active/current-state navigation semantics).
+- [x] Review-flagged and fixed: the ghost button's hover border-color wasn't fully saturating on Home's download link (a cascade-layer interaction from the local override); the lightbox close button lost its pre-existing `:focus-visible` state when consolidated into the shared class. Both independently re-verified fixed via live keyboard-focus and hover checks.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
 ---
 
 ## Post-MVP Publication Follow-up

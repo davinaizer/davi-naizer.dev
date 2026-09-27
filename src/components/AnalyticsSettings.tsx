@@ -77,7 +77,7 @@ function AnalyticsSettings() {
 					) : null}
 					<div className="analytics-settings__actions">
 						<button
-							className="analytics-settings__button"
+							className="analytics-settings__button button--secondary"
 							onClick={() => dialogRef.current?.close()}
 							type="button"
 						>

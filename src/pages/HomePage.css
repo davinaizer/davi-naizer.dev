@@ -52,13 +52,18 @@
 	text-decoration: none;
 }
 
-.home__actions a:hover {
-	border-color: var(--color-accent);
-}
-
 .home__action-primary a {
 	border-block-end-color: var(--color-accent);
 	padding-inline: var(--space-2);
+}
+
+.home__actions a.button--ghost {
+	border: var(--border-width-default) solid var(--color-accent-border);
+	padding: var(--space-1) var(--space-2);
+}
+
+.home__actions a.button--ghost:hover {
+	border-color: var(--color-accent);
 }
 
 .home__highlight,

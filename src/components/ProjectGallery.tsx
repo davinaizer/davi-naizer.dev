@@ -70,7 +70,7 @@ function ProjectGallery({ intro, visuals }: ProjectGalleryProps) {
 				{activeVisual ? (
 					<div className="project-page__lightbox-inner">
 						<button
-							className="project-page__lightbox-close"
+							className="project-page__lightbox-close button--secondary"
 							onClick={() => dialogRef.current?.close()}
 							type="button"
 						>

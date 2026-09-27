@@ -25,7 +25,7 @@ function HomePage() {
 							</Link>
 						</li>
 						<li>
-							<a download href={resume.url}>
+							<a className="button--ghost" download href={resume.url}>
 								{resume.label}
 							</a>
 						</li>
