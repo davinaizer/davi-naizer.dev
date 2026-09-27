@@ -47,6 +47,7 @@
 	font-family: var(--font-family-sans);
 	font-size: var(--font-size-caption);
 	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-label);
 	padding: var(--space-1) 0;
 	text-decoration: none;
 }
@@ -106,6 +107,7 @@
 	font-size: var(--font-size-label);
 	font-weight: var(--font-weight-medium);
 	letter-spacing: var(--letter-spacing-label);
+	line-height: var(--line-height-label);
 	margin-block-start: var(--space-3);
 	text-transform: uppercase;
 }
@@ -119,6 +121,7 @@
 	display: inline-block;
 	font-family: var(--font-family-sans);
 	font-size: var(--font-size-caption);
+	line-height: var(--line-height-label);
 	margin-block-start: var(--space-3);
 }
 

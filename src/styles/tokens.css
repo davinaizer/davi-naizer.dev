@@ -8,6 +8,8 @@
 	--color-border-subtle: #4c4546;
 	--color-border-strong: #988e90;
 
+	--color-backdrop: rgb(0 0 0 / 0.8);
+
 	--color-accent: oklch(74% 0.16 275);
 	--color-accent-soft: oklch(84% 0.09 275);
 	--color-accent-subtle: oklch(74% 0.16 275 / 0.1);

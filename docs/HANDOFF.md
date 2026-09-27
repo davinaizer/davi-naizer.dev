@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-27
-version: 1.72
+version: 1.73
 status: active
 ---
 
@@ -9,11 +9,11 @@ status: active
 
 ## Completed outcome
 
-The 2026-09-27 CSS consistency audit's Batch 1 is now fully closed (F1–F4), all delivered with same-scope `PASS`. Most recently: Inter's unused 600/700 weights and Newsreader's 500 weight were dropped from the `index.html` Google Fonts request, and the header wordmark (`.site-header__identity`) moved from weight 500 to 400 (developer-amended F4: drop rather than keep). The requested font set is now exactly what the CSS uses: Inter 400/500, Newsreader 400 (roman + italic)/600, IBM Plex Mono 400/500. Verified via `document.fonts` and a browser check on Home and Résumé; no other CSS or markup changed. This follows F1/F2 (Newsreader italic, Inter 500 requests) and, before that, the audit's Batch 0 decisions (X1–X6) and H1/G3 heading/label findings.
+The 2026-09-27 CSS consistency audit's Batch 2 high-ROI token-hygiene findings (T1, T2, T4, T5, T6) are complete, delivered with same-scope `PASS`. Mono/caption labels (`.home__actions a`, `.home__role-date`, `.home a`, `.resume__metadata`) now share one line-height; `.experience__summary` uses type-scale tokens instead of a hardcoded 17px/1.55; all six 24px-serif-heading locations (Home ×2, Experience ×2, Work card, Contact) now share one letter-spacing via a new shared `h2, h3` rule in `global.css`, with `.contact__title` (a `<span>`) getting the same tracking directly and `.section-label-heading` (a differently-styled `<h2>` used in four places) explicitly excluded from it; both dialog `::backdrop` rules now use one new `--color-backdrop` token; `.resume__metadata` renders uppercase like other mono labels. No markup changed. This follows Batch 1 (F1–F4, fully closed) and, before that, the audit's Batch 0 decisions (X1–X6) and H1/G3 heading/label findings.
 
 ## Next task candidate
 
-None. `TODO.md` has no incomplete task. The audit's remaining unbuilt batches (below) are the most likely source of the next task; the developer should choose which one via `plan-next-task`.
+None. `TODO.md` has no incomplete task. The audit's remaining unbuilt findings (below) are the most likely source of the next task; the developer should choose which one via `plan-next-task`.
 
 ## Roadmap position
 
@@ -22,13 +22,15 @@ None. `TODO.md` has no incomplete task. The audit's remaining unbuilt batches (b
 
 ## Evidence pointers
 
-- `docs/audit/2026-09-27-visual-css-consistency.md` (full findings, ROI, and fix-batch order; F1–F4, H1, and G3 marked resolved)
+- `docs/audit/2026-09-27-visual-css-consistency.md` (full findings, ROI, and fix-batch order; F1–F4, T1/T2/T4/T5/T6, H1, and G3 marked resolved)
 - `docs/DECISIONS.md` ("Reserve all-caps mono for supplementary labels…", "Remove the background gradient wash…", "Record the shipped visual system…" — all 2026-09-27)
 - `docs/design/DESIGN.md` (rewritten to match the shipped site)
 - `index.html` (Google Fonts request: final Batch 1 set — Inter 400/500, Newsreader 400 roman+italic/600, IBM Plex Mono 400/500)
+- `src/styles/tokens.css` (`--color-backdrop`), `src/styles/global.css` (shared `h2, h3` letter-spacing), `src/styles/patterns.css` (`.section-label-heading`, both `::backdrop` rules)
 - `src/styles/shell.css` (`.site-header__identity` at weight 400)
-- `src/styles/patterns.css` (`.section-label-heading`), `src/components/ProjectPageLayout.tsx`, `src/pages/WorkPage.tsx`, `src/pages/CaseStudyPage.tsx`, `src/pages/ExperimentPage.tsx`
-- `TODO.md` ("Remove unused font weights (audit findings F3 and F4) — Complete"; "Font-load correctness (audit findings F1 and F2) — Complete"; "Heading semantics and label casing (audit findings H1 and G3) — Complete"; "Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation")
+- `src/pages/HomePage.css`, `src/pages/ResumePage.css`, `src/pages/ExperiencePage.css`, `src/pages/ContactPage.css` (Batch 2 fixes)
+- `src/components/ProjectPageLayout.tsx`, `src/pages/WorkPage.tsx`, `src/pages/CaseStudyPage.tsx`, `src/pages/ExperimentPage.tsx` (`.section-label-heading` usages)
+- `TODO.md` ("Batch 2 token hygiene: high-ROI quick fixes (audit findings T1, T2, T4, T5, T6) — Complete"; "Remove unused font weights (audit findings F3 and F4) — Complete"; "Font-load correctness (audit findings F1 and F2) — Complete"; "Heading semantics and label casing (audit findings H1 and G3) — Complete"; "Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation")
 
 ## Blockers
 
@@ -36,7 +38,7 @@ None.
 
 ## Constraints and deferred work
 
-- Batch 1 is fully closed. The audit's remaining batches (F5 in Batch 1, token hygiene, spacing normalisation, other heading findings H2–H4, remaining generic-pattern items) are unbuilt. `docs/audit/2026-09-27-visual-css-consistency.md` has the full list, ranked, in fix-batch order. F5 (Inter's `opsz` axis may be unnecessary now that only two weights are requested) is Low ROI and untouched.
+- Batch 1 is fully closed. Batch 2 has five High-ROI findings closed (T1, T2, T4, T5, T6); the rest of the audit is unbuilt: F5 (Batch 1, Low ROI), T3/T7–T12 (Batch 2 — T3 needs new line-height token names, T7/T8 need component-level refactors and T8 a hover-style decision, T9–T12 are Low ROI or need a browser-support decision), spacing normalisation (Batch 3), other heading findings H2–H4 (Batch 4), and remaining generic-pattern items (Batch 5). `docs/audit/2026-09-27-visual-css-consistency.md` has the full list, ranked, in fix-batch order.
 - `docs/design/2026-09-27-adding-life-without-gradient.md` has unbuilt options for adding visual "life" now that the gradient is gone (tonal surfaces, editorial typographic craft, one kinetic moment, larger real evidence imagery, Swiss print marks, grain — in that recommended order). Revisit when picked back up.
 - `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern as the rest of the G3 fix but was out of that task's approved scope; still mono-caps.
 - `docs/DECISIONS.md`'s "Remove the background gradient wash…" entry has a pre-existing wrong file reference (`docs/design/2026-09-27-visual-css-consistency.md`, should be `docs/audit/...`); cosmetic, noted during review, not yet fixed.

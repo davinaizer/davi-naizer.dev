@@ -39,6 +39,11 @@ h6 {
 	line-height: var(--line-height-heading-md);
 }
 
+h2,
+h3 {
+	letter-spacing: var(--letter-spacing-heading-md);
+}
+
 h1 {
 	font-size: var(--font-size-heading-lg);
 	font-weight: var(--font-weight-regular);

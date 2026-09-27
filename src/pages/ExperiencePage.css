@@ -26,7 +26,6 @@
 
 .experience__earlier-career-header h2 {
 	font-size: var(--font-size-heading-md);
-	letter-spacing: var(--letter-spacing-heading-md);
 }
 
 .experience__earlier-career-header > * + * {
@@ -80,7 +79,6 @@
 .experience__entry h2,
 .experience__entry h3 {
 	font-size: var(--font-size-heading-md);
-	letter-spacing: var(--letter-spacing-heading-md);
 }
 
 .experience__chronology,
@@ -104,8 +102,8 @@
 }
 
 .experience__summary {
-	font-size: 1.0625rem;
-	line-height: 1.55;
+	font-size: var(--font-size-body);
+	line-height: var(--line-height-body);
 }
 
 .experience__detail h3 {

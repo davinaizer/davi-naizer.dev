@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.58
+version: 1.59
 status: active
 ---
 
@@ -488,6 +488,17 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Remove the unused Inter 600 and 700 weights from the `index.html` font request (F3).
 - [x] Move `.site-header__identity` (the header wordmark) to `var(--font-weight-regular)` and drop the now-unused Newsreader 500 from the `index.html` font request (F4).
 - [x] Verify no visual regression via `document.fonts` and a browser check on Home and Résumé; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Batch 2 token hygiene: high-ROI quick fixes (audit findings T1, T2, T4, T5, T6) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2). Scoped to the five High-ROI/XS-effort findings only; T3 and T7–T12 remain unbuilt future candidates.
+
+- [x] Add `line-height: var(--line-height-label)` to `.home__actions a`, `.home__role-date`, `.home a`, and `.resume__metadata` so mono/caption labels stop rendering at two different line-heights (T1).
+- [x] Switch `.experience__summary` from a hardcoded `1.0625rem`/`1.55` to `--font-size-body`/`--line-height-body` (T2).
+- [x] Set `letter-spacing: var(--letter-spacing-heading-md)` once on the shared `h2, h3` rule in `global.css`, remove the two now-redundant per-page overrides in `ExperiencePage.css`, add the same tracking directly to `.contact__title` (a `<span>`, not a heading), and give `.section-label-heading` an explicit `letter-spacing: normal` so its four `<h2>` usages don't inherit the new tracking (T4).
+- [x] Add a `--color-backdrop` token and use it in both `::backdrop` rules (lightbox, analytics-settings dialog), canonicalising on the lightbox's existing `rgb(0 0 0 / 0.8)` (T5).
+- [x] Add `text-transform: uppercase` to `.resume__metadata` (T6).
+- [x] Verify computed styles and visuals across Home, Résumé, Experience, Work, Contact, and both dialogs at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
 
 ---
 

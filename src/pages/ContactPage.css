@@ -69,6 +69,7 @@
 	font-optical-sizing: auto;
 	font-size: var(--font-size-heading-md);
 	font-weight: var(--font-weight-semibold);
+	letter-spacing: var(--letter-spacing-heading-md);
 	line-height: var(--line-height-heading-md);
 	text-decoration: underline;
 	text-decoration-thickness: var(--border-width-default);
