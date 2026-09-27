@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.60
+version: 1.61
 status: active
 ---
 
@@ -557,6 +557,15 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] S4: unified Experience's timeline marker-row inline padding with its own block padding and Contact's link row at 48px (`--space-6`).
 - [x] S5: aligned gallery-caption padding with work-card body padding at 24px (`--space-3`).
 - [x] Verify computed styles and visuals across Home, Experience, Contact, Work, and a project page at desktop widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 4: heading hierarchy (audit findings H2 and H3) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 4, H2, H3); the approved plan and its mid-implementation decision are recorded in `docs/plans/2026-09-27-batch4-heading-hierarchy-h2-h3.md`. H4 remains an unbuilt future candidate (needs a content-structure decision; larger scope).
+
+- [x] H2: `/work`'s section headings ("Case studies", "Experiments") stay real `h2`s, restyled at the standard 24px serif size; the card `h3`s below them shrink to `--font-size-body-lg` (20px), fixing the inverted visual hierarchy with a correct `h1 → h2 → h3` outline.
+- [x] Developer-directed mid-implementation change: the originally approved option (demote the section labels to non-headings) was replaced with the above after it surfaced a `heading-order` violation in the repository's `vitest-axe` check; the developer approved the alternative.
+- [x] H3: `/experience`'s dormant "Earlier career" entry titles get a smaller `h3` step (`--font-size-body-lg`) than the section's own `h2`, scoped to `.experience__timeline--earlier .experience__entry-header h3`; no visible effect yet since that section is commented out in `ExperiencePage.tsx` (pre-existing, same as S3).
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`.
 
 ---
 

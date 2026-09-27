@@ -55,9 +55,7 @@ function WorkPage() {
 				className="work__section"
 				id={workSectionIds.caseStudies}
 			>
-				<h2 className="section-label-heading" id="case-studies-heading">
-					Case studies
-				</h2>
+				<h2 id="case-studies-heading">Case studies</h2>
 				<p className="work__section-intro">
 					Detailed accounts of how I approached a problem, the decisions I made,
 					and what I would do differently.
@@ -81,9 +79,7 @@ function WorkPage() {
 				className="work__section"
 				id={workSectionIds.experiments}
 			>
-				<h2 className="section-label-heading" id="experiments-heading">
-					Experiments
-				</h2>
+				<h2 id="experiments-heading">Experiments</h2>
 				<p className="work__section-intro">
 					Prototypes and builds I’ve explored independently, with notes on what
 					I tried, observed, and would change.

@@ -79,6 +79,20 @@ describe("WorkPage", () => {
 		}
 	});
 
+	it("keeps a correct heading outline: h1, then h2 section titles, then h3 card titles", () => {
+		renderWorkPage();
+
+		expect(
+			screen.getByRole("heading", { level: 2, name: "Case studies" }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("heading", { level: 2, name: "Experiments" }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("heading", { level: 3, name: caseStudies[0]?.title }),
+		).toBeInTheDocument();
+	});
+
 	it("does not include the UV Insect Trap in the professional case studies", () => {
 		renderWorkPage();
 

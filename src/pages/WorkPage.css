@@ -2,6 +2,10 @@
 	margin-block-start: var(--space-8);
 }
 
+.work__section > h2 {
+	font-size: var(--font-size-heading-md);
+}
+
 .work__section-intro {
 	color: var(--color-text-secondary);
 	margin-block-start: var(--space-1);
@@ -58,7 +62,7 @@
 }
 
 .work__card h3 {
-	font-size: var(--font-size-heading-md);
+	font-size: var(--font-size-body-lg);
 	margin-block-start: var(--space-2);
 }
 

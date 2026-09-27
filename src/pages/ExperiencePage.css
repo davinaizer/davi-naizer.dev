@@ -81,6 +81,10 @@
 	font-size: var(--font-size-heading-md);
 }
 
+.experience__timeline--earlier .experience__entry-header h3 {
+	font-size: var(--font-size-body-lg);
+}
+
 .experience__chronology,
 .experience__detail h3 {
 	color: var(--color-accent-soft);
