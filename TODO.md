@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.56
+version: 1.57
 status: active
 ---
 
@@ -472,6 +472,14 @@ Delivered and reviewed with `PASS`. Findings, decisions, and rationale are recor
 - [x] Move all-caps tracked mono off essential UI text onto Inter, sentence case: primary navigation and the header Contact button (`shell.css`), home hero actions and inline links (`HomePage.css`), the résumé download button (`ResumePage.css`), the project-page back link and continuation links (`patterns.css`). Mono-caps stays only for eyebrows, the chronology line, tags, card area labels, and résumé metadata.
 - [x] Verify at desktop and the `56rem`/`40rem` breakpoints on Home, Work, a project page, Experience, and Résumé; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build` (no test needed updating: none asserted the old class names, mono styling, or heading levels).
 - [x] `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern but was out of scope; left mono-caps, tracked as a future candidate.
+
+### Font-load correctness (audit findings F1 and F2) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 1, F1, F2).
+
+- [x] Request Newsreader's italic axis in `index.html` so `.project-page__summary`'s existing `font-style: italic` renders a true italic face instead of a browser-faked slant (F1).
+- [x] Request Inter weight 500 in `index.html` so `.section-nav__link[aria-current="true"]` and `.project-page__visual-title` render the intended medium weight instead of falling back to 400 (F2).
+- [x] Verify both faces load (`document.fonts`) and render correctly on a project page; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
 
 ---
 

@@ -47,6 +47,10 @@ function ExperienceTimeline({
 								</p>
 							</header>
 
+							{roleSummary ? (
+								<p className="experience__summary">{roleSummary}</p>
+							) : null}
+
 							{entry.technologies?.length ? (
 								<section className="experience__detail">
 									<h3>Technologies</h3>
@@ -56,10 +60,6 @@ function ExperienceTimeline({
 										))}
 									</ul>
 								</section>
-							) : null}
-
-							{roleSummary ? (
-								<p className="experience__summary">{roleSummary}</p>
 							) : null}
 
 							{entry.contributions?.length ? (
