@@ -39,6 +39,11 @@
 	position: relative;
 }
 
+.project-page__back::before {
+	content: "←";
+	margin-right: var(--space-1);
+}
+
 .project-page__back {
 	display: inline-block;
 	color: var(--color-text-secondary);
