@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-27
-version: 1.71
+version: 1.72
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-The 2026-09-27 CSS consistency audit's Batch 1 font-load fixes (F1, F2) are complete and received a same-scope `PASS`. `index.html`'s Google Fonts request now includes Newsreader's italic axis at weight 400, so `.project-page__summary` renders a true italic instead of a browser-faked slant, and Inter weight 500, so `.section-nav__link[aria-current="true"]` and `.project-page__visual-title` render their intended medium weight instead of falling back to 400. Verified via `document.fonts` load status and computed styles on a live project page; no CSS or markup changed. This follows the prior completed outcome: the audit's Batch 0 decisions (X1–X6) and its H1/G3 heading/label findings, which unified `h2`'s two visual roles under a shared `.section-label-heading` class and moved all-caps mono off essential UI text onto Inter, sentence case.
+The 2026-09-27 CSS consistency audit's Batch 1 is now fully closed (F1–F4), all delivered with same-scope `PASS`. Most recently: Inter's unused 600/700 weights and Newsreader's 500 weight were dropped from the `index.html` Google Fonts request, and the header wordmark (`.site-header__identity`) moved from weight 500 to 400 (developer-amended F4: drop rather than keep). The requested font set is now exactly what the CSS uses: Inter 400/500, Newsreader 400 (roman + italic)/600, IBM Plex Mono 400/500. Verified via `document.fonts` and a browser check on Home and Résumé; no other CSS or markup changed. This follows F1/F2 (Newsreader italic, Inter 500 requests) and, before that, the audit's Batch 0 decisions (X1–X6) and H1/G3 heading/label findings.
 
 ## Next task candidate
 
@@ -22,12 +22,13 @@ None. `TODO.md` has no incomplete task. The audit's remaining unbuilt batches (b
 
 ## Evidence pointers
 
-- `docs/audit/2026-09-27-visual-css-consistency.md` (full findings, ROI, and fix-batch order; F1, F2, H1, and G3 marked resolved)
+- `docs/audit/2026-09-27-visual-css-consistency.md` (full findings, ROI, and fix-batch order; F1–F4, H1, and G3 marked resolved)
 - `docs/DECISIONS.md` ("Reserve all-caps mono for supplementary labels…", "Remove the background gradient wash…", "Record the shipped visual system…" — all 2026-09-27)
 - `docs/design/DESIGN.md` (rewritten to match the shipped site)
-- `index.html` (Google Fonts request: Newsreader italic axis, Inter 500)
+- `index.html` (Google Fonts request: final Batch 1 set — Inter 400/500, Newsreader 400 roman+italic/600, IBM Plex Mono 400/500)
+- `src/styles/shell.css` (`.site-header__identity` at weight 400)
 - `src/styles/patterns.css` (`.section-label-heading`), `src/components/ProjectPageLayout.tsx`, `src/pages/WorkPage.tsx`, `src/pages/CaseStudyPage.tsx`, `src/pages/ExperimentPage.tsx`
-- `TODO.md` ("Font-load correctness (audit findings F1 and F2) — Complete"; "Heading semantics and label casing (audit findings H1 and G3) — Complete"; "Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation")
+- `TODO.md` ("Remove unused font weights (audit findings F3 and F4) — Complete"; "Font-load correctness (audit findings F1 and F2) — Complete"; "Heading semantics and label casing (audit findings H1 and G3) — Complete"; "Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation")
 
 ## Blockers
 
@@ -35,8 +36,7 @@ None.
 
 ## Constraints and deferred work
 
-- The audit's remaining batches (F3/F4 in Batch 1, token hygiene, spacing normalisation, other heading findings H2–H4, remaining generic-pattern items) are unbuilt. `docs/audit/2026-09-27-visual-css-consistency.md` has the full list, ranked, in fix-batch order. F3 (Inter 600/700 requested but unused) and F4 (Newsreader 500 used only by the header wordmark) were left for a future task since they weren't part of the approved F1/F2 scope.
-- The working tree carries developer work-in-progress unrelated to this task, observed but not touched: an uncommitted edit to `src/pages/ExperiencePage.tsx` (moving the role summary above the Technologies section) and two new untracked images under `public/images/alfred/`. Not reviewed or validated as part of this task.
+- Batch 1 is fully closed. The audit's remaining batches (F5 in Batch 1, token hygiene, spacing normalisation, other heading findings H2–H4, remaining generic-pattern items) are unbuilt. `docs/audit/2026-09-27-visual-css-consistency.md` has the full list, ranked, in fix-batch order. F5 (Inter's `opsz` axis may be unnecessary now that only two weights are requested) is Low ROI and untouched.
 - `docs/design/2026-09-27-adding-life-without-gradient.md` has unbuilt options for adding visual "life" now that the gradient is gone (tonal surfaces, editorial typographic craft, one kinetic moment, larger real evidence imagery, Swiss print marks, grain — in that recommended order). Revisit when picked back up.
 - `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern as the rest of the G3 fix but was out of that task's approved scope; still mono-caps.
 - `docs/DECISIONS.md`'s "Remove the background gradient wash…" entry has a pre-existing wrong file reference (`docs/design/2026-09-27-visual-css-consistency.md`, should be `docs/audit/...`); cosmetic, noted during review, not yet fixed.

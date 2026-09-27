@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.57
+version: 1.58
 status: active
 ---
 
@@ -480,6 +480,14 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Request Newsreader's italic axis in `index.html` so `.project-page__summary`'s existing `font-style: italic` renders a true italic face instead of a browser-faked slant (F1).
 - [x] Request Inter weight 500 in `index.html` so `.section-nav__link[aria-current="true"]` and `.project-page__visual-title` render the intended medium weight instead of falling back to 400 (F2).
 - [x] Verify both faces load (`document.fonts`) and render correctly on a project page; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Remove unused font weights (audit findings F3 and F4) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 1, F3, F4). Developer amended F4 during planning: drop Newsreader 500 and move the wordmark to 400, rather than keep it at 500.
+
+- [x] Remove the unused Inter 600 and 700 weights from the `index.html` font request (F3).
+- [x] Move `.site-header__identity` (the header wordmark) to `var(--font-weight-regular)` and drop the now-unused Newsreader 500 from the `index.html` font request (F4).
+- [x] Verify no visual regression via `document.fonts` and a browser check on Home and Résumé; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
 
 ---
 
