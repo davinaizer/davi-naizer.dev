@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-27
-version: 1.59
+version: 1.60
 status: active
 ---
 
@@ -499,6 +499,16 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Add a `--color-backdrop` token and use it in both `::backdrop` rules (lightbox, analytics-settings dialog), canonicalising on the lightbox's existing `rgb(0 0 0 / 0.8)` (T5).
 - [x] Add `text-transform: uppercase` to `.resume__metadata` (T6).
 - [x] Verify computed styles and visuals across Home, Résumé, Experience, Work, Contact, and both dialogs at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Batch 2 remainder: mechanical fixes (audit findings T3, T7, T9, T11) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2). Scoped to the four findings needing no developer decision; T8, T10, and T12 remain unbuilt future candidates, each needing its own decision (a hover-style choice, a deliberateness review of off-scale spacing values, and a browser-support policy for `oklch()` fallbacks).
+
+- [x] Add `--line-height-display` (0.95), `--line-height-snug` (1.2), `--line-height-relaxed` (1.45), and `--line-height-caption` (1.5) to `tokens.css`; use them in place of the five hardcoded line-height values in `HomePage.css` and `patterns.css` (T3).
+- [x] Extract `.tag-list`/`.tag-list li` once into `patterns.css`, reused by `ProjectPageLayout.tsx`, `WorkPage.tsx`, and `ExperiencePage.tsx`; keep `.work__card-tags` as a margin-only modifier (T7).
+- [x] Change `.home h1` from `margin-top` to `margin-block-start` (T9).
+- [x] Re-confirm `--color-border-strong` is still used (dialog and lightbox borders, `ContactPage.css`); no code change needed (T11).
+- [x] Verify computed styles (exact line-height ratios) and tag-pill rendering across Home, Work, Experience, and a project page; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
 
 ---
 

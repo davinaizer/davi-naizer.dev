@@ -35,6 +35,10 @@
 	--line-height-heading-md: 1.3;
 	--line-height-body: 1.6;
 	--line-height-label: 1.35;
+	--line-height-display: 0.95;
+	--line-height-snug: 1.2;
+	--line-height-relaxed: 1.45;
+	--line-height-caption: 1.5;
 	--letter-spacing-display: -0.04em;
 	--letter-spacing-heading-lg: -0.02em;
 	--letter-spacing-heading-md: -0.015em;

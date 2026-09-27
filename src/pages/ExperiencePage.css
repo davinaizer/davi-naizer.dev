@@ -135,23 +135,6 @@
 	margin-block-start: var(--space-1);
 }
 
-.experience__technologies {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-1);
-	padding-inline-start: 0;
-	list-style: none;
-}
-
-.experience__technologies li {
-	border: var(--border-width-default) solid var(--color-border-subtle);
-	color: var(--color-text-secondary);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	letter-spacing: var(--letter-spacing-tag);
-	padding: var(--space-tag-block) var(--space-1);
-}
-
 @media (forced-colors: active) {
 	.experience__item:where(:first-child)::before {
 		border-color: Highlight;

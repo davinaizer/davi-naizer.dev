@@ -54,7 +54,7 @@ function ExperienceTimeline({
 							{entry.technologies?.length ? (
 								<section className="experience__detail">
 									<h3>Technologies</h3>
-									<ul className="experience__technologies">
+									<ul className="tag-list">
 										{entry.technologies.map((technology) => (
 											<li key={technology}>{technology}</li>
 										))}

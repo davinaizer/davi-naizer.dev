@@ -26,7 +26,7 @@ function WorkCard({ slug, title, summary, areaLabel, tags }: WorkCardProps) {
 					</h3>
 					<p className="work__card-summary">{summary}</p>
 					{tags?.length ? (
-						<ul aria-label="Technologies" className="work__card-tags">
+						<ul aria-label="Technologies" className="tag-list work__card-tags">
 							{tags.map((tag) => (
 								<li key={tag}>{tag}</li>
 							))}

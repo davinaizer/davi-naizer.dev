@@ -93,21 +93,7 @@
 }
 
 .work__card-tags {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-1);
-	list-style: none;
 	margin-block-start: var(--space-3);
-	padding-inline-start: 0;
-}
-
-.work__card-tags li {
-	border: var(--border-width-default) solid var(--color-border-subtle);
-	color: var(--color-text-secondary);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	letter-spacing: var(--letter-spacing-tag);
-	padding: var(--space-tag-block) var(--space-1);
 }
 
 @media (forced-colors: active) {

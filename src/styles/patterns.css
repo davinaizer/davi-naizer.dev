@@ -59,10 +59,10 @@
 	font-family: var(--font-family-serif);
 	font-size: var(--font-size-body-lg);
 	font-style: italic;
-	line-height: 1.45;
+	line-height: var(--line-height-relaxed);
 }
 
-.project-page__tags {
+.tag-list {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--space-1);
@@ -70,7 +70,7 @@
 	padding-inline-start: 0;
 }
 
-.project-page__tags li {
+.tag-list li {
 	border: var(--border-width-default) solid var(--color-border-subtle);
 	color: var(--color-text-secondary);
 	font-family: var(--font-family-mono);
@@ -261,7 +261,7 @@
 		var(--color-border-subtle);
 	color: var(--color-text-secondary);
 	font-size: var(--font-size-caption);
-	line-height: 1.5;
+	line-height: var(--line-height-caption);
 	min-block-size: 4.75rem;
 	padding: var(--space-2);
 }
@@ -330,7 +330,7 @@
 	margin-block-start: var(--space-2);
 	color: var(--color-text-secondary);
 	font-size: var(--font-size-caption);
-	line-height: 1.5;
+	line-height: var(--line-height-caption);
 }
 
 .project-page__continue {

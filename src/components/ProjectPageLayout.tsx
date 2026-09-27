@@ -56,7 +56,7 @@ function ProjectPageLayout({
 
 				<div className="section-layout__content project-page__content">
 					{tags?.length ? (
-						<ul aria-label="Technologies" className="project-page__tags">
+						<ul aria-label="Technologies" className="tag-list">
 							{tags.map((tag) => (
 								<li key={tag}>{tag}</li>
 							))}
