@@ -89,7 +89,7 @@
 	column-gap: var(--space-8);
 	grid-template-columns: minmax(0, 3fr) minmax(14rem, 1fr);
 	align-items: start;
-	margin-block-start: var(--space-4);
+	margin-block-start: var(--space-8);
 }
 
 .section-nav {
@@ -268,7 +268,7 @@
 	font-size: var(--font-size-caption);
 	line-height: var(--line-height-caption);
 	min-block-size: 4.75rem;
-	padding: var(--space-2);
+	padding: var(--space-3);
 }
 
 .project-page__visual-title {

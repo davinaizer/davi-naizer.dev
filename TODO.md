@@ -547,6 +547,17 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Review-flagged and fixed: the ghost button's hover border-color wasn't fully saturating on Home's download link (a cascade-layer interaction from the local override); the lightbox close button lost its pre-existing `:focus-visible` state when consolidated into the shared class. Both independently re-verified fixed via live keyboard-focus and hover checks.
 - [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
+### Batch 3: spacing normalisation (audit findings S1–S5) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 3). This closes Batch 3 of the CSS audit. The developer resolved all five findings' decisions, including reusing T13's new `.button--text` class for two of Home's plain links rather than inventing another class.
+
+- [x] S1: fixed a live doubled-margin bug where `.home a`'s catch-all margin leaked onto the hero buttons; scoped the rule to `.home__highlight a, .home__about a` and applied `.button--text` to Home's "View career timeline" and "Explore my independent experiments" links, matching Experience's and Résumé's continuation links.
+- [x] S2: unified the intro-to-content gap at 64px (`--space-8`) across project pages, Work, Experience, and Contact (Work already matched; the other three changed).
+- [x] S3: normalised `.experience__earlier-career`'s divider padding token to `--space-4`, matching Home's dividers — currently dead code (the section is commented out in `ExperiencePage.tsx`, found during an earlier task), so this has no visible effect yet.
+- [x] S4: unified Experience's timeline marker-row inline padding with its own block padding and Contact's link row at 48px (`--space-6`).
+- [x] S5: aligned gallery-caption padding with work-card body padding at 24px (`--space-3`).
+- [x] Verify computed styles and visuals across Home, Experience, Contact, Work, and a project page at desktop widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
 ---
 
 ## Post-MVP Publication Follow-up

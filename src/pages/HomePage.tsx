@@ -47,14 +47,16 @@ function HomePage() {
 				{currentRoleSummary ? (
 					<p className="home__role-summary">{currentRoleSummary}</p>
 				) : null}
-				<Link to={routes.experience}>View career timeline</Link>
+				<Link className="button--text" to={routes.experience}>
+					View career timeline
+				</Link>
 			</section>
 
 			<section aria-labelledby="about-heading" className="home__about">
 				<p className="eyebrow">A little about me</p>
 				<h2 id="about-heading">Beyond the work</h2>
 				<p>{summary.personalNote}</p>
-				<Link to={workSectionPath("experiments")}>
+				<Link className="button--text" to={workSectionPath("experiments")}>
 					Explore my independent experiments
 				</Link>
 			</section>

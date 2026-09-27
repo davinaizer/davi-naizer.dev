@@ -5,7 +5,7 @@
 
 .contact__links {
 	display: grid;
-	margin-block-start: var(--layout-section-gap);
+	margin-block-start: var(--space-8);
 	padding-inline-start: 0;
 	border-block-start: var(--border-width-default) solid
 		var(--color-border-subtle);

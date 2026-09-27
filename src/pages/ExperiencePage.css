@@ -1,5 +1,5 @@
 .experience__layout {
-	margin-block-start: var(--layout-section-gap);
+	margin-block-start: var(--space-8);
 }
 
 .experience__timeline {
@@ -17,7 +17,7 @@
 	border-block-start: var(--border-width-default) solid
 		var(--color-border-subtle);
 	margin-block-start: var(--layout-section-gap);
-	padding-block-start: var(--space-6);
+	padding-block-start: var(--space-4);
 }
 
 .experience__earlier-career-header {
@@ -37,7 +37,7 @@
 	border-block-start: var(--border-width-default) solid
 		var(--color-border-subtle);
 	padding-block: var(--space-6);
-	padding-inline-start: var(--space-5);
+	padding-inline-start: var(--space-6);
 }
 
 .experience__item::before {

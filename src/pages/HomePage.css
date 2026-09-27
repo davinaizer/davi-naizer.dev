@@ -108,11 +108,8 @@
 	margin-block-start: var(--space-2);
 }
 
-.home a {
-	display: inline-block;
-	font-family: var(--font-family-sans);
-	font-size: var(--font-size-caption);
-	line-height: var(--line-height-label);
+.home__highlight a,
+.home__about a {
 	margin-block-start: var(--space-3);
 }
 
