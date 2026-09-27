@@ -7,7 +7,7 @@
 }
 
 .home__hero {
-	max-inline-size: 70rem;
+	max-inline-size: var(--measure-wide);
 }
 
 .home__identity::after {
@@ -66,20 +66,13 @@
 	border-block-start: var(--border-width-default) solid
 		var(--color-border-subtle);
 	margin-block-start: var(--layout-section-gap);
+	max-inline-size: var(--measure-narrow);
 	padding-block-start: var(--space-4);
 }
 
 .home__highlight h2,
 .home__about h2 {
 	font-size: var(--font-size-heading-md);
-}
-
-.home__highlight {
-	max-inline-size: 52rem;
-}
-
-.home__about {
-	max-inline-size: 48rem;
 }
 
 .home__about > * + * {

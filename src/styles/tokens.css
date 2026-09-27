@@ -62,7 +62,12 @@
 	--layout-viewport-min: 100vh;
 	--layout-viewport-min-dynamic: 100dvh;
 	--measure-content: 65ch;
+	--measure-narrow: 48rem;
+	--measure-standard: 62rem;
+	--measure-wide: 70rem;
+	/* Optical offset aligning a marker dot to the adjacent text baseline. */
 	--space-marker-offset: 0.45rem;
+	/* Compact padding for small bordered chips (tags, nav links); off the base spacing scale by design. */
 	--space-tag-block: 0.35rem;
 
 	/* Shape */

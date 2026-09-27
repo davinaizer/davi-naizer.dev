@@ -21,7 +21,7 @@
 }
 
 .experience__earlier-career-header {
-	max-inline-size: 62rem;
+	max-inline-size: var(--measure-standard);
 }
 
 .experience__earlier-career-header h2 {
@@ -63,7 +63,7 @@
 }
 
 .experience__entry {
-	max-inline-size: 68rem;
+	max-inline-size: var(--measure-wide);
 }
 
 .experience__entry > * + * {
@@ -118,7 +118,7 @@
 
 .experience__contributions li {
 	display: grid;
-	grid-template-columns: 2rem minmax(0, 1fr);
+	grid-template-columns: var(--space-4) minmax(0, 1fr);
 	gap: var(--space-1);
 	counter-increment: contribution;
 }

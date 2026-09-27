@@ -519,6 +519,15 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Apply `.button--primary` to Home's "Explore experience" button (`HomePage.tsx`, `HomePage.css`) and the analytics dialog's "Save preferences" button (`AnalyticsSettings.tsx`), unifying their hover to the developer's chosen "unfill" treatment (solid accent fades to transparent, text becomes accent-soft, border stays accent).
 - [x] Verify zero visual change on the header Contact and résumé buttons, zero visual change on Home's primary button (including a cascade-layer fix so all four border edges stay consistent), and the intended hover-only change on the analytics dialog's primary button; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
+### Batch 2: spacing deliberateness review and max-width consolidation (audit finding T10) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T10). The developer resolved T10's two scope decisions: confirm all six off-scale spacing values as deliberate, and consolidate the six differing max-widths into shared measures, accepting small width changes. T12 and T13 remain unbuilt future candidates.
+
+- [x] Add one-line comments to `--space-tag-block` and `--space-marker-offset` in `tokens.css` recording their optical purpose; swap the bare `2rem` grid-column literal in `ExperiencePage.css` for `var(--space-4)` (zero visual change).
+- [x] Add `--measure-narrow` (48rem), `--measure-standard` (62rem), and `--measure-wide` (70rem) to `tokens.css`, reusing existing values rather than inventing new ones; replace all six flagged `max-inline-size` declarations across `HomePage.css`, `ExperiencePage.css`, and `patterns.css` (`.page-lead`, the lightbox) with the appropriate token.
+- [x] Accept the three resulting width changes: `.home__highlight` narrows 52→48rem (merged into the shared `.home__highlight, .home__about` selector alongside `.home__about`, which was already 48rem), the lightbox widens 60→62rem, and `.experience__entry` widens 68→70rem.
+- [x] Verify computed styles and visuals across Home, Experience, and the lightbox at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
 ---
 
 ## Post-MVP Publication Follow-up

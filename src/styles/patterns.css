@@ -6,7 +6,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-2);
-	max-inline-size: 62rem;
+	max-inline-size: var(--measure-standard);
 }
 
 .eyebrow {
@@ -284,7 +284,7 @@
 	border: 0;
 	margin: auto;
 	max-block-size: 92vh;
-	max-inline-size: min(92vw, 60rem);
+	max-inline-size: min(92vw, var(--measure-standard));
 	padding: 0;
 }
 
