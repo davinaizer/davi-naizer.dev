@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-27
-version: 1.61
+updatedAt: 2026-09-28
+version: 1.62
 status: active
 ---
 
@@ -566,6 +566,15 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Developer-directed mid-implementation change: the originally approved option (demote the section labels to non-headings) was replaced with the above after it surfaced a `heading-order` violation in the repository's `vitest-axe` check; the developer approved the alternative.
 - [x] H3: `/experience`'s dormant "Earlier career" entry titles get a smaller `h3` step (`--font-size-body-lg`) than the section's own `h2`, scoped to `.experience__timeline--earlier .experience__entry-header h3`; no visible effect yet since that section is commented out in `ExperiencePage.tsx` (pre-existing, same as S3).
 - [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`.
+
+### Batch 4: case-study heading sub-level (audit finding H4) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 4, H4); the approved plan and its two developer-directed mid-implementation additions are recorded in `docs/plans/2026-09-28-batch4-h4-case-study-subheadings.md`. This closes Batch 4 of the CSS/markup audit entirely.
+
+- [x] H4: case-study pages' "Product / UX" and "Engineering" are no longer `h2` siblings of "Decisions" — folded into the "Decisions" section's content as `h3` subheadings (wrapped in a new `.project-page__decisions-detail` element), correcting the `h1 → h2 → h3` outline and dropping the section-nav from 10 to 8 entries per case study.
+- [x] Developer-directed mid-implementation addition: fixed a spacing regression caused by this repository's CSS reset zeroing default margins on the new `h3`/`p` elements, via scoped rules in `patterns.css`.
+- [x] Developer-directed mid-implementation addition: restyled the new `h3`s to match `.experience__detail h3`'s existing mono/uppercase/accent-soft treatment (validated against the `frontend-design` skill) rather than the unstyled serif default or the "Decisions" `h2` label style, preserving the visual distinction between the two heading levels.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
 ---
 

@@ -57,22 +57,18 @@ function CaseStudyPage() {
 			id: `${caseStudy.slug}-decisions`,
 			heading: "Decisions",
 			content: (
-				<ul className="project-page__list">
-					{caseStudy.decisions.map((decision) => (
-						<li key={decision}>{decision}</li>
-					))}
-				</ul>
+				<div className="project-page__decisions-detail">
+					<ul className="project-page__list">
+						{caseStudy.decisions.map((decision) => (
+							<li key={decision}>{decision}</li>
+						))}
+					</ul>
+					<h3>Product / UX</h3>
+					<p>{caseStudy.productAndUx}</p>
+					<h3>Engineering</h3>
+					<p>{caseStudy.engineering}</p>
+				</div>
 			),
-		},
-		{
-			id: `${caseStudy.slug}-product-ux`,
-			heading: "Product / UX",
-			content: <p>{caseStudy.productAndUx}</p>,
-		},
-		{
-			id: `${caseStudy.slug}-engineering`,
-			heading: "Engineering",
-			content: <p>{caseStudy.engineering}</p>,
 		},
 		{
 			id: `${caseStudy.slug}-outcomes`,

@@ -176,6 +176,24 @@
 	margin-block-start: var(--space-1);
 }
 
+.project-page__decisions-detail > * + * {
+	margin-block-start: var(--space-4);
+}
+
+.project-page__decisions-detail h3 {
+	color: var(--color-accent-soft);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-label);
+	font-weight: var(--font-weight-medium);
+	letter-spacing: var(--letter-spacing-label);
+	line-height: var(--line-height-label);
+	text-transform: uppercase;
+}
+
+.project-page__decisions-detail h3 + p {
+	margin-block-start: var(--space-2);
+}
+
 .project-page__outcomes-list {
 	border-inline-start: var(--border-width-accent) solid var(--color-accent);
 	list-style: none;

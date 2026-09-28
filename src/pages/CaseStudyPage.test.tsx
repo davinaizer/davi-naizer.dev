@@ -47,8 +47,6 @@ describe("CaseStudyPage", () => {
 			"Role",
 			"Constraints",
 			"Decisions",
-			"Product / UX",
-			"Engineering",
 			"Outcomes",
 			"Reflection",
 			"App screens",
@@ -56,6 +54,31 @@ describe("CaseStudyPage", () => {
 		expect(
 			within(sectionNav).getByRole("link", { name: "Context" }),
 		).toHaveAttribute("href", `#${caseStudy.slug}-context`);
+
+		const decisionsSection = screen
+			.getByRole("heading", { level: 2, name: "Decisions" })
+			.closest("section");
+		if (!decisionsSection) {
+			throw new Error("Expected the Decisions section to be rendered.");
+		}
+		expect(
+			within(decisionsSection).getByRole("heading", {
+				level: 3,
+				name: "Product / UX",
+			}),
+		).toBeInTheDocument();
+		expect(
+			within(decisionsSection).getByText(caseStudy.productAndUx),
+		).toBeInTheDocument();
+		expect(
+			within(decisionsSection).getByRole("heading", {
+				level: 3,
+				name: "Engineering",
+			}),
+		).toBeInTheDocument();
+		expect(
+			within(decisionsSection).getByText(caseStudy.engineering),
+		).toBeInTheDocument();
 
 		const technologies = screen.getByRole("list", { name: "Technologies" });
 		for (const technology of caseStudy.technologies ?? []) {
