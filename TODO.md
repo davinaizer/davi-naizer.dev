@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.67
+version: 1.68
 status: active
 ---
 
@@ -655,6 +655,19 @@ Delivered and reviewed with `PASS`. Governed by the `DECISIONS.md` entry "Give A
 - [x] Formal review (`PASS`) and completion.
 
 Non-blocking, carried to `docs/HANDOFF.md`: `public/images/alfred/alfred-landing-page.jpg` is now an unreferenced asset (not deleted); the new card `<img>` uses `loading="lazy"` even for the above-the-fold Alfred card, unlike the eager-loaded project-page hero.
+
+### Give UV Insect Trap a real engineering-drawing hero and gallery (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (after two developer-directed amendments before completion). Governed by two `DECISIONS.md` entries: "Give UV Insect Trap an engineering-drawing hero built from its OnShape source — 2026-09-28" and "Rebuild UV Insect Trap's gallery from higher-fidelity OnShape exports; fix a card-grid row-height defect — 2026-09-28" (no separate plan file was saved). Closes the review trigger from the prior task: UV's card/hero portrait-photo crop was an accepted placeholder pending a purpose-built image.
+
+- [x] Build UV's hero from the developer's OnShape SVG export: recolour into the site's own tokens (`#131313` background, `#e2e2e2` linework), crop to front elevation + isometric view with real margin on every side; export to `public/images/uv-insect-trap/uv-drawing-hero.png`; set as `hero` in `evidence-content.ts`.
+- [x] Developer-directed amendment: rebuild the two CAD gallery visuals and the "finished prototype" photo from a second, higher-fidelity OnShape re-export batch (tight crops, true-black backgrounds matching the site); reorder the photo to close the gallery.
+- [x] Developer-directed amendment: fix a latent row-height defect in the shared `ProjectGallery`/`patterns.css` grid (`align-items: start`) that left dead space under shorter cards whenever a gallery mixes landscape and portrait items — surfaced by, but not specific to, this project.
+- [x] Developer-directed amendment: rewrite `outcomes`' first-person "My sister reported…" copy into a professional third-person voice; honesty and content unchanged.
+- [x] Verify at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+Non-blocking, carried to `docs/HANDOFF.md`: the "Give Alfred and UV Insect Trap real card and hero images" entry above still describes UV's now-superseded placeholder crop in its own text, without a `Status:` pointer forward (repo convention for partial supersession); cosmetic only, newest-first ordering surfaces the correction first.
 
 ---
 

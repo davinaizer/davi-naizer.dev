@@ -224,6 +224,7 @@
 }
 
 .project-page__visual-grid {
+	align-items: start;
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: var(--space-3);

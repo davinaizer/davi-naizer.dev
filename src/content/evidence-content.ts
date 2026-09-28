@@ -269,27 +269,36 @@ export const projects: readonly Project[] = [
 		summary:
 			"A 3D-printed trap shaped through repeated work on airflow, grille noise, and cleaning.",
 		hero: {
-			src: "/images/uv-insect-trap/final-prototype.jpeg",
-			alt: "The assembled black 3D-printed insect trap on a wooden surface, with blue light visible around its upper grille.",
+			src: "/images/uv-insect-trap/uv-drawing-hero.png",
+			alt: "A recoloured OnShape engineering drawing of the UV insect trap: the front elevation on the left and an isometric view on the right.",
 		},
-		visualsHeading: "CAD design views",
-		visualsIntro: "These CAD views show the enclosure and grille design.",
+		visualsHeading: "CAD views and the finished prototype",
+		visualsIntro:
+			"These views show the CAD design and the finished, printed prototype.",
 		visuals: [
 			{
-				src: "/images/uv-insect-trap/cad-assembly-view.png",
-				alt: "Angled CAD view of the cylindrical trap body, circular upper grille, and central light tower.",
+				src: "/images/uv-insect-trap/cad-assembly-view.jpg",
+				alt: "A front cutaway CAD render, in colour, of the trap's light tower, filter, funnel, and grille stacked inside the body.",
 				title: "Enclosure and grille",
 				caption:
 					"This view shows how the outer body, upper grille, and light tower fit together.",
-				layout: "landscape",
+				layout: "portrait",
 			},
 			{
-				src: "/images/uv-insect-trap/cad-grille-top-view.png",
-				alt: "Top-down CAD view of the circular grille vanes arranged around the UV light tower.",
+				src: "/images/uv-insect-trap/cad-grille-top-view.jpg",
+				alt: "A top-down CAD render, in colour, of the circular grille vanes arranged around the UV light tower's gold cap.",
 				title: "Grille geometry",
 				caption:
 					"The top view shows the curved vanes I adjusted while working on airflow and fan noise.",
 				layout: "landscape",
+			},
+			{
+				src: "/images/uv-insect-trap/final-prototype.jpeg",
+				alt: "The assembled black 3D-printed insect trap on a wood counter, glowing blue from its UV light and spinning grille.",
+				title: "The finished prototype",
+				caption:
+					"The assembled trap in home use, with its UV light visible through the grille.",
+				layout: "portrait",
 			},
 		],
 		context:
@@ -308,15 +317,15 @@ export const projects: readonly Project[] = [
 			"I designed the enclosure in Onshape and printed it in PLA on a Bambu Lab A1, with a larger fan, internal filter, screw mounts, snap and torsional snap joints, and internal cable routing.",
 		outcomes: [
 			{
-				statement:
-					"My sister reported that she saw the trap catch mosquitoes during home use.",
+				statement: "Household use suggested the trap was catching mosquitoes.",
 				detail:
-					"We noticed fewer problems with mosquitoes indoors while it was running, but this was not a measured change in mosquito population. In an overnight outdoor test, it caught moths and other flying insects but no mosquitoes.",
+					"Someone else in the household reported seeing it catch mosquitoes during regular use, and we noticed fewer mosquito problems indoors while it ran — not a measured change. An overnight outdoor test caught moths and other flying insects, but no mosquitoes.",
 			},
 			{
-				statement: "The steady fan sound seemed to soothe the dogs.",
+				statement:
+					"The fan's steady sound seemed to have a calming effect on the household's dogs.",
 				detail:
-					"My sister noticed less barking and better sleep while it was running; this was an informal household observation.",
+					"Less barking and better sleep were noticed while the trap was running — an informal, unmeasured household observation.",
 			},
 		],
 		reflection:
