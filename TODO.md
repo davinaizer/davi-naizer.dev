@@ -604,6 +604,14 @@ Delivered and reviewed with `PASS` (re-reviewed after the developer-directed hea
 - [x] Amend PRODUCT_REQUIREMENTS §9 and `docs/ARCHITECTURE.md`; update unit and e2e tests.
 - [x] Formal review (`PASS`) and completion.
 
+### Contributions square markers (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Governed by `docs/plans/2026-09-28-contributions-square-markers.md`. Evidence is developer visual review. Developer chose Option A: the Outcomes list on project pages keeps its accent bar.
+
+- [x] Replace the accent bar on `.experience__contributions` with one small square marker per item (half the timeline dot, `--color-accent-border`), aligned to the first line, with `--space-2` between items and a `Highlight` fallback in forced-colors mode.
+- [x] CSS only (`src/pages/ResumePage.css`); no markup, content or token changes.
+- [x] Formal review (`PASS`) and completion.
+
 ---
 
 ## Post-MVP Publication Follow-up

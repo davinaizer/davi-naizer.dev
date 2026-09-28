@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-28
-version: 1.84
+version: 1.85
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-**Experience is merged into Resume**, delivered with same-scope `PASS`. `/resume` now shows the intro, "Updated" date and download button above the unchanged experience timeline and section nav (`ExperienceTimeline` extracted to `src/components/`). The Experience route, page, nav item and sitemap entry are removed; `/experience` renders not-found with no redirect (developer decision). Internal `/experience#slug` links now target `/resume#slug`. PRD §9 and `docs/ARCHITECTURE.md` were amended (developer-approved). A header "Download Resume" button was implemented, then removed at the developer's direction after the first review; the download lives on Resume and the Home hero.
+**The Resume timeline's "Selected contributions" list now uses one small square marker per item** instead of a continuous accent bar, delivered with same-scope `PASS`. The marker is half the timeline dot in `--color-accent-border`, aligned to each item's first line, with `--space-2` between items and a `Highlight` forced-colors fallback. CSS-only in `src/pages/ResumePage.css`. The project-page Outcomes list (`.project-page__outcomes-list`) deliberately keeps its bar (developer decision, Option A). This follows the earlier "Merge Experience into Resume" task, also closed with `PASS`.
 
 ## Next task candidate
 
@@ -22,6 +22,7 @@ None. `TODO.md` has no incomplete task. The developer should bring a new objecti
 
 ## Evidence pointers
 
+- `docs/plans/2026-09-28-contributions-square-markers.md` (approved plan and the Outcomes-bar decision), `TODO.md` ("Contributions square markers — Complete")
 - `docs/plans/2026-09-28-merge-experience-into-resume.md` (approved plan, developer-directed amendment removing the header button, and re-review note)
 - `docs/DECISIONS.md` ("Merge Experience into Resume — 2026-09-28", with its review trigger)
 - `PRODUCT_REQUIREMENTS.md` §9 and `docs/ARCHITECTURE.md` (Navigation and rendering), both amended
@@ -36,6 +37,8 @@ None.
 
 ## Constraints and deferred work
 
+- The Outcomes list keeps its accent bar; revisit if it also reads heavy on case-study pages. Forced-colours rendering of the new marker was not observed in a real forced-colours environment.
+- `public/davi-naizer-resume.pdf` has an uncommitted, unrelated modification in the working tree (not part of any task here); commit or discard it separately.
 - No redirects: add a hash-preserving `/experience` redirect only if evidence shows traffic to it (review trigger in `docs/DECISIONS.md`; same policy for the retired `/case-studies` and `/projects`).
 - Home's "Explore experience" button and "View career timeline" link now lead to the Resume page under unchanged labels; the intro wraps to three lines at 320px. Revisit only if either reads poorly.
 - The whole "Earlier career" section is commented out in `ResumePage.tsx` (moved as-is from the old Experience page), so its CSS in `ResumePage.css` has no visual effect.
