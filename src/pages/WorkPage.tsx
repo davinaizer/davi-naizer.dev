@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { workProjectPath, workSectionIds } from "../app/routes.ts";
 import { caseStudies, projects } from "../content/evidence-content.ts";
+import type { Hero } from "../types/evidence.ts";
 
 type WorkCardProps = {
 	slug: string;
@@ -8,15 +9,32 @@ type WorkCardProps = {
 	summary: string;
 	areaLabel: string;
 	tags?: readonly string[];
+	hero?: Hero;
 };
 
-function WorkCard({ slug, title, summary, areaLabel, tags }: WorkCardProps) {
+function WorkCard({
+	slug,
+	title,
+	summary,
+	areaLabel,
+	tags,
+	hero,
+}: WorkCardProps) {
 	return (
 		<li className="work__card">
 			<article aria-labelledby={`${slug}-card-heading`}>
-				<div aria-hidden="true" className="work__card-image">
-					{title}
-				</div>
+				{hero ? (
+					<img
+						alt={hero.alt}
+						className="work__card-image work__card-image--photo"
+						loading="lazy"
+						src={hero.src}
+					/>
+				) : (
+					<div aria-hidden="true" className="work__card-image">
+						{title}
+					</div>
+				)}
 				<div className="work__card-body">
 					<p className="work__card-label">{areaLabel}</p>
 					<h3 id={`${slug}-card-heading`}>
@@ -63,6 +81,7 @@ function WorkPage() {
 					{caseStudies.map((caseStudy) => (
 						<WorkCard
 							areaLabel="Product case study"
+							hero={caseStudy.hero}
 							key={caseStudy.slug}
 							slug={caseStudy.slug}
 							summary={caseStudy.summary}
@@ -87,6 +106,7 @@ function WorkPage() {
 					{projects.map((project) => (
 						<WorkCard
 							areaLabel="Independent experiment"
+							hero={project.hero}
 							key={project.slug}
 							slug={project.slug}
 							summary={project.summary}

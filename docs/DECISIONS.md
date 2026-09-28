@@ -1,12 +1,22 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.34
+version: 1.35
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Give Alfred and UV Insect Trap real card and hero images; adopt the filmstrip format for future hero images — 2026-09-28
+
+**Decision:** Alfred's Work card and project-page hero now show a purpose-built filmstrip of three of the developer's own onboarding screenshots (the value-proposition screen, the mood picker, and the Alfred's Pick recommendation), replacing the typographic panel on its card. UV Insect Trap's card now shows its existing hero photo (previously card-less), cropped `16:10` via `object-fit: cover`; its portrait crop is accepted as a placeholder pending a purpose-built image. Both changes exercise the deferred branch of the Task D card-image decision (`docs/plans/2026-09-26-work-index-routing.md`): "real card images are deferred until more projects have distinct result images." This is not a reversal of that decision — the four remaining projects without a suitable image keep the typographic panel.
+
+**Rationale:** `docs/HANDOFF.md` had flagged this as ready work: "Add per-project visuals only when real result images exist." Alfred had no result image of its own (only an onboarding screenshot already used in its gallery); the developer took new simulator screenshots for this purpose. Raw phone screenshots are portrait and the card/hero slots are wide, so a single screenshot cannot fill either without heavy cropping. A composite of three screenshots placed edge-to-edge, trimmed of the status bar, reused for both the `16:10` card and `16:9` hero via the existing `object-fit: cover` pattern (one export, two slots, matching how `.project-page__hero` already works). A symmetric center-crop cut both outer screens mid-word ("Alfred" reduced to "l finds the"); a black-to-transparent fade at both outer edges (steep ease-in curve, since a linear fade wasn't steep enough to fully obscure the cut text) blends into the screenshots' own near-black background and the site's `--color-background`, so the crop reads as an intentional bleed rather than an error. No phone-bezel mockup was used: every other image on the site (`.project-page__hero`, `.project-page__visual`) is a flat rectangle with a hairline border, no radius, no shadow, and a glossy device mockup would be the one polished/marketing-style image against that otherwise editorial, hairline-and-serif treatment.
+
+**Consequence:** `Project`/`CaseStudy.hero` now drives the Work card image generically (`WorkCard` in `WorkPage.tsx` renders the `hero` image when present, the typographic panel otherwise) rather than only the project-page hero; this was a developer-directed broadening of the approved task plan, which had originally scoped the card-image change to Alfred only and excluded UV Insect Trap. Any project that gains a `hero` going forward will automatically show it on its Work card too — a poorly-cropping hero (like UV's current portrait photo) should be replaced with a purpose-built image rather than special-cased in code. Alfred's `alfred-landing-page.jpg` gallery visual was removed (its content is now the hero); `alfred-idea-flow.jpg` remains as the gallery's sole visual. New asset: `public/images/alfred/alfred-onboarding-filmstrip.jpg`.
+
+**Review triggers:** Reconsider UV Insect Trap's card image once a purpose-built hero exists for it. If a future project's screenshots don't share a near-black background, the fade-to-background-color technique won't blend seamlessly and needs revisiting. Reconsider the filmstrip format itself if a project's best evidence is a single image rather than a sequence.
 
 ## Use Libre Franklin as the sans family and set font smoothing — 2026-09-28
 

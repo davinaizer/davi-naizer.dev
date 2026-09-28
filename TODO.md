@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.66
+version: 1.67
 status: active
 ---
 
@@ -642,6 +642,19 @@ Delivered and reviewed with `PASS` (after two `CHANGES REQUIRED` rounds). Govern
 - [x] Update `docs/design/DESIGN.md`; add the superseding decision and mark the Plex Sans entry superseded.
 - [x] Verify fonts load and there is no horizontal overflow at 1280, 896, 640 and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 - [x] Formal review (`PASS`) and completion.
+
+### Give Alfred and UV Insect Trap real card and hero images (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Governed by the `DECISIONS.md` entry "Give Alfred and UV Insect Trap real card and hero images; adopt the filmstrip format for future hero images — 2026-09-28" (no separate plan file was saved). Exercises the deferred branch of the Task D card-image decision now that Alfred has a real result image; the developer directed mid-task that UV Insect Trap's existing hero should also drive its card, broadening the approved plan's original Alfred-only scope.
+
+- [x] Build a `16:10`/`16:9` filmstrip from three developer-supplied Alfred onboarding screenshots (value proposition, mood picker, Alfred's Pick recommendation), with a black-to-background fade at both outer edges instead of a phone-bezel mockup; export to `public/images/alfred/alfred-onboarding-filmstrip.jpg`.
+- [x] Add `hero` to Alfred's `evidence-content.ts` entry; remove the now-redundant `alfred-landing-page.jpg` gallery visual.
+- [x] `WorkCard` (`WorkPage.tsx`/`.css`) renders a project's `hero` image, `16:10`, `object-fit: cover`, in place of the typographic panel when one exists; UV Insect Trap's card now shows its existing (portrait, placeholder-quality) hero photo this way too.
+- [x] Add card-image and hero-attribute test coverage (`WorkPage.test.tsx`, `CaseStudyPage.test.tsx`).
+- [x] Verify at desktop and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+Non-blocking, carried to `docs/HANDOFF.md`: `public/images/alfred/alfred-landing-page.jpg` is now an unreferenced asset (not deleted); the new card `<img>` uses `loading="lazy"` even for the above-the-fold Alfred card, unlike the eager-loaded project-page hero.
 
 ---
 

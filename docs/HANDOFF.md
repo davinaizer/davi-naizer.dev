@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-28
-version: 1.88
+version: 1.89
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-**The site's sans family is now Libre Franklin**, with font smoothing set on `html`, delivered with same-scope `PASS`. This supersedes the earlier IBM Plex Sans swap (`6ba764f`): Plex Sans rendered heavy on macOS because the site set no smoothing, and the fix plus Libre Franklin was chosen on the real site. `--font-family-sans` in `tokens.css`, the Google Fonts request in `index.html` (weights 400 and 500) and `html` in `global.css` changed; Newsreader and IBM Plex Mono and their roles are unchanged. `public/social-preview.png` is now a Figma-built 1200×630 card, and two stale `ResumePage.test.tsx` expectations from the canon-resume sync were updated.
+**Alfred and UV Insect Trap now show real Work card and project-page hero images**, delivered with same-scope `PASS`. Alfred's card and hero use a new purpose-built filmstrip of three onboarding screenshots (value proposition, mood picker, Alfred's Pick recommendation), composited edge-to-edge with a black-to-background fade at both outer edges (no phone-bezel mockup); UV Insect Trap's card now shows its existing project-page hero photo too, at the developer's mid-task direction, accepted as a placeholder crop. This exercises the deferred branch of the Task D card-image decision, not a reversal of it — the other four projects keep the typographic panel. `WorkCard` (`WorkPage.tsx`/`.css`) now renders a project's `hero` generically; `evidence-content.ts` gained Alfred's `hero` and dropped its now-redundant gallery visual.
 
 ## Next task candidate
 
@@ -22,10 +22,10 @@ None. `TODO.md` has no incomplete task. The developer should bring a new objecti
 
 ## Evidence pointers
 
-- `docs/plans/2026-09-28-libre-franklin.md` (approved plan and its two developer-directed amendments), `docs/DECISIONS.md` ("Use Libre Franklin as the sans family and set font smoothing — 2026-09-28", with its review trigger; the Plex Sans entry is marked superseded), `TODO.md` ("Use Libre Franklin and set font smoothing — Complete")
-- `src/styles/tokens.css`, `src/styles/global.css`, `index.html`, `public/social-preview.png`, `docs/design/DESIGN.md`
-- `docs/plans/2026-09-28-ibm-plex-sans.md` (the superseded Plex Sans plan, kept as history)
-- Prior work: `docs/audit/2026-09-27-visual-css-consistency.md` (fully closed), `docs/plans/2026-09-28-wordmark-square-stop.md`, `docs/plans/2026-09-28-merge-experience-into-resume.md`
+- `docs/DECISIONS.md` ("Give Alfred and UV Insect Trap real card and hero images; adopt the filmstrip format for future hero images — 2026-09-28", with its review triggers; no separate plan file was saved), `TODO.md` ("Give Alfred and UV Insect Trap real card and hero images (developer-directed) — Complete")
+- `src/pages/WorkPage.tsx`, `src/pages/WorkPage.css`, `src/content/evidence-content.ts`, `public/images/alfred/alfred-onboarding-filmstrip.jpg`
+- `src/pages/WorkPage.test.tsx`, `src/pages/CaseStudyPage.test.tsx` (new card-image and hero-attribute coverage)
+- Prior work: `docs/plans/2026-09-26-work-index-routing.md` (Task D, the card-image decision this task's deferred branch exercises), `docs/plans/2026-09-28-libre-franklin.md`, `docs/audit/2026-09-27-visual-css-consistency.md` (fully closed)
 
 ## Blockers
 
@@ -47,5 +47,7 @@ None.
 - `.primary-navigation a`, `.section-nav__link`, `.project-page__back`, and the footer links were deliberately kept out of the button/link consolidation (T13).
 - `docs/design/2026-09-27-adding-life-without-gradient.md` holds unbuilt visual-life options; `NotFoundPage.css`'s `.not-found__action a` is still mono-caps; `docs/DECISIONS.md`'s gradient entry has a wrong file reference (cosmetic).
 - Task D review improvements (non-blocking): `CaseStudyPage`/`ExperimentPage` keep an unreachable not-found fallback; the Work card e2e test does not assert the `::after` focus ring; one e2e test loops over a single path.
-- Work card image panels use one accent tint; hero images exist only for UV Insect Trap. Add per-project visuals only when real result images exist.
+- Alfred and UV Insect Trap now have real Work card/hero images (filmstrip pattern documented in `docs/DECISIONS.md`); the other four projects (Vessel List, Promotional Workflow, HSBC, Atelier Florae) still show the typographic panel. UV's card crop is an accepted placeholder pending a purpose-built hero (review trigger in `docs/DECISIONS.md`).
+- `public/images/alfred/alfred-landing-page.jpg` is now an unreferenced asset (its only gallery reference was removed this task); not deleted.
+- The Work card `<img>` uses `loading="lazy"` even for the above-the-fold Alfred card, unlike the eager-loaded project-page hero (non-blocking; same class of issue the "Completed hero image lazy-loading fix" task addressed once already for `ProjectPageLayout`).
 - Non-blocking: `pnpm validate` fails on `.claude/settings.local.json` formatting (gitignored, unrelated). Scoped checks are unaffected.

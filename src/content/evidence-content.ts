@@ -18,15 +18,11 @@ export const caseStudies: readonly CaseStudy[] = [
 			"XCTest",
 			"XcodeGen",
 		],
+		hero: {
+			src: "/images/alfred/alfred-onboarding-filmstrip.jpg",
+			alt: "Three Alfred onboarding screens in sequence: the app’s value proposition, the “What fits tonight?” mood picker, and a recommended venue under Alfred’s Pick.",
+		},
 		visuals: [
-			{
-				src: "/images/alfred/alfred-landing-page.jpg",
-				alt: "Three Alfred onboarding app screens: a welcome screen, a statement of the product’s purpose, and Apple, Google, or email sign-in options.",
-				title: "Introducing Alfred",
-				caption:
-					"A short onboarding sequence establishes the product’s purpose before moving into authentication, keeping the path from first impression to entry focused and lightweight.",
-				layout: "landscape",
-			},
 			{
 				src: "/images/alfred/alfred-idea-flow.jpg",
 				alt: "Four Alfred app screens: a suggested outdoor walk, an idea-entry form, a board-game gathering recommendation, and a past-events list.",

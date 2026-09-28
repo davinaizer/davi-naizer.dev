@@ -47,6 +47,13 @@
 	text-wrap: balance;
 }
 
+.work__card-image--photo {
+	display: block;
+	inline-size: 100%;
+	object-fit: cover;
+	padding: 0;
+}
+
 .work__card-body {
 	padding: var(--space-3);
 }

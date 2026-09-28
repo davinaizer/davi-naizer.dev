@@ -96,6 +96,23 @@ describe("CaseStudyPage", () => {
 		expect(backLink).toHaveAttribute("href", workSectionPath("caseStudies"));
 	});
 
+	it("renders the Alfred hero image with eager loading and high fetch priority", async () => {
+		const caseStudy = caseStudies.find(
+			({ slug }) => slug === "alfred-what-to-do-next",
+		);
+		if (!caseStudy?.hero) {
+			throw new Error("Expected the Alfred case study to have a hero.");
+		}
+
+		renderCaseStudyPage(workProjectPath(caseStudy.slug));
+		await screen.findByRole("heading", { level: 1, name: caseStudy.title });
+
+		const heroImage = screen.getByRole("img", { name: caseStudy.hero.alt });
+		expect(heroImage).toHaveAttribute("src", caseStudy.hero.src);
+		expect(heroImage).toHaveAttribute("loading", "eager");
+		expect(heroImage).toHaveAttribute("fetchpriority", "high");
+	});
+
 	it("links relevant experience and the next case study in Continue exploring", async () => {
 		const caseStudy = caseStudies.find(
 			({ slug }) => slug === "alfred-what-to-do-next",

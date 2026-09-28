@@ -93,6 +93,26 @@ describe("WorkPage", () => {
 		).toBeInTheDocument();
 	});
 
+	it("shows a card photo for projects with a hero image, and the typographic panel otherwise", () => {
+		renderWorkPage();
+
+		for (const entry of [...caseStudies, ...projects]) {
+			const card = screen.getByRole("article", { name: entry.title });
+
+			if (entry.hero) {
+				const image = within(card).getByRole("img", {
+					name: entry.hero.alt,
+				});
+				expect(image).toHaveAttribute("src", entry.hero.src);
+				expect(
+					within(card).queryByText(entry.title, { selector: "div" }),
+				).not.toBeInTheDocument();
+			} else {
+				expect(within(card).queryByRole("img")).not.toBeInTheDocument();
+			}
+		}
+	});
+
 	it("does not include the UV Insect Trap in the professional case studies", () => {
 		renderWorkPage();
 
