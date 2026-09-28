@@ -612,6 +612,15 @@ Delivered and reviewed with `PASS`. Governed by `docs/plans/2026-09-28-contribut
 - [x] CSS only (`src/pages/ResumePage.css`); no markup, content or token changes.
 - [x] Formal review (`PASS`) and completion.
 
+### Wordmark square stop (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (after two developer-directed amendments to the social image). Governed by `docs/plans/2026-09-28-wordmark-square-stop.md`. Evidence is developer visual review. Developer chose Option C: regenerate the icon assets too.
+
+- [x] Replace the round full stop on the header wordmark and the Home h1 with one shared solid accent square (`patterns.css`), with a forced-colors fallback; the "." no longer appears in the accessible name.
+- [x] Update `public/favicon.svg` (square stop, square tile) and regenerate `favicon-16x16.png`, `favicon-32x32.png`, `favicon-512.png` and `apple-touch-icon.png` from it.
+- [x] Rebuild `public/social-preview.png` with the site typefaces (Newsreader, Inter, IBM Plex Mono) and the square stops, same 1200×630 layout, name baseline-aligned with the D mark, and the gradient wash removed for a flat `#131313` canvas (developer-directed amendments after the first implementation, which had only painted over the round stops).
+- [x] Formal review (`PASS`) and completion.
+
 ---
 
 ## Post-MVP Publication Follow-up

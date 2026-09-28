@@ -155,6 +155,16 @@
 	max-inline-size: var(--measure-content);
 }
 
+.site-header__identity::after,
+.home__identity::after {
+	background: var(--color-accent);
+	content: "";
+	display: inline-block;
+	block-size: max(0.15em, 0.1875rem);
+	inline-size: max(0.15em, 0.1875rem);
+	margin-inline-start: 0.03em;
+}
+
 .section-label-heading {
 	color: var(--color-text-secondary);
 	font-family: var(--font-family-sans);
@@ -547,5 +557,12 @@
 
 	.contextual-continuation {
 		margin-block-start: var(--space-4);
+	}
+}
+
+@media (forced-colors: active) {
+	.site-header__identity::after,
+	.home__identity::after {
+		background: Highlight;
 	}
 }

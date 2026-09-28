@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-28
-version: 1.85
+version: 1.86
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-**The Resume timeline's "Selected contributions" list now uses one small square marker per item** instead of a continuous accent bar, delivered with same-scope `PASS`. The marker is half the timeline dot in `--color-accent-border`, aligned to each item's first line, with `--space-2` between items and a `Highlight` forced-colors fallback. CSS-only in `src/pages/ResumePage.css`. The project-page Outcomes list (`.project-page__outcomes-list`) deliberately keeps its bar (developer decision, Option A). This follows the earlier "Merge Experience into Resume" task, also closed with `PASS`.
+**The wordmark's round full stop is now a square everywhere**, delivered with same-scope `PASS`. The header wordmark and the Home h1 share one solid accent square (`patterns.css`, `Highlight` forced-colors fallback; the "." is no longer in the accessible name). `favicon.svg` (square stop, square tile) and the 16/32/512px favicons and `apple-touch-icon.png` were regenerated from it. `social-preview.png` was rebuilt with the site typefaces (Newsreader, Inter, IBM Plex Mono), the name baseline-aligned with the D mark, square stops, and no gradient wash (flat `#131313`). This follows the "Contributions square markers" task, also closed with `PASS`.
 
 ## Next task candidate
 
@@ -22,6 +22,7 @@ None. `TODO.md` has no incomplete task. The developer should bring a new objecti
 
 ## Evidence pointers
 
+- `docs/plans/2026-09-28-wordmark-square-stop.md` (approved plan, Option C decision, and the two social-image amendments), `TODO.md` ("Wordmark square stop — Complete"), `src/styles/patterns.css`, `public/favicon.svg`, `public/social-preview.png`
 - `docs/plans/2026-09-28-contributions-square-markers.md` (approved plan and the Outcomes-bar decision), `TODO.md` ("Contributions square markers — Complete")
 - `docs/plans/2026-09-28-merge-experience-into-resume.md` (approved plan, developer-directed amendment removing the header button, and re-review note)
 - `docs/DECISIONS.md` ("Merge Experience into Resume — 2026-09-28", with its review trigger)
@@ -38,7 +39,8 @@ None.
 ## Constraints and deferred work
 
 - The Outcomes list keeps its accent bar; revisit if it also reads heavy on case-study pages. Forced-colours rendering of the new marker was not observed in a real forced-colours environment.
-- `public/davi-naizer-resume.pdf` has an uncommitted, unrelated modification in the working tree (not part of any task here); commit or discard it separately.
+- `public/social-preview.png` has no source file in the repo: it was rendered from a throwaway HTML page (site fonts, 1200×630, flat `#131313`). Editing it means re-creating that layout or editing the PNG; consider committing a source only if it needs regular changes.
+- The wordmark square and forced-colours rendering were not observed at 320px or in a real forced-colours environment (rules verified in the built CSS only).
 - No redirects: add a hash-preserving `/experience` redirect only if evidence shows traffic to it (review trigger in `docs/DECISIONS.md`; same policy for the retired `/case-studies` and `/projects`).
 - Home's "Explore experience" button and "View career timeline" link now lead to the Resume page under unchanged labels; the intro wraps to three lines at 320px. Revisit only if either reads poorly.
 - The whole "Earlier career" section is commented out in `ResumePage.tsx` (moved as-is from the old Experience page), so its CSS in `ResumePage.css` has no visual effect.

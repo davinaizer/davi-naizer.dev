@@ -29,11 +29,6 @@
 	text-decoration: none;
 }
 
-.site-header__identity::after {
-	color: var(--color-accent);
-	content: ".";
-}
-
 .site-header__identity:hover {
 	color: var(--color-accent-soft);
 }

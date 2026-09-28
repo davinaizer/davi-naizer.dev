@@ -10,11 +10,6 @@
 	max-inline-size: var(--measure-wide);
 }
 
-.home__identity::after {
-	color: var(--color-accent);
-	content: ".";
-}
-
 .home__headline {
 	font-family: var(--font-family-serif);
 	font-optical-sizing: auto;
