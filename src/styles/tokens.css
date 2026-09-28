@@ -19,7 +19,7 @@
 	--color-focus: var(--color-accent);
 
 	/* Typography */
-	--font-family-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+	--font-family-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
 	--font-family-serif: Newsreader, Georgia, "Times New Roman", serif;
 	--font-family-mono: "IBM Plex Mono", ui-monospace, monospace;
 	--font-size-caption: 0.875rem;

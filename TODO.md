@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.64
+version: 1.65
 status: active
 ---
 
@@ -619,6 +619,16 @@ Delivered and reviewed with `PASS` (after two developer-directed amendments to t
 - [x] Replace the round full stop on the header wordmark and the Home h1 with one shared solid accent square (`patterns.css`), with a forced-colors fallback; the "." no longer appears in the accessible name.
 - [x] Update `public/favicon.svg` (square stop, square tile) and regenerate `favicon-16x16.png`, `favicon-32x32.png`, `favicon-512.png` and `apple-touch-icon.png` from it.
 - [x] Rebuild `public/social-preview.png` with the site typefaces (Newsreader, Inter, IBM Plex Mono) and the square stops, same 1200×630 layout, name baseline-aligned with the D mark, and the gradient wash removed for a flat `#131313` canvas (developer-directed amendments after the first implementation, which had only painted over the round stops).
+- [x] Formal review (`PASS`) and completion.
+
+### Replace Inter with IBM Plex Sans (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Governed by `docs/plans/2026-09-28-ibm-plex-sans.md` and the `DECISIONS.md` entry "Replace Inter with IBM Plex Sans as the sans family — 2026-09-28". Evidence is developer visual review of four rendered variants. Developer chose IBM Plex Sans, and option A: patch the social preview.
+
+- [x] Swap the sans family in `tokens.css` and the Google Fonts request in `index.html` (weights 400 and 500); Newsreader and IBM Plex Mono unchanged.
+- [x] Redraw the `public/social-preview.png` tagline in Plex Sans, same position, size class and colour.
+- [x] Update `docs/design/DESIGN.md` and add the decision entry.
+- [x] Verify fonts load and there is no horizontal overflow at 1280, 896, 640 and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 - [x] Formal review (`PASS`) and completion.
 
 ---

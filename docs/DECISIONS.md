@@ -1,12 +1,22 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-27
-version: 1.32
+updatedAt: 2026-09-28
+version: 1.33
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Replace Inter with IBM Plex Sans as the sans family — 2026-09-28
+
+**Decision:** Set body and interface text in IBM Plex Sans (weights 400 and 500) instead of Inter. Newsreader and IBM Plex Mono are unchanged, and the three-family, fixed-role structure recorded on 2026-09-27 stands. `public/social-preview.png` was patched so its tagline uses Plex Sans too.
+
+**Rationale:** The developer judged Inter overused and a startup default, and chose Plex Sans after reviewing four rendered variants (Inter, Libre Franklin, IBM Plex Sans, Atkinson Hyperlegible Next). Plex Sans and Plex Mono are drawn as one family, so the sans and mono now pair by design, and the choice is easy to justify. Libre Franklin (strongest editorial pairing, wider set) and Atkinson Hyperlegible Next (accessibility story, most personality-forward) were the runners-up. Approved plan: `docs/plans/2026-09-28-ibm-plex-sans.md`.
+
+**Consequence:** `--font-family-sans` in `tokens.css` and the Google Fonts request in `index.html` changed; `docs/design/DESIGN.md` names the new family. Earlier decision, audit and plan entries that mention Inter are historical and left as written. Plex Sans has no optical-size axis, so the request is static weights.
+
+**Review triggers:** Reconsider if wrapping or width regressions appear at 320px, or if the sans reads poorly beside Newsreader in production.
 
 ## Merge Experience into Resume — 2026-09-28
 
