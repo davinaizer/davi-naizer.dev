@@ -115,24 +115,9 @@
 }
 
 .experience__contributions {
-	padding-inline-start: 0;
+	border-inline-start: var(--border-width-accent) solid var(--color-accent);
 	list-style: none;
-	counter-reset: contribution;
-}
-
-.experience__contributions li {
-	display: grid;
-	grid-template-columns: var(--space-4) minmax(0, 1fr);
-	gap: var(--space-1);
-	counter-increment: contribution;
-}
-
-.experience__contributions li::before {
-	content: counter(contribution, decimal-leading-zero);
-	color: var(--color-accent);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	letter-spacing: var(--letter-spacing-label);
+	padding-inline-start: var(--space-2);
 }
 
 .experience__contributions > li + li {

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.63
+version: 1.64
 status: active
 ---
 
@@ -584,6 +584,15 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] H5: removed `HomePage.tsx`'s empty hero eyebrow, which previously rendered only its accent-bar `::before` with no text.
 - [x] Aligned naming (called out directly in G1's fix instructions): `CaseStudyPage.tsx`'s area label renamed from "Case study" to "Product case study", matching the Work-index card's label for the same content; `WorkProjectPage.test.tsx` updated to match.
 - [x] Verified `.page-lead` spacing (flexbox `gap`) renders correctly with no stray gap on all five affected pages. Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Close out the audit: Batch 5 remainder and F5 (audit findings G2, G4, G8–G11, F5) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (all findings now marked resolved); the approved plan, including a recommendation and rationale for each finding, is recorded in `docs/plans/2026-09-28-close-out-audit-batch5-f5.md`. Bundled at the developer's request to reduce planning granularity for the remaining low-ROI items — mirrors Batch 3's precedent (S1–S5 delivered as one `PASS`). **This closes the entire 2026-09-27 CSS/markup consistency audit.**
+
+- [x] G2: replaced `.experience__contributions`'s misleading numbered counter (01, 02, 03…) with the accent-bar-border treatment already used by `.project-page__outcomes-list`, since the contributions aren't an ordered sequence. CSS-only; no markup or test changes needed.
+- [x] G4, G8, G9, G10, G11, F5: each confirmed "no action needed" against its exact audit text, with rationale recorded in the audit doc. F5 in particular was found to be superseded — its premise (a single Inter weight) no longer holds since the earlier F2 fix added a second weight.
+- [x] Also updated the audit doc's G1 and H5 rows to "Fixed" — they were delivered in the prior task but never marked resolved there; caught and corrected while editing the same document for this task's own findings.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
 ---
 
