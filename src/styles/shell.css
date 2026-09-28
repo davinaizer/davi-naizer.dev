@@ -97,7 +97,6 @@
 	font-size: var(--font-size-caption);
 	line-height: var(--line-height-label);
 	padding: var(--space-1) 0;
-	text-decoration: underline;
 	text-underline-offset: var(--text-underline-offset);
 }
 
