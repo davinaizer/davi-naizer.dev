@@ -1,12 +1,20 @@
 import { render, screen, within } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
-import { caseStudies } from "../content/evidence-content.ts";
 import { professionalContent } from "../content/professional-content.ts";
 import { axe } from "../test/axe.ts";
+import { fixtureCaseStudies } from "../test/evidence-fixtures.ts";
 import CaseStudyPage from "./CaseStudyPage.tsx";
 import NotFoundPage from "./NotFoundPage.tsx";
+
+vi.mock("../content/evidence-content.ts", () =>
+	import("../test/evidence-fixtures.ts").then((module) =>
+		module.evidenceContentMock(),
+	),
+);
+
+const [first, draft, last] = fixtureCaseStudies;
 
 function renderCaseStudyPage(path: string) {
 	const router = createMemoryRouter(
@@ -21,20 +29,13 @@ function renderCaseStudyPage(path: string) {
 }
 
 describe("CaseStudyPage", () => {
-	it("renders the Alfred case study with a section nav, tags, and gallery", async () => {
-		const caseStudy = caseStudies.find(
-			({ slug }) => slug === "alfred-what-to-do-next",
-		);
-		if (!caseStudy) {
-			throw new Error("Expected the Alfred case study to be published.");
-		}
-
-		renderCaseStudyPage(workProjectPath(caseStudy.slug));
+	it("renders a case study with a section nav, tags, and gallery", async () => {
+		renderCaseStudyPage(workProjectPath(first.slug));
 
 		expect(
-			await screen.findByRole("heading", { level: 1, name: caseStudy.title }),
+			await screen.findByRole("heading", { level: 1, name: first.title }),
 		).toBeInTheDocument();
-		expect(screen.getByText(caseStudy.summary)).toBeInTheDocument();
+		expect(screen.getByText(first.summary)).toBeInTheDocument();
 
 		const sectionNav = screen.getByRole("navigation", { name: "On this page" });
 		expect(
@@ -53,7 +54,7 @@ describe("CaseStudyPage", () => {
 		]);
 		expect(
 			within(sectionNav).getByRole("link", { name: "Context" }),
-		).toHaveAttribute("href", `#${caseStudy.slug}-context`);
+		).toHaveAttribute("href", `#${first.slug}-context`);
 
 		const decisionsSection = screen
 			.getByRole("heading", { level: 2, name: "Decisions" })
@@ -68,7 +69,7 @@ describe("CaseStudyPage", () => {
 			}),
 		).toBeInTheDocument();
 		expect(
-			within(decisionsSection).getByText(caseStudy.productAndUx),
+			within(decisionsSection).getByText(first.productAndUx),
 		).toBeInTheDocument();
 		expect(
 			within(decisionsSection).getByRole("heading", {
@@ -77,15 +78,15 @@ describe("CaseStudyPage", () => {
 			}),
 		).toBeInTheDocument();
 		expect(
-			within(decisionsSection).getByText(caseStudy.engineering),
+			within(decisionsSection).getByText(first.engineering),
 		).toBeInTheDocument();
 
 		const technologies = screen.getByRole("list", { name: "Technologies" });
-		for (const technology of caseStudy.technologies ?? []) {
+		for (const technology of first.technologies ?? []) {
 			expect(within(technologies).getByText(technology)).toBeInTheDocument();
 		}
 
-		for (const visual of caseStudy.visuals ?? []) {
+		for (const visual of first.visuals ?? []) {
 			expect(screen.getByRole("img", { name: visual.alt })).toHaveAttribute(
 				"src",
 				visual.src,
@@ -96,69 +97,57 @@ describe("CaseStudyPage", () => {
 		expect(backLink).toHaveAttribute("href", workSectionPath("caseStudies"));
 	});
 
-	it("renders the Alfred hero image with eager loading and high fetch priority", async () => {
-		const caseStudy = caseStudies.find(
-			({ slug }) => slug === "alfred-what-to-do-next",
-		);
-		if (!caseStudy?.hero) {
-			throw new Error("Expected the Alfred case study to have a hero.");
+	it("renders a hero image with eager loading and high fetch priority", async () => {
+		if (!first.hero) {
+			throw new Error("Expected the fixture case study to have a hero.");
 		}
 
-		renderCaseStudyPage(workProjectPath(caseStudy.slug));
-		await screen.findByRole("heading", { level: 1, name: caseStudy.title });
+		renderCaseStudyPage(workProjectPath(first.slug));
+		await screen.findByRole("heading", { level: 1, name: first.title });
 
-		const heroImage = screen.getByRole("img", { name: caseStudy.hero.alt });
-		expect(heroImage).toHaveAttribute("src", caseStudy.hero.src);
+		const heroImage = screen.getByRole("img", { name: first.hero.alt });
+		expect(heroImage).toHaveAttribute("src", first.hero.src);
 		expect(heroImage).toHaveAttribute("loading", "eager");
 		expect(heroImage).toHaveAttribute("fetchpriority", "high");
 	});
 
-	it("links relevant experience and the next case study in Continue exploring", async () => {
-		const caseStudy = caseStudies.find(
-			({ slug }) => slug === "alfred-what-to-do-next",
-		);
-		const nextCaseStudy = caseStudies[1];
-		if (!caseStudy || !nextCaseStudy) {
-			throw new Error("Expected at least two published case studies.");
-		}
-
-		renderCaseStudyPage(workProjectPath(caseStudy.slug));
-		await screen.findByRole("heading", { level: 1, name: caseStudy.title });
+	it("links the next published case study in Continue exploring, skipping unpublished ones", async () => {
+		renderCaseStudyPage(workProjectPath(first.slug));
+		await screen.findByRole("heading", { level: 1, name: first.title });
 
 		const continuation = screen.getByRole("navigation", {
 			name: "Continue exploring",
 		});
 
-		for (const experienceSlug of caseStudy.relatedExperienceSlugs ?? []) {
-			const entry = professionalContent.experience.find(
-				(candidate) => candidate.slug === experienceSlug,
-			);
-			if (!entry) {
-				throw new Error(`Missing experience entry for ${experienceSlug}.`);
-			}
-
-			expect(
-				within(continuation).getByRole("link", {
-					name: `Relevant experience: ${entry.role} at ${entry.company}`,
-				}),
-			).toHaveAttribute("href", `${routes.resume}#${entry.slug}`);
-		}
-
 		expect(
 			within(continuation).getByRole("link", {
-				name: `Next case study: ${nextCaseStudy.title}`,
+				name: `Next case study: ${last.title}`,
 			}),
-		).toHaveAttribute("href", workProjectPath(nextCaseStudy.slug));
+		).toHaveAttribute("href", workProjectPath(last.slug));
+		expect(
+			within(continuation).queryByText(draft.title, { exact: false }),
+		).not.toBeInTheDocument();
 	});
 
-	it("omits the next-case-study link for the last case study in the area", async () => {
-		const lastCaseStudy = caseStudies[caseStudies.length - 1];
+	it("links the related experience in Continue exploring", async () => {
+		const entry = professionalContent.experience[0];
 
-		renderCaseStudyPage(workProjectPath(lastCaseStudy.slug));
-		await screen.findByRole("heading", {
-			level: 1,
-			name: lastCaseStudy.title,
+		renderCaseStudyPage(workProjectPath(first.slug));
+		await screen.findByRole("heading", { level: 1, name: first.title });
+
+		const continuation = screen.getByRole("navigation", {
+			name: "Continue exploring",
 		});
+		expect(
+			within(continuation).getByRole("link", {
+				name: `Relevant experience: ${entry.role} at ${entry.company}`,
+			}),
+		).toHaveAttribute("href", `${routes.resume}#${entry.slug}`);
+	});
+
+	it("omits the next-case-study link for the last published case study", async () => {
+		renderCaseStudyPage(workProjectPath(last.slug));
+		await screen.findByRole("heading", { level: 1, name: last.title });
 
 		const continuation = screen.getByRole("navigation", {
 			name: "Continue exploring",
@@ -176,16 +165,17 @@ describe("CaseStudyPage", () => {
 		).toBeInTheDocument();
 	});
 
-	it("has no detectable accessibility violations", async () => {
-		const caseStudy = caseStudies.find(
-			({ slug }) => slug === "alfred-what-to-do-next",
-		);
-		if (!caseStudy) {
-			throw new Error("Expected the Alfred case study to be published.");
-		}
+	it("renders the not-found page for an unpublished case study", async () => {
+		renderCaseStudyPage(workProjectPath(draft.slug));
 
-		const { container } = renderCaseStudyPage(workProjectPath(caseStudy.slug));
-		await screen.findByRole("heading", { level: 1, name: caseStudy.title });
+		expect(
+			await screen.findByRole("heading", { name: "Page Not Found" }),
+		).toBeInTheDocument();
+	});
+
+	it("has no detectable accessibility violations", async () => {
+		const { container } = renderCaseStudyPage(workProjectPath(first.slug));
+		await screen.findByRole("heading", { level: 1, name: first.title });
 
 		expect((await axe(container)).violations).toHaveLength(0);
 	});

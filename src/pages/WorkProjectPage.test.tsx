@@ -1,10 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { routes, workProjectPath } from "../app/routes.ts";
-import { caseStudies, projects } from "../content/evidence-content.ts";
+import {
+	fixtureCaseStudies,
+	fixtureProjects,
+} from "../test/evidence-fixtures.ts";
 import NotFoundPage from "./NotFoundPage.tsx";
 import WorkProjectPage from "./WorkProjectPage.tsx";
+
+vi.mock("../content/evidence-content.ts", () =>
+	import("../test/evidence-fixtures.ts").then((module) =>
+		module.evidenceContentMock(),
+	),
+);
 
 function renderWorkProjectPage(path: string) {
 	const router = createMemoryRouter(
@@ -20,7 +29,7 @@ function renderWorkProjectPage(path: string) {
 
 describe("WorkProjectPage", () => {
 	it("renders a case study at /work/<slug>", async () => {
-		const [caseStudy] = caseStudies;
+		const [caseStudy] = fixtureCaseStudies;
 
 		renderWorkProjectPage(workProjectPath(caseStudy.slug));
 
@@ -31,7 +40,7 @@ describe("WorkProjectPage", () => {
 	});
 
 	it("renders an experiment at /work/<slug>", async () => {
-		const [project] = projects;
+		const [project] = fixtureProjects;
 
 		renderWorkProjectPage(workProjectPath(project.slug));
 

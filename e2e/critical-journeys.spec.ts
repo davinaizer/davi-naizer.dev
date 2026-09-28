@@ -1,4 +1,19 @@
 import { expect, test } from "@playwright/test";
+import { caseStudies, projects } from "../src/content/evidence-content.ts";
+
+// Journeys are derived from whichever projects are published, so flipping a
+// `published` flag never breaks them. A journey with nothing to exercise is
+// skipped with a stated reason.
+const caseStudy = caseStudies[0];
+const experiment = projects[0];
+const caseStudyWithNext = caseStudies.find(
+	(_, index) => caseStudies[index + 1],
+);
+const experimentWithNext = projects.find((_, index) => projects[index + 1]);
+const galleryExperiment = projects.find((entry) => entry.visuals?.length);
+const reflectiveExperiment = projects.find((entry) => entry.reflection);
+const nextOf = <T>(entries: readonly T[], entry: T | undefined) =>
+	entry === undefined ? undefined : entries[entries.indexOf(entry) + 1];
 
 test("renders a durable route when opened directly", async ({ page }) => {
 	await page.goto("/work");
@@ -28,10 +43,16 @@ test("renders a durable route when opened directly", async ({ page }) => {
 test("lays out the Work cards in two columns on desktop and one column at 320 px", async ({
 	page,
 }) => {
+	const gridSection = [
+		{ id: "case-studies", count: caseStudies.length },
+		{ id: "experiments", count: projects.length },
+	].find(({ count }) => count >= 2);
+	test.skip(!gridSection, "Needs a section with two published projects.");
+
 	await page.setViewportSize({ width: 1280, height: 900 });
 	await page.goto("/work");
 
-	const cards = page.locator(".work__card");
+	const cards = page.locator(`#${gridSection?.id} .work__card`);
 	const first = await cards.nth(0).boundingBox();
 	const second = await cards.nth(1).boundingBox();
 	if (!first || !second) {
@@ -74,35 +95,37 @@ test("scrolls to the Experiments section when opened with its anchor", async ({
 test("links from the Work index to a case-study and an experiment page", async ({
 	page,
 }) => {
-	await page.goto("/work");
-	await page.getByRole("link", { name: "Alfred: What To Do Next" }).click();
+	test.skip(
+		!caseStudy || !experiment,
+		"Needs a published case study and experiment.",
+	);
 
-	await expect(page).toHaveURL(/\/work\/alfred-what-to-do-next$/);
+	await page.goto("/work");
+	await page.getByRole("link", { name: caseStudy.title }).click();
+
+	await expect(page).toHaveURL(new RegExp(`/work/${caseStudy.slug}$`));
 	await expect(
-		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
+		page.getByRole("heading", { level: 1, name: caseStudy.title }),
 	).toBeVisible();
 
 	await page.goto("/work");
-	await page
-		.getByRole("link", { name: "Atelier Florae: From Brand to Product" })
-		.click();
+	await page.getByRole("link", { name: experiment.title }).click();
 
-	await expect(page).toHaveURL(/\/work\/atelier-florae$/);
+	await expect(page).toHaveURL(new RegExp(`/work/${experiment.slug}$`));
 	await expect(
-		page.getByRole("heading", {
-			level: 1,
-			name: "Atelier Florae: From Brand to Product",
-		}),
+		page.getByRole("heading", { level: 1, name: experiment.title }),
 	).toBeVisible();
 });
 
 test("makes each Work card one link with an accent hover border and a visible focus ring", async ({
 	page,
 }) => {
+	test.skip(!caseStudy, "Needs a published case study.");
+
 	await page.goto("/work");
 
 	const card = page.locator(".work__card").first();
-	const link = card.getByRole("link", { name: "Alfred: What To Do Next" });
+	const link = card.getByRole("link", { name: caseStudy.title });
 	await expect(card.getByRole("link")).toHaveCount(1);
 	await expect(link).toHaveCSS("text-decoration-line", "none");
 
@@ -119,26 +142,28 @@ test("makes each Work card one link with an accent hover border and a visible fo
 	await expect(card).not.toHaveCSS("border-top-color", defaultBorder);
 
 	await card.click({ position: { x: 10, y: 10 } });
-	await expect(page).toHaveURL(/\/work\/alfred-what-to-do-next$/);
+	await expect(page).toHaveURL(new RegExp(`/work/${caseStudy.slug}$`));
 });
 
 test("opens a case-study project page directly and navigates its section nav", async ({
 	page,
 }) => {
-	await page.goto("/work/alfred-what-to-do-next");
+	test.skip(!caseStudy, "Needs a published case study.");
+
+	await page.goto(`/work/${caseStudy.slug}`);
 
 	await expect(
-		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
+		page.getByRole("heading", { level: 1, name: caseStudy.title }),
 	).toBeVisible();
 	await page.reload();
 	await expect(
-		page.getByRole("heading", { level: 1, name: "Alfred: What To Do Next" }),
+		page.getByRole("heading", { level: 1, name: caseStudy.title }),
 	).toBeVisible();
 
 	const sectionNav = page.getByRole("navigation", { name: "On this page" });
 	await sectionNav.getByRole("link", { name: "Reflection" }).click();
 
-	await expect(page).toHaveURL(/#alfred-what-to-do-next-reflection$/);
+	await expect(page).toHaveURL(new RegExp(`#${caseStudy.slug}-reflection$`));
 	await expect(
 		page.getByRole("heading", { level: 2, name: "Reflection" }),
 	).toBeInViewport();
@@ -147,8 +172,10 @@ test("opens a case-study project page directly and navigates its section nav", a
 test("keeps the project-page section nav beside the content on desktop and inline on mobile", async ({
 	page,
 }) => {
+	test.skip(!caseStudy, "Needs a published case study.");
+
 	await page.setViewportSize({ width: 1024, height: 900 });
-	await page.goto("/work/alfred-what-to-do-next");
+	await page.goto(`/work/${caseStudy.slug}`);
 
 	const nav = page.getByRole("navigation", { name: "On this page" });
 	const content = page.locator(".project-page__content");
@@ -160,7 +187,7 @@ test("keeps the project-page section nav beside the content on desktop and inlin
 	expect(desktopNavBox.x).toBeGreaterThan(desktopContentBox.x);
 
 	await page.setViewportSize({ width: 320, height: 900 });
-	await page.goto("/work/alfred-what-to-do-next");
+	await page.goto(`/work/${caseStudy.slug}`);
 	const mobileNavBox = await nav.boundingBox();
 	const mobileContentBox = await content.boundingBox();
 	if (!mobileNavBox || !mobileContentBox) {
@@ -181,15 +208,16 @@ test("keeps the project-page section nav beside the content on desktop and inlin
 test("continues to the next case study and back to the index from a project page", async ({
 	page,
 }) => {
-	await page.goto("/work/alfred-what-to-do-next");
+	test.skip(!caseStudyWithNext, "Needs two published case studies.");
+	const next = nextOf(caseStudies, caseStudyWithNext);
+
+	await page.goto(`/work/${caseStudyWithNext?.slug}`);
 
 	const continuation = page.getByRole("navigation", {
 		name: "Continue exploring",
 	});
 	await continuation.getByRole("link", { name: /^Next case study:/ }).click();
-	await expect(page).toHaveURL(
-		/\/work\/signal-vessel-list-template-administration$/,
-	);
+	await expect(page).toHaveURL(new RegExp(`/work/${next?.slug}$`));
 
 	await page.getByRole("link", { name: "All case studies" }).click();
 	await expect(page).toHaveURL(/\/work#case-studies$/);
@@ -247,7 +275,10 @@ test("navigates the Resume timeline by role with a sticky rail on desktop and an
 test("resets the section-nav active state when moving to the next case study", async ({
 	page,
 }) => {
-	await page.goto("/work/alfred-what-to-do-next");
+	test.skip(!caseStudyWithNext, "Needs two published case studies.");
+	const next = nextOf(caseStudies, caseStudyWithNext);
+
+	await page.goto(`/work/${caseStudyWithNext?.slug}`);
 
 	const sectionNav = page.getByRole("navigation", { name: "On this page" });
 	const contextLink = sectionNav.getByRole("link", { name: "Context" });
@@ -261,9 +292,7 @@ test("resets the section-nav active state when moving to the next case study", a
 		.getByRole("link", { name: /^Next case study:/ })
 		.click();
 
-	await expect(page).toHaveURL(
-		/\/work\/signal-vessel-list-template-administration$/,
-	);
+	await expect(page).toHaveURL(new RegExp(`/work/${next?.slug}$`));
 	await expect(
 		sectionNav.getByRole("link", { name: "Context" }),
 	).toHaveAttribute("aria-current", "true");
@@ -272,26 +301,27 @@ test("resets the section-nav active state when moving to the next case study", a
 test("opens an experiment project page directly and navigates its section nav", async ({
 	page,
 }) => {
-	await page.goto("/work/atelier-florae");
+	test.skip(
+		!reflectiveExperiment,
+		"Needs a published experiment with a reflection.",
+	);
+
+	await page.goto(`/work/${reflectiveExperiment?.slug}`);
 
 	await expect(
-		page.getByRole("heading", {
-			level: 1,
-			name: "Atelier Florae: From Brand to Product",
-		}),
+		page.getByRole("heading", { level: 1, name: reflectiveExperiment?.title }),
 	).toBeVisible();
 	await page.reload();
 	await expect(
-		page.getByRole("heading", {
-			level: 1,
-			name: "Atelier Florae: From Brand to Product",
-		}),
+		page.getByRole("heading", { level: 1, name: reflectiveExperiment?.title }),
 	).toBeVisible();
 
 	const sectionNav = page.getByRole("navigation", { name: "On this page" });
 	await sectionNav.getByRole("link", { name: "Reflection" }).click();
 
-	await expect(page).toHaveURL(/#atelier-florae-reflection$/);
+	await expect(page).toHaveURL(
+		new RegExp(`#${reflectiveExperiment?.slug}-reflection$`),
+	);
 	await expect(
 		page.getByRole("heading", { level: 2, name: "Reflection" }),
 	).toBeInViewport();
@@ -300,13 +330,16 @@ test("opens an experiment project page directly and navigates its section nav", 
 test("continues to the next experiment and back to the index from a project page", async ({
 	page,
 }) => {
-	await page.goto("/work/atelier-florae");
+	test.skip(!experimentWithNext, "Needs two published experiments.");
+	const next = nextOf(projects, experimentWithNext);
+
+	await page.goto(`/work/${experimentWithNext?.slug}`);
 
 	const continuation = page.getByRole("navigation", {
 		name: "Continue exploring",
 	});
 	await continuation.getByRole("link", { name: /^Next experiment:/ }).click();
-	await expect(page).toHaveURL(/\/work\/uv-insect-trap$/);
+	await expect(page).toHaveURL(new RegExp(`/work/${next?.slug}$`));
 
 	await page.getByRole("link", { name: "All experiments" }).click();
 	await expect(page).toHaveURL(/\/work#experiments$/);
@@ -316,6 +349,8 @@ test("continues to the next experiment and back to the index from a project page
 });
 
 test("navigates through the shell and Work routes", async ({ page }) => {
+	test.skip(!experiment, "Needs a published experiment.");
+
 	await page.goto("/");
 	await page
 		.getByRole("link", { name: "Explore my independent experiments" })
@@ -341,26 +376,30 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 	).toBeVisible();
 
 	await expect(
-		page.getByRole("heading", { level: 3, name: "UV Insect Trap" }),
+		page.getByRole("heading", { level: 3, name: experiment.title }),
 	).toBeVisible();
 	await page.reload();
 	await expect(
-		page.getByRole("heading", { level: 3, name: "UV Insect Trap" }),
+		page.getByRole("heading", { level: 3, name: experiment.title }),
 	).toBeVisible();
 
-	await page.getByRole("link", { name: "UV Insect Trap" }).click();
-	await expect(page).toHaveURL(/\/work\/uv-insect-trap$/);
+	await page.getByRole("link", { name: experiment.title }).click();
+	await expect(page).toHaveURL(new RegExp(`/work/${experiment.slug}$`));
 	await expect(
-		page.getByRole("heading", { level: 1, name: "UV Insect Trap" }),
+		page.getByRole("heading", { level: 1, name: experiment.title }),
 	).toBeVisible();
 
 	await page.setViewportSize({ width: 320, height: 900 });
-	const experimentVisuals = page.getByRole("region", {
-		name: "CAD views and the finished prototype",
-	});
-	await expect(experimentVisuals).toBeVisible();
-	await expect(experimentVisuals.getByRole("img")).toHaveCount(3);
-	await expect(experimentVisuals.getByRole("img").first()).toBeVisible();
+	if (experiment.visuals?.length) {
+		const experimentVisuals = page.getByRole("region", {
+			name: experiment.visualsHeading ?? "Project visuals",
+		});
+		await expect(experimentVisuals).toBeVisible();
+		await expect(experimentVisuals.getByRole("img")).toHaveCount(
+			experiment.visuals.length,
+		);
+		await expect(experimentVisuals.getByRole("img").first()).toBeVisible();
+	}
 	const hasExperimentOverflow = await page.evaluate(
 		() =>
 			document.documentElement.scrollWidth >
@@ -383,21 +422,23 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 test("opens the gallery lightbox from a thumbnail and closes it with Escape, returning focus", async ({
 	page,
 }) => {
-	await page.goto("/work/uv-insect-trap");
+	test.skip(!galleryExperiment, "Needs a published experiment with a gallery.");
+	const visual = galleryExperiment?.visuals?.[0];
+	if (!galleryExperiment || !visual) {
+		return;
+	}
+
+	await page.goto(`/work/${galleryExperiment.slug}`);
 
 	const gallery = page.getByRole("region", {
-		name: "CAD views and the finished prototype",
+		name: galleryExperiment.visualsHeading ?? "Project visuals",
 	});
-	const thumbnail = gallery.getByRole("button", {
-		name: /front cutaway CAD render/,
-	});
+	const thumbnail = gallery.getByRole("button", { name: visual.alt });
 	await thumbnail.click();
 
-	const dialog = page.getByRole("dialog", { name: "Enclosure and grille" });
+	const dialog = page.getByRole("dialog", { name: visual.title });
 	await expect(dialog).toBeVisible();
-	await expect(
-		dialog.getByRole("img", { name: /front cutaway CAD render/ }),
-	).toBeVisible();
+	await expect(dialog.getByRole("img", { name: visual.alt })).toBeVisible();
 
 	await page.keyboard.press("Escape");
 	await expect(dialog).not.toBeVisible();
@@ -407,17 +448,21 @@ test("opens the gallery lightbox from a thumbnail and closes it with Escape, ret
 test("closes the gallery lightbox on a backdrop click, returning focus to the thumbnail", async ({
 	page,
 }) => {
-	await page.goto("/work/uv-insect-trap");
+	test.skip(!galleryExperiment, "Needs a published experiment with a gallery.");
+	const visual = galleryExperiment?.visuals?.[0];
+	if (!galleryExperiment || !visual) {
+		return;
+	}
+
+	await page.goto(`/work/${galleryExperiment.slug}`);
 
 	const gallery = page.getByRole("region", {
-		name: "CAD views and the finished prototype",
+		name: galleryExperiment.visualsHeading ?? "Project visuals",
 	});
-	const thumbnail = gallery.getByRole("button", {
-		name: /front cutaway CAD render/,
-	});
+	const thumbnail = gallery.getByRole("button", { name: visual.alt });
 	await thumbnail.click();
 
-	const dialog = page.getByRole("dialog", { name: "Enclosure and grille" });
+	const dialog = page.getByRole("dialog", { name: visual.title });
 	await expect(dialog).toBeVisible();
 
 	await page.mouse.click(5, 5);
@@ -428,18 +473,22 @@ test("closes the gallery lightbox on a backdrop click, returning focus to the th
 test("opens the gallery lightbox with the keyboard and closes it with the close button", async ({
 	page,
 }) => {
-	await page.goto("/work/uv-insect-trap");
+	test.skip(!galleryExperiment, "Needs a published experiment with a gallery.");
+	const visual = galleryExperiment?.visuals?.[0];
+	if (!galleryExperiment || !visual) {
+		return;
+	}
+
+	await page.goto(`/work/${galleryExperiment.slug}`);
 
 	const gallery = page.getByRole("region", {
-		name: "CAD views and the finished prototype",
+		name: galleryExperiment.visualsHeading ?? "Project visuals",
 	});
-	const thumbnail = gallery.getByRole("button", {
-		name: /front cutaway CAD render/,
-	});
+	const thumbnail = gallery.getByRole("button", { name: visual.alt });
 	await thumbnail.focus();
 	await page.keyboard.press("Enter");
 
-	const dialog = page.getByRole("dialog", { name: "Enclosure and grille" });
+	const dialog = page.getByRole("dialog", { name: visual.title });
 	await expect(dialog).toBeVisible();
 
 	await dialog.getByRole("button", { name: "Close" }).click();

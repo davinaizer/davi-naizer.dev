@@ -1,11 +1,20 @@
 import { render, screen, within } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
-import { projects } from "../content/evidence-content.ts";
+import { professionalContent } from "../content/professional-content.ts";
 import { axe } from "../test/axe.ts";
+import { fixtureProjects } from "../test/evidence-fixtures.ts";
 import ExperimentPage from "./ExperimentPage.tsx";
 import NotFoundPage from "./NotFoundPage.tsx";
+
+vi.mock("../content/evidence-content.ts", () =>
+	import("../test/evidence-fixtures.ts").then((module) =>
+		module.evidenceContentMock(),
+	),
+);
+
+const [full, draft, last] = fixtureProjects;
 
 function renderExperimentPage(path: string) {
 	const router = createMemoryRouter(
@@ -20,18 +29,13 @@ function renderExperimentPage(path: string) {
 }
 
 describe("ExperimentPage", () => {
-	it("renders the Atelier Florae experiment with a section nav, tags, and gallery", async () => {
-		const project = projects.find((entry) => entry.slug === "atelier-florae");
-		if (!project) {
-			throw new Error("Expected the Atelier Florae experiment to exist.");
-		}
-
-		renderExperimentPage(workProjectPath(project.slug));
+	it("renders an experiment with a section nav, tags, and gallery", async () => {
+		renderExperimentPage(workProjectPath(full.slug));
 
 		expect(
-			await screen.findByRole("heading", { level: 1, name: project.title }),
+			await screen.findByRole("heading", { level: 1, name: full.title }),
 		).toBeInTheDocument();
-		expect(screen.getByText(project.summary)).toBeInTheDocument();
+		expect(screen.getByText(full.summary)).toBeInTheDocument();
 
 		const sectionNav = screen.getByRole("navigation", { name: "On this page" });
 		expect(
@@ -45,20 +49,20 @@ describe("ExperimentPage", () => {
 			"What I built",
 			"My contribution",
 			"Design and engineering decisions",
-			"Brand system and launch materials",
+			"Fixture visuals heading",
 			"What I observed",
 			"Reflection",
 		]);
 		expect(
 			within(sectionNav).getByRole("link", { name: "Context" }),
-		).toHaveAttribute("href", `#${project.slug}-context`);
+		).toHaveAttribute("href", `#${full.slug}-context`);
 
 		const technologies = screen.getByRole("list", { name: "Technologies" });
-		for (const technology of project.technologies ?? []) {
+		for (const technology of full.technologies ?? []) {
 			expect(within(technologies).getByText(technology)).toBeInTheDocument();
 		}
 
-		for (const visual of project.visuals ?? []) {
+		for (const visual of full.visuals ?? []) {
 			expect(screen.getByRole("img", { name: visual.alt })).toHaveAttribute(
 				"src",
 				visual.src,
@@ -69,35 +73,43 @@ describe("ExperimentPage", () => {
 		expect(backLink).toHaveAttribute("href", workSectionPath("experiments"));
 	});
 
-	it("links the next experiment in Continue exploring", async () => {
-		const project = projects.find((entry) => entry.slug === "atelier-florae");
-		const nextProject = projects[1];
-		if (!project || !nextProject) {
-			throw new Error("Expected at least two published experiments.");
-		}
+	it("renders only the sections an experiment provides", async () => {
+		renderExperimentPage(workProjectPath(last.slug));
+		await screen.findByRole("heading", { level: 1, name: last.title });
 
-		renderExperimentPage(workProjectPath(project.slug));
-		await screen.findByRole("heading", { level: 1, name: project.title });
+		const sectionNav = screen.getByRole("navigation", { name: "On this page" });
+		expect(
+			within(sectionNav)
+				.getAllByRole("link")
+				.map((link) => link.textContent),
+		).toEqual(["Purpose"]);
+	});
+
+	it("links the next published experiment in Continue exploring, skipping unpublished ones", async () => {
+		const entry = professionalContent.experience[0];
+
+		renderExperimentPage(workProjectPath(full.slug));
+		await screen.findByRole("heading", { level: 1, name: full.title });
 
 		const continuation = screen.getByRole("navigation", {
 			name: "Continue exploring",
 		});
 
 		expect(
-			within(continuation).queryByText(/^Relevant experience:/),
-		).not.toBeInTheDocument();
+			within(continuation).getByRole("link", {
+				name: `Relevant experience: ${entry.role} at ${entry.company}`,
+			}),
+		).toHaveAttribute("href", `${routes.resume}#${entry.slug}`);
 		expect(
 			within(continuation).getByRole("link", {
-				name: `Next experiment: ${nextProject.title}`,
+				name: `Next experiment: ${last.title}`,
 			}),
-		).toHaveAttribute("href", workProjectPath(nextProject.slug));
+		).toHaveAttribute("href", workProjectPath(last.slug));
 	});
 
-	it("omits the next-experiment link for the last experiment in the area", async () => {
-		const lastProject = projects[projects.length - 1];
-
-		renderExperimentPage(workProjectPath(lastProject.slug));
-		await screen.findByRole("heading", { level: 1, name: lastProject.title });
+	it("omits the next-experiment link for the last published experiment", async () => {
+		renderExperimentPage(workProjectPath(last.slug));
+		await screen.findByRole("heading", { level: 1, name: last.title });
 
 		const continuation = screen.getByRole("navigation", {
 			name: "Continue exploring",
@@ -107,40 +119,23 @@ describe("ExperimentPage", () => {
 		).not.toBeInTheDocument();
 	});
 
-	it("renders a hero image only for the experiment with a real result photo", async () => {
-		const uvInsectTrap = projects.find(
-			(entry) => entry.slug === "uv-insect-trap",
-		);
-		if (!uvInsectTrap?.hero) {
-			throw new Error("Expected the UV Insect Trap experiment to have a hero.");
+	it("renders a hero image only when the experiment has one", async () => {
+		if (!last.hero) {
+			throw new Error("Expected the fixture experiment to have a hero.");
 		}
 
-		const { unmount } = renderExperimentPage(
-			workProjectPath(uvInsectTrap.slug),
-		);
-		expect(
-			await screen.findByRole("heading", {
-				level: 1,
-				name: uvInsectTrap.title,
-			}),
-		).toBeInTheDocument();
-		const heroImage = screen.getByRole("img", { name: uvInsectTrap.hero.alt });
-		expect(heroImage).toHaveAttribute("src", uvInsectTrap.hero.src);
+		const { unmount } = renderExperimentPage(workProjectPath(last.slug));
+		await screen.findByRole("heading", { level: 1, name: last.title });
+		const heroImage = screen.getByRole("img", { name: last.hero.alt });
+		expect(heroImage).toHaveAttribute("src", last.hero.src);
 		expect(heroImage).toHaveAttribute("loading", "eager");
 		expect(heroImage).toHaveAttribute("fetchpriority", "high");
 		unmount();
 
-		const atelierFlorae = projects.find(
-			(entry) => entry.slug === "atelier-florae",
-		);
-		if (!atelierFlorae) {
-			throw new Error("Expected the Atelier Florae experiment to exist.");
-		}
-
-		renderExperimentPage(workProjectPath(atelierFlorae.slug));
-		await screen.findByRole("heading", { level: 1, name: atelierFlorae.title });
+		renderExperimentPage(workProjectPath(full.slug));
+		await screen.findByRole("heading", { level: 1, name: full.title });
 		expect(
-			screen.queryByRole("img", { name: uvInsectTrap.hero.alt }),
+			screen.queryByRole("img", { name: last.hero.alt }),
 		).not.toBeInTheDocument();
 	});
 
@@ -152,14 +147,17 @@ describe("ExperimentPage", () => {
 		).toBeInTheDocument();
 	});
 
-	it("has no detectable accessibility violations", async () => {
-		const project = projects.find((entry) => entry.slug === "uv-insect-trap");
-		if (!project) {
-			throw new Error("Expected the UV Insect Trap experiment to exist.");
-		}
+	it("renders the not-found page for an unpublished experiment", async () => {
+		renderExperimentPage(workProjectPath(draft.slug));
 
-		const { container } = renderExperimentPage(workProjectPath(project.slug));
-		await screen.findByRole("heading", { level: 1, name: project.title });
+		expect(
+			await screen.findByRole("heading", { name: "Page Not Found" }),
+		).toBeInTheDocument();
+	});
+
+	it("has no detectable accessibility violations", async () => {
+		const { container } = renderExperimentPage(workProjectPath(full.slug));
+		await screen.findByRole("heading", { level: 1, name: full.title });
 
 		expect((await axe(container)).violations).toHaveLength(0);
 	});

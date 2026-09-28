@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.69
+version: 1.70
 status: active
 ---
 
@@ -707,7 +707,16 @@ Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-28-publish-flag.md
 - [x] Add tests for the filter, the not-found page for an unpublished URL, the empty section, and sitemap/published-slug agreement.
 - [x] Pass `pnpm typecheck`, `pnpm check`, `pnpm test` and `pnpm build`; e2e not run because the published set is unchanged.
 
-Non-blocking, carried to `docs/HANDOFF.md`: Home's link to `#experiments` dangles if every Experiment is unpublished; next-entry skipping has no direct test.
+Non-blocking, carried to `docs/HANDOFF.md`: Home's link to `#experiments` dangles if every Experiment is unpublished.
+
+### Make page and e2e tests independent of which projects are published (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-28-status-independent-tests.md`. Follow-up to the publish flag after four projects were unpublished and six unit tests, the e2e suite and the sitemap broke.
+
+- [x] Add synthetic fixtures (`src/test/evidence-fixtures.ts`) and mock `evidence-content.ts` in the page tests; add direct tests for next-entry skipping and unpublished URLs.
+- [x] Remove the four unpublished URLs from `public/sitemap.xml`.
+- [x] Derive e2e journey targets from the published set; skip journeys with nothing to exercise, with a stated reason.
+- [x] Pass `pnpm typecheck`, `pnpm check`, `pnpm test`, `pnpm build` and `pnpm test:e2e` (4 skipped with the current flags).
 
 ---
 

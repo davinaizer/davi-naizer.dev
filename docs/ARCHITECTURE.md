@@ -85,7 +85,7 @@ All architectural changes must preserve:
 - proportional automated and manual validation;
 - a buildable and deployable repository.
 
-Biome owns linting, formatting, and import organisation. TypeScript owns static type checking. Vitest owns non-interactive unit and component test execution in JSDOM. React Testing Library owns rendered DOM and semantic assertions. `vitest-axe` provides component-level automated accessibility regression checks. The `test` script runs the component suite; `validate` runs type checking, Biome checks, and component tests. Playwright owns bounded Chromium critical-journey tests in `e2e/`; `test:e2e` starts the local Vite server and runs that browser suite. Vitest excludes `e2e/` so the runners remain independent.
+Biome owns linting, formatting, and import organisation. TypeScript owns static type checking. Vitest owns non-interactive unit and component test execution in JSDOM. React Testing Library owns rendered DOM and semantic assertions. `vitest-axe` provides component-level automated accessibility regression checks. The `test` script runs the component suite; `validate` runs type checking, Biome checks, and component tests. Playwright owns bounded Chromium critical-journey tests in `e2e/`; `test:e2e` starts the local Vite server and runs that browser suite. Vitest excludes `e2e/` so the runners remain independent. Page tests mock `evidence-content.ts` with the synthetic entries in `src/test/evidence-fixtures.ts`, and e2e journeys derive their targets from the published set, so neither depends on which real projects are published; only the sitemap test is tied to that status.
 
 ## Dependency and abstraction policy
 

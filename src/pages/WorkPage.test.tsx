@@ -1,10 +1,20 @@
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { routes, workProjectPath } from "../app/routes.ts";
 import { caseStudies, projects } from "../content/evidence-content.ts";
 import { axe } from "../test/axe.ts";
+import {
+	fixtureCaseStudies,
+	fixtureProjects,
+} from "../test/evidence-fixtures.ts";
 import WorkPage from "./WorkPage.tsx";
+
+vi.mock("../content/evidence-content.ts", () =>
+	import("../test/evidence-fixtures.ts").then((module) =>
+		module.evidenceContentMock(),
+	),
+);
 
 function renderWorkPage() {
 	return render(
@@ -113,14 +123,34 @@ describe("WorkPage", () => {
 		}
 	});
 
-	it("does not include the UV Insect Trap in the professional case studies", () => {
+	it("omits unpublished projects", () => {
 		renderWorkPage();
 
+		for (const entry of [...fixtureCaseStudies, ...fixtureProjects]) {
+			const card = screen.queryByRole("article", { name: entry.title });
+
+			if (entry.published) {
+				expect(card).toBeInTheDocument();
+			} else {
+				expect(card).not.toBeInTheDocument();
+			}
+		}
+	});
+
+	it("keeps case studies and experiments in their own sections", () => {
+		renderWorkPage();
+
+		const caseStudySection = screen.getByRole("region", {
+			name: "Case studies",
+		});
+		const [caseStudy] = caseStudies;
+		const [project] = projects;
+
 		expect(
-			within(screen.getByRole("region", { name: "Case studies" })).queryByRole(
-				"article",
-				{ name: "UV Insect Trap" },
-			),
+			within(caseStudySection).getByRole("article", { name: caseStudy.title }),
+		).toBeInTheDocument();
+		expect(
+			within(caseStudySection).queryByRole("article", { name: project.title }),
 		).not.toBeInTheDocument();
 	});
 
