@@ -17,7 +17,6 @@ function ResumePage() {
 	return (
 		<section className="resume page-section">
 			<header className="resume__header page-lead">
-				<p className="eyebrow">Professional profile</p>
 				<h1>Resume</h1>
 				<p className="resume__intro page-intro">
 					You can download my current resume for a concise overview of my

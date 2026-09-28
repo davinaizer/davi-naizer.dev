@@ -86,7 +86,6 @@ function ExperiencePage() {
 	return (
 		<section className="experience page-section">
 			<header className="experience__header page-lead">
-				<p className="eyebrow">Career history</p>
 				<h1>Experience</h1>
 				<p className="experience__intro page-intro">
 					The roles, products and teams that have shaped how I work today.

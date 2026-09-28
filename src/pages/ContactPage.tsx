@@ -7,7 +7,6 @@ function ContactPage() {
 		<section className="contact page-section">
 			<div className="contact__layout">
 				<header className="contact__header page-lead">
-					<p className="eyebrow">Get in touch</p>
 					<h1>Contact</h1>
 					<p className="contact__intro">
 						If you’d like to talk about an opportunity, a project, or simply

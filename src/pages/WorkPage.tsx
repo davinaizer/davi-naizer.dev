@@ -42,7 +42,6 @@ function WorkPage() {
 	return (
 		<section className="work page-section">
 			<header className="work__header page-lead">
-				<p className="eyebrow">Selected work</p>
 				<h1>Work</h1>
 				<p className="work__intro page-intro">
 					A selection of products, tools and workflows I’ve helped build, with

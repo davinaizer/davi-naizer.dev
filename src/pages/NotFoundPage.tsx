@@ -5,7 +5,6 @@ function NotFoundPage() {
 	return (
 		<section className="not-found page-section">
 			<header className="not-found__header page-lead">
-				<p className="eyebrow">Page status</p>
 				<h1>Page Not Found</h1>
 				<p className="not-found__intro page-intro">
 					The page you requested does not exist or may have moved.

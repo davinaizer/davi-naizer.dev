@@ -106,7 +106,7 @@ function CaseStudyPage() {
 
 	return (
 		<ProjectPageLayout
-			areaLabel="Case study"
+			areaLabel="Product case study"
 			backLink={{
 				to: workSectionPath("caseStudies"),
 				label: "All case studies",

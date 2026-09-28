@@ -27,7 +27,7 @@ describe("WorkProjectPage", () => {
 		expect(
 			await screen.findByRole("heading", { level: 1, name: caseStudy.title }),
 		).toBeInTheDocument();
-		expect(screen.getByText("Case study")).toBeInTheDocument();
+		expect(screen.getByText("Product case study")).toBeInTheDocument();
 	});
 
 	it("renders an experiment at /work/<slug>", async () => {

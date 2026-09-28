@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.62
+version: 1.63
 status: active
 ---
 
@@ -575,6 +575,15 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Developer-directed mid-implementation addition: fixed a spacing regression caused by this repository's CSS reset zeroing default margins on the new `h3`/`p` elements, via scoped rules in `patterns.css`.
 - [x] Developer-directed mid-implementation addition: restyled the new `h3`s to match `.experience__detail h3`'s existing mono/uppercase/accent-soft treatment (validated against the `frontend-design` skill) rather than the unstyled serif default or the "Decisions" `h2` label style, preserving the visual distinction between the two heading levels.
 - [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 5: remove low-value eyebrows, align case-study label (audit findings G1 and H5) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 5, G1, H5). The plan was not saved to `docs/plans/`: X2 (Batch 0) and the audit's own per-instance list already resolved every keep/remove decision, so there was no unresolved material decision or handoff risk to record.
+
+- [x] G1: removed the `.eyebrow` above every `h1` that restated it or added nothing — `WorkPage.tsx` ("Selected work"), `ExperiencePage.tsx` ("Career history"), `ResumePage.tsx` ("Professional profile"), `ContactPage.tsx` ("Get in touch"), `NotFoundPage.tsx` ("Page status"), and `HomePage.tsx` ("A little about me"). Kept `HomePage.tsx`'s "Current role" and the project-page area-label eyebrow (`ProjectPageLayout.tsx`) unchanged, per X2/G1's explicit per-instance decision; the dead-code "Earlier career" eyebrow (commented out in `ExperiencePage.tsx`) is also untouched.
+- [x] H5: removed `HomePage.tsx`'s empty hero eyebrow, which previously rendered only its accent-bar `::before` with no text.
+- [x] Aligned naming (called out directly in G1's fix instructions): `CaseStudyPage.tsx`'s area label renamed from "Case study" to "Product case study", matching the Work-index card's label for the same content; `WorkProjectPage.test.tsx` updated to match.
+- [x] Verified `.page-lead` spacing (flexbox `gap`) renders correctly with no stray gap on all five affected pages. Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
 ---
 
