@@ -1,6 +1,6 @@
 ---
 title: Professional Site Analytics Baseline
-status: approved
+status: complete
 createdAt: 2026-09-16
 updatedAt: 2026-09-24
 ---
@@ -15,10 +15,10 @@ The baseline should reduce uncertainty about route usage, discoverability, and r
 
 ## Project position
 
-- **Completed:** The MVP, release-readiness review, production Lighthouse diagnostics, analytics platform comparison, production Cloudflare Web Analytics activation, and initial beacon/dashboard verification are complete.
-- **Current:** Milestone 5's highest-priority task has a partial analytics implementation. The previous automatic Pages injection has been disabled and a new manual Web Analytics site/token has been configured. The application now uses that manual snippet on the production hostname behind the opt-out preference; delivery and production/preview verification await the next deployment. The disclosure and opt-out are implemented in source but not yet verified on the live site.
-- **Next outcome:** A production-only, privacy-minimised measurement baseline with an explicit disclosure and opt-out will provide bounded evidence for future content, UX, and performance decisions.
-- **Workflow stage:** This plan is approved and partially implemented. The remaining implementation, production-only verification, disclosure/opt-out validation, final evidence, and formal review remain pending.
+- **Completed:** The MVP, release-readiness review, production Lighthouse diagnostics, analytics platform comparison, production Cloudflare Web Analytics activation, and the approved manual, production-only analytics rollout.
+- **Current:** Production route and performance signals are observable through the manual beacon. The footer provides the disclosure and persistent opt-out; develop and local environments do not send analytics requests.
+- **Next outcome:** Use the verified aggregate signals as bounded evidence for future content, UX, and performance decisions without turning the site into a product-analytics system.
+- **Workflow stage:** This plan is implemented, reviewed with `PASS`, and closed on 2026-09-24.
 
 ## Product objective and roadmap milestone
 
@@ -49,7 +49,6 @@ It advances Milestone 5 — Evidence-Driven Evolution by adding measurement only
 ### Unknown
 
 - Whether production traffic will be sufficient to produce useful field performance trends.
-- Whether the new manual snippet reports production route and performance signals after the next deployment.
 - Whether the current dashboard's maximum selectable range of 30 days reflects the effective history available for this site; Cloudflare documentation separately states six months.
 - Whether direct resume-download, contact-link, or campaign measurement will later be needed.
 - Whether Cloudflare's actual processing arrangement and the applicable treatment in each target EU jurisdiction support the statistical-only opt-out model; this plan does not make a legal conclusion.
@@ -95,7 +94,7 @@ This is a working product and engineering treatment, not a legal conclusion for 
 - Verify page, route, referrer, device, and real-user performance signals where data is available.
 - Confirm that preview and local environments are not included in the production measurement baseline.
 - Add a persistent footer entry to an on-demand analytics-settings panel with a clear disclosure and one control to enable or disable analytics. Persist only the opt-out preference locally; do not show an entry-time popup.
-- Record the observed setup, available signals, limitations, processing boundary, and privacy treatment in the implementation review evidence. Current partial implementation evidence is in `docs/evidence/2026-09-24-analytics-manual-rollout.md`; add deployment verification before formal review.
+- Record the observed setup, available signals, limitations, processing boundary, and privacy treatment in `docs/evidence/2026-09-24-analytics-manual-rollout.md`.
 - Confirm Google Search Console remains the complementary search-visibility source.
 
 ## Explicit exclusions
@@ -138,27 +137,24 @@ This is a working product and engineering treatment, not a legal conclusion for 
 
 ## Implementation sequence
 
-1. Confirm the production Cloudflare Pages project, hostname, and current deployment state.
-2. Disable the previous automatic injection and create the manual Web Analytics site in Cloudflare. **Completed by the developer:** Cloudflare generated a new site token for the manual snippet.
-3. Add the manual snippet to the application so it loads only on the production hostname and only when no opt-out preference is stored; do not add an analytics dependency.
-4. Implement the persistent footer link and accessible, on-demand settings panel with the approved disclosure and opt-out control. Keep analytics enabled by default and apply a saved opt-out on subsequent document loads.
-5. Deploy the manual configuration and source change.
-6. Verify direct entry, client-side navigation, refresh, and representative routes in the production deployment.
-7. Verify the Cloudflare dashboard receives route and performance data where traffic is available and that opted-out subsequent document loads do not load the beacon.
-8. Confirm Search Console remains separate and complementary.
-9. Record the implementation evidence, observed limitations, processing boundary, privacy treatment, and any unresolved jurisdictional unknowns before formal review.
+1. Confirm the production Cloudflare Pages project, hostname, and current deployment state. **Completed.**
+2. Disable the previous automatic injection and create the manual Web Analytics site in Cloudflare. **Completed.**
+3. Add the manual snippet to the application so it loads only on the production hostname and only when no opt-out preference is stored; do not add an analytics dependency. **Completed.**
+4. Implement the persistent footer link and accessible, on-demand settings panel with the approved disclosure and opt-out control. Keep analytics enabled by default and apply a saved opt-out on subsequent document loads. **Completed.**
+5. Deploy the manual configuration and source change. **Completed.**
+6. Verify direct entry, client-side navigation, refresh, and representative routes in the production deployment. **Completed.**
+7. Verify route beacon delivery, production-only loading, opt-out behavior, and Cloudflare signal ingestion. **Completed:** production RUM requests returned HTTP 204; the developer also manually confirmed the dashboard and settings behavior.
+8. Confirm Search Console remains separate and complementary. **Confirmed.**
+9. Record the observed setup, available signals, limitations, processing boundary, privacy treatment, and any unresolved jurisdictional unknowns in the implementation evidence. **Completed.**
 
 ## Validation
 
-- Inspect the Cloudflare configuration and production deployment settings.
-- Use a production browser session to verify representative route changes and direct route entry.
-- Confirm the analytics beacon is absent from local and preview environments when those environments are in scope for verification.
-- Verify the footer settings link and panel are discoverable, accessible, and usable at narrow widths without an entry-time popup.
-- Verify that opting out prevents the beacon from loading on subsequent document loads; verify that re-enabling it restores the production-only beacon.
-- Check that the Cloudflare dashboard exposes only the intended bounded signals.
-- Verify that no application code sends personal information or unapproved event properties.
-- Run `git diff --check` for documentation-only changes.
-- If application source changes are required, run the repository's relevant `pnpm validate` and `pnpm build` checks before formal review.
+- The manual Cloudflare configuration was reported by the developer; live response and browser checks verified the manual production beacon and no analytics requests on the develop deployment.
+- Production browser checks verified route beacon delivery, opt-out on subsequent page loads, and re-enabling from the footer settings.
+- The footer settings panel was verified as on-demand, accessible, and usable at narrow widths.
+- Source review confirmed no identity data or custom event properties are added.
+- `pnpm validate`, `pnpm build`, and `pnpm test:e2e` passed; PR #7's Quality and Cloudflare Pages checks passed.
+- Implementation evidence is recorded in `docs/evidence/2026-09-24-analytics-manual-rollout.md`.
 
 ## Rollback
 

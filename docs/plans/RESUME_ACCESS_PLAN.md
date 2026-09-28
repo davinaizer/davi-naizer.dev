@@ -12,7 +12,7 @@ updatedAt: 2026-08-23
 - **Completed:** The Experience route presents the approved professional-content projection with chronology, contribution boundaries, responsive styling, and accessibility regression coverage.
 - **Current:** Milestone 2 — Core Professional Experience is in progress. The `/resume` route exists but still renders placeholder copy; the approved PDF and typed resume metadata already exist.
 - **Next outcome:** Recruiters and hiring managers can reach the current CV directly from the Resume route and existing site entry points.
-- **Workflow stage:** Approved implementation plan; code pairing is the current stage.
+- **Workflow stage:** Approved implementation plan; `implement-task` is the current stage.
 
 ## Product and roadmap objective
 

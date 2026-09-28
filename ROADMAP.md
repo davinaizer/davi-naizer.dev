@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-15
-version: 1.2
+updatedAt: 2026-09-25
+version: 1.3
 status: active
 ---
 
@@ -110,7 +110,7 @@ Milestone 1.
 
 ## Milestone 3: Professional evidence
 
-**Status:** Complete for the simplified evidence scope approved on 2026-09-15.
+**Status:** Complete for the simplified evidence scope approved on 2026-09-15. Its current presentation uses separate professional Case Studies and independent Experiments destinations, as recorded in the 2026-09-25 evidence-area decision.
 
 ### Outcome
 
@@ -129,8 +129,8 @@ Milestone 2.
 
 ### Scope
 
-- Selected Projects
-- Case Studies
+- Professional Case Studies
+- Independent Experiments
 - Connections from summary and experience content to relevant supporting evidence
 
 ### Completion conditions

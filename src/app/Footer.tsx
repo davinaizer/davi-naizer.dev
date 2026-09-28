@@ -3,12 +3,10 @@ import { Icon } from "../components/Icon.tsx";
 import { professionalContent } from "../content/professional-content.ts";
 
 function Footer() {
-	const email = professionalContent.contact.find(
-		(link) => link.label === "Email",
-	);
-	const footerLinks = email
-		? [...professionalContent.identity.profileLinks, email]
-		: professionalContent.identity.profileLinks;
+	const footerLinks = [
+		...professionalContent.identity.profileLinks,
+		professionalContent.contact[0],
+	];
 
 	return (
 		<footer className="site-footer">

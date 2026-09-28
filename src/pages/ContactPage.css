@@ -1,8 +1,3 @@
-.contact__layout {
-	display: flex;
-	flex-direction: column;
-}
-
 .contact__intro {
 	font-size: var(--font-size-body-lg);
 	margin-block-start: var(--space-1);
@@ -10,7 +5,7 @@
 
 .contact__links {
 	display: grid;
-	margin-block-start: var(--layout-section-gap);
+	margin-block-start: var(--space-8);
 	padding-inline-start: 0;
 	border-block-start: var(--border-width-default) solid
 		var(--color-border-subtle);
@@ -36,10 +31,6 @@
 
 .contact__link:first-child::before {
 	background: var(--color-accent);
-}
-
-.contact__link + .contact__link {
-	margin-block-start: 0;
 }
 
 .contact__content {
@@ -78,6 +69,7 @@
 	font-optical-sizing: auto;
 	font-size: var(--font-size-heading-md);
 	font-weight: var(--font-weight-semibold);
+	letter-spacing: var(--letter-spacing-heading-md);
 	line-height: var(--line-height-heading-md);
 	text-decoration: underline;
 	text-decoration-thickness: var(--border-width-default);

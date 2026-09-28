@@ -1,24 +1,25 @@
 html {
 	background-color: var(--color-background);
 	color-scheme: dark;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
 	min-block-size: var(--layout-viewport-min);
 	background-color: var(--color-background);
-	background-image: radial-gradient(
-		ellipse 72rem 48rem at 0 0,
-		var(--gradient-accent-start) 0%,
-		var(--gradient-accent-middle) 36%,
-		transparent 74%
-	);
-	background-attachment: fixed;
-	background-repeat: no-repeat;
 	color: var(--color-text-primary);
 	font-family: var(--font-family-sans);
 	font-size: var(--font-size-body);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-body);
+}
+
+@supports (height: 100dvh) {
+	body {
+		min-block-size: var(--layout-viewport-min-dynamic);
+	}
 }
 
 main {
@@ -39,6 +40,11 @@ h6 {
 	font-optical-sizing: auto;
 	font-weight: var(--font-weight-semibold);
 	line-height: var(--line-height-heading-md);
+}
+
+h2,
+h3 {
+	letter-spacing: var(--letter-spacing-heading-md);
 }
 
 h1 {
@@ -73,17 +79,13 @@ p {
 	max-inline-size: var(--measure-content);
 }
 
-section > * + * {
+.page-section > * + * {
 	margin-block-start: var(--space-3);
 }
 
 ul,
 ol {
 	padding-inline-start: var(--space-3);
-}
-
-li + li {
-	margin-block-start: var(--space-1);
 }
 
 small {
@@ -93,6 +95,12 @@ small {
 @media (prefers-reduced-motion: reduce) {
 	a {
 		transition-duration: 0s;
+	}
+}
+
+@media (forced-colors: active) {
+	:focus-visible {
+		outline-color: Highlight;
 	}
 }
 

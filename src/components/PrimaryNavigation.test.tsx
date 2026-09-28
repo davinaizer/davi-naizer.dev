@@ -6,7 +6,6 @@ import { axe } from "../test/axe.ts";
 import PrimaryNavigation from "./PrimaryNavigation.tsx";
 
 const navigationItems = [
-	{ name: "Experience", href: routes.experience },
 	{ name: "Work", href: routes.work },
 	{ name: "Resume", href: routes.resume },
 ] as const;

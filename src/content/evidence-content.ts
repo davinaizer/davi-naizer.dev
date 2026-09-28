@@ -1,27 +1,42 @@
 import type { CaseStudy, Project } from "../types/evidence.ts";
 
-export const caseStudies: readonly CaseStudy[] = [
+export function onlyPublished<T extends { published: boolean }>(
+	entries: readonly T[],
+): readonly T[] {
+	return entries.filter((entry) => entry.published);
+}
+
+const allCaseStudies: readonly CaseStudy[] = [
 	{
 		slug: "alfred-what-to-do-next",
+		published: true,
 		title: "Alfred: What To Do Next",
 		summary:
 			"A native iOS product exploring how to help people decide what to do next.",
+		relatedExperienceSlugs: [
+			"independent-product-venture-product-engineer-co-creator-2025",
+			"self-employed-planned-career-break-2024-2025",
+		],
+		technologies: [
+			"Swift",
+			"SwiftUI",
+			"REST APIs",
+			"Firebase",
+			"XCTest",
+			"XcodeGen",
+		],
+		hero: {
+			src: "/images/alfred/alfred-onboarding-filmstrip.jpg",
+			alt: "Three Alfred onboarding screens in sequence: the app’s value proposition, the “What fits tonight?” mood picker, and a recommended venue under Alfred’s Pick.",
+		},
 		visuals: [
-			{
-				src: "/images/alfred/alfred-landing-page.jpg",
-				alt: "Three Alfred onboarding app screens: a welcome screen, a statement of the product’s purpose, and Apple, Google, or email sign-in options.",
-				title: "Introducing Alfred",
-				caption:
-					"A short onboarding sequence establishes the product’s purpose before moving into authentication, keeping the path from first impression to entry focused and lightweight.",
-				layout: "flow",
-			},
 			{
 				src: "/images/alfred/alfred-idea-flow.jpg",
 				alt: "Four Alfred app screens: a suggested outdoor walk, an idea-entry form, a board-game gathering recommendation, and a past-events list.",
 				title: "From an idea to a plan",
 				caption:
 					"The core experience follows a continuous decision loop: discover what matters now, capture an idea, develop it through recommendations, make a choice, and turn that choice into a scheduled event.",
-				layout: "flow",
+				layout: "landscape",
 			},
 		],
 		context:
@@ -45,7 +60,7 @@ export const caseStudies: readonly CaseStudy[] = [
 		productAndUx:
 			"The design took someone from onboarding and a few preferences to an idea, a recommendation, and a commitment. It gave one recommendation a clear rationale while keeping other options available. This was the product direction, not a finding from user validation.",
 		engineering:
-			"View models held the screen state; repositories, DTO mapping, and API services handled data access. Idea capture checked for empty details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed generating, awaiting, ready, and error states. The app checked for results periodically and handled real-time updates. A person could accept or dismiss a recommendation. When they chose to schedule one, the app carried the idea and recommendation into event creation. I owned the iOS app; the backend engineer owned the API and enrichment services.",
+			"View models held the screen state; use cases and dependency injection kept business logic decoupled from presentation; repositories, DTO mapping, and API services handled data access. Idea capture checked for empty details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed generating, awaiting, ready, and error states. The app checked for results periodically and handled real-time updates. Authentication and deep links connected entry and return paths to application state. A person could accept or dismiss a recommendation. When they chose to schedule one, the app carried the idea and recommendation into event creation. I owned the iOS app; the backend engineer owned the API and enrichment services.",
 		outcomes: [
 			{
 				statement:
@@ -61,9 +76,14 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "signal-vessel-list-template-administration",
+		published: false,
 		title: "Vessel List Template Administration",
 		summary:
 			"A self-service, role-aware workflow for creating and managing reusable templates in Signal Ocean’s Vessel List.",
+		relatedExperienceSlugs: [
+			"signal-group-senior-frontend-software-engineer-2023-2024",
+		],
+		technologies: ["React", "TypeScript", "MobX", "AG Grid", "REST APIs"],
 		context:
 			"As a Senior Frontend Software Engineer at The Signal Group, I worked with a cross-functional team on the Vessel List area of Signal Ocean. The application used a large React and TypeScript monorepo, shared frontend state, and metadata-driven APIs.",
 		problem:
@@ -100,9 +120,15 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "promotional-content-production-workflow",
+		published: false,
 		title: "A Repeatable Promotional Content Workflow",
 		summary:
 			"A set of internal authoring, preview, and delivery tools made a repetitive promotional-content workflow faster and easier to review.",
+		relatedExperienceSlugs: [
+			"gamesys-ballys-senior-frontend-engineer-2020-2022",
+			"ballys-interactive-frontend-tech-lead-2022-2023",
+		],
+		technologies: ["Node.js", "Jira REST API", "GitHub Enterprise REST API"],
 		context:
 			"At Gamesys/Bally’s Interactive, I contributed to a collaborative set of tools supporting configuration-driven promotional content. This case study focuses on making the authoring and delivery workflow more repeatable, while keeping employer-specific systems and campaign details private.",
 		problem:
@@ -139,6 +165,7 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "hsbc-learning-portal-and-assessment-tools",
+		published: false,
 		title: "Building Tools for Employee Learning",
 		summary:
 			"I changed the course search and built a tool for creating question banks and randomised assessments.",
@@ -176,101 +203,148 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 ];
 
-export const projects: readonly Project[] = [
+const allProjects: readonly Project[] = [
 	{
-		slug: "vessel-list-template-administration",
-		title: "Vessel List Template Administration",
+		slug: "atelier-florae",
+		published: false,
+		title: "Atelier Florae: From Brand to Product",
 		summary:
-			"A role-based administration experience for managing vessel-list templates within a multi-company SaaS platform.",
-		context:
-			"Production product work delivered with Product, Design, Backend, and QA in a React and TypeScript monorepo.",
-		purpose:
-			"Give authorised users a self-service workflow for creating and maintaining templates.",
-		problem:
-			"Data-intensive configuration required clear validation, permissions, interaction states, and reusable editing behaviour.",
-		solution:
-			"Implemented the frontend experience, including role-based template management, validation, reusable editing behaviour, testing, fixes, and production release.",
-		relatedExperienceSlugs: [
-			"signal-group-senior-frontend-software-engineer-2023-2024",
+			"An end-to-end brand and packaging system for a small artisanal candle launch, shaped through early market testing and customer feedback.",
+		visualsHeading: "Brand system and launch materials",
+		visualsIntro:
+			"These references show the visual system and the 100 g launch materials. Customer details, payment information, and financial records are intentionally excluded.",
+		visuals: [
+			{
+				src: "/images/atelier-florae/atelier-florae-100g-labels.png",
+				alt: "A printable sheet of Atelier Florae 100 g scented candle labels and circular botanical seal stickers in five fragrance variants.",
+				title: "The 100 g launch labels",
+				caption:
+					"The first market test used a smaller 100 g candle so the business could explore an accessible entry price and learn from early customers.",
+				layout: "portrait",
+			},
+			{
+				src: "/images/atelier-florae/atelier-florae-seal.svg",
+				alt: "Gold botanical lotus seal for the Atelier Florae identity.",
+				title: "Botanical seal",
+				caption:
+					"The seal gave the small business a recognisable mark that could carry across labels, packaging, signage, and customer materials.",
+				layout: "portrait",
+			},
 		],
-		capabilities: [
-			"Frontend architecture",
-			"Product development",
-			"Engineering practices",
+		context:
+			"Atelier Florae was a small family business started in Brazil. Before the first candles went to market, I worked with the founder to understand her taste through a detailed questionnaire and used that to shape a restrained botanical direction.",
+		purpose:
+			"Test a lower-priced 100 g candle offer with a coherent brand, packaging system, and customer-feedback loop.",
+		problem:
+			"The business needed to enter the market without relying on generic handmade-product cues. The first launch also needed to make an unfamiliar small brand feel considered while keeping the product accessible enough to test demand and price.",
+		solution:
+			"I created the brand identity, botanical seal, wordmark direction, palette, typography, candle labels, seal stickers, table sign, and thank-you card. The initial candles were sold through a beauty salon and then through family and friends by word of mouth.",
+		role: "I led the brand and visual design work from discovery through launch materials. I used Gemini and GPT as iterative design and critique tools, while the questionnaire, selection, and final decisions remained mine.",
+		decisions: [
+			"Start with 100 g candles rather than a larger format so the business could test market entry and price with a lower commitment for customers.",
+			"Use a detailed questionnaire and iterative critique to understand the founder's taste and avoid a generic craft-market identity. AI tools supported exploration, but did not replace selection or judgement.",
+			"Build one botanical system across the seal, wordmark direction, palette, typography, labels, display sign, and thank-you card so the physical customer experience felt connected.",
+			"Add an anonymous survey invitation to the launch materials so early feedback could cover overall experience, aroma, packaging, and repeat-purchase intent.",
 		],
 		outcomes: [
 			{
 				statement:
-					"Developed the frontend implementation of the Template Admin experience, taking the feature through implementation, testing, fixes and production release.",
+					"The initial launch sold 85 candles over two months through a beauty salon and word of mouth among family and friends.",
 			},
-		],
-		technologies: ["React", "TypeScript", "MobX", "AG Grid", "REST APIs"],
-	},
-	{
-		slug: "internal-content-production-workflow",
-		title: "Internal Content-production Workflow",
-		summary:
-			"A safe abstraction of internal tooling that improved the repeatability and speed of a promotional-content workflow.",
-		context:
-			"Workflow-oriented product engineering across internal tools and developer-facing automation.",
-		purpose:
-			"Reduce manual effort in content production while making delivery steps more repeatable and reviewable.",
-		problem:
-			"A promotional-content workflow took days and depended on repetitive operational steps.",
-		solution:
-			"Built reusable Node.js and API tooling around internal workflow systems, with validation and automation that reduced the workflow from days to minutes.",
-		relatedExperienceSlugs: [
-			"gamesys-ballys-senior-frontend-engineer-2020-2022",
-			"ballys-interactive-frontend-tech-lead-2022-2023",
-		],
-		capabilities: [
-			"Developer tooling",
-			"Workflow automation",
-			"Engineering practices",
-		],
-		outcomes: [
 			{
 				statement:
-					"Reduced a promotional-content workflow from days to minutes.",
+					"Five anonymous survey respondents rated the overall experience 5 out of 5, with average aroma and packaging ratings of 4.8 out of 5.",
+				detail:
+					"All five said they would buy again. Some customers did return to buy more than once, although I do not have a recorded repeat-purchase count. The survey result was stated intent from a small self-selected sample, not representative market validation.",
 			},
-		],
-		technologies: ["Node.js", "Jira REST API", "GitHub Enterprise REST API"],
-	},
-	{
-		slug: "alfred",
-		title: "Alfred",
-		summary:
-			"A native product experience exploring end-to-end development, shared product decisions, and architecture in an unfamiliar ecosystem.",
-		context:
-			"Recent exploratory product work spanning an independent product project and a planned career break.",
-		purpose:
-			"Build and learn through a complete product experience across onboarding, authentication, recommendations, and planning.",
-		problem:
-			"A complete product experience needed coherent boundaries across networking, domain logic, application state, and presentation.",
-		solution:
-			"Delivered the first end-to-end experience and designed a layered architecture using MVVM-style presentation, repositories, use cases, and dependency injection.",
-		relatedExperienceSlugs: [
-			"independent-product-venture-product-engineer-co-creator-2025",
-			"self-employed-planned-career-break-2024-2025",
-		],
-		capabilities: [
-			"Product development",
-			"Frontend architecture",
-			"Engineering practices",
-		],
-		outcomes: [
 			{
 				statement:
-					"Integrated authentication, real-time updates, deep linking, and application state with clear boundaries between networking, domain logic, and presentation.",
+					"Early feedback supported the presentation and identified practical next steps for the product range.",
+				detail:
+					"One respondent found the Bamboo fragrance slightly reminiscent of cleaning products; other suggestions included individual fragrance testers and new fragrances.",
 			},
 		],
+		reflection:
+			"The project showed that a small physical-product launch depends on the system around the object as much as the object itself: positioning, label hierarchy, display information, payment and feedback touchpoints all shape the experience. If I continued, I would test fragrance options earlier and keep product variants explicit. Expansion into soaps was planned, but the work stopped when we moved to the UK, so this entry documents the initial launch rather than a finished product line.",
 		technologies: [
-			"Swift",
-			"SwiftUI",
-			"REST APIs",
-			"Firebase",
-			"XCTest",
-			"XcodeGen",
+			"Brand strategy",
+			"Visual identity",
+			"Packaging design",
+			"Print materials",
+			"Anonymous survey",
 		],
+	},
+	{
+		slug: "uv-insect-trap",
+		published: true,
+		title: "UV Insect Trap",
+		summary:
+			"A 3D-printed trap shaped through repeated work on airflow, grille noise, and cleaning.",
+		hero: {
+			src: "/images/uv-insect-trap/uv-drawing-hero.png",
+			alt: "A recoloured OnShape engineering drawing of the UV insect trap: the front elevation on the left and an isometric view on the right.",
+		},
+		visualsHeading: "CAD views and the finished prototype",
+		visualsIntro:
+			"These views show the CAD design and the finished, printed prototype.",
+		visuals: [
+			{
+				src: "/images/uv-insect-trap/cad-assembly-view.jpg",
+				alt: "A front cutaway CAD render, in colour, of the trap's light tower, filter, funnel, and grille stacked inside the body.",
+				title: "Enclosure and grille",
+				caption:
+					"This view shows how the outer body, upper grille, and light tower fit together.",
+				layout: "portrait",
+			},
+			{
+				src: "/images/uv-insect-trap/cad-grille-top-view.jpg",
+				alt: "A top-down CAD render, in colour, of the circular grille vanes arranged around the UV light tower's gold cap.",
+				title: "Grille geometry",
+				caption:
+					"The top view shows the curved vanes I adjusted while working on airflow and fan noise.",
+				layout: "landscape",
+			},
+			{
+				src: "/images/uv-insect-trap/final-prototype.jpeg",
+				alt: "The assembled black 3D-printed insect trap on a wood counter, glowing blue from its UV light and spinning grille.",
+				title: "The finished prototype",
+				caption:
+					"The assembled trap in home use, with its UV light visible through the grille.",
+				layout: "portrait",
+			},
+		],
+		context:
+			"Mosquitoes were a persistent problem at home. I wanted to try a chemical-free trap, using UV light to attract insects and a fan to draw them into a collection area. I looked at existing products and light-based attraction, then started modelling a version I could make and test myself.",
+		purpose:
+			"Explore whether a home-built UV-and-fan trap could be made practical to assemble, clean, and live with.",
+		problem:
+			"The first prototype had almost no suction, and the UV light was too weak. Increasing airflow with a larger fan brought a new problem: the fan and grille made a high-pitched whine. The design had to move air, fit the filter and wiring, and still be practical to assemble and clean.",
+		role: "I took it from research through Onshape modelling, component selection, printing, assembly, and home testing. I built around an off-the-shelf fan, UV LEDs, and electronics.",
+		decisions: [
+			"The first version barely pulled air, so I fitted a larger fan and redesigned the body around it. I added an internal filter, screw mounts, snap joints, and a route for the wiring.",
+			"The larger fan moved more air but made a high-pitched whine. I tried different grille angles, sizes, and shapes, using a NACA 0030 airfoil as a reference for the vanes. I kept the version that sounded best when I used it.",
+			"I tried a funnel, but it restricted airflow; widening the vanes did not help, so I removed it.",
+		],
+		solution:
+			"I designed the enclosure in Onshape and printed it in PLA on a Bambu Lab A1, with a larger fan, internal filter, screw mounts, snap and torsional snap joints, and internal cable routing.",
+		outcomes: [
+			{
+				statement: "Household use suggested the trap was catching mosquitoes.",
+				detail:
+					"Someone else in the household reported seeing it catch mosquitoes during regular use, and we noticed fewer mosquito problems indoors while it ran — not a measured change. An overnight outdoor test caught moths and other flying insects, but no mosquitoes.",
+			},
+			{
+				statement:
+					"The fan's steady sound seemed to have a calming effect on the household's dogs.",
+				detail:
+					"Less barking and better sleep were noticed while the trap was running — an informal, unmeasured household observation.",
+			},
+		],
+		reflection:
+			"From my notes and recollection, I went through at least seven versions. Dust build-up was manageable, but cleaning meant removing the top grille. The wire between the light tower and body made this awkward and felt fragile. Each change moved the problem somewhere else: a bigger fan improved suction but created a whine, and a funnel restricted airflow. If I made another one, I would add a connector so the top is easier to remove.",
+		technologies: ["CAD", "OnShape", "3D Printing"],
 	},
 ];
+
+export const caseStudies = onlyPublished(allCaseStudies);
+export const projects = onlyPublished(allProjects);

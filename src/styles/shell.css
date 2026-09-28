@@ -17,31 +17,16 @@
 	padding-block: var(--space-2);
 }
 
-.primary-navigation a,
-.site-header__contact {
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
-	line-height: var(--line-height-label);
-	text-transform: uppercase;
-}
-
 .site-header__identity {
 	justify-self: start;
 	color: var(--color-text-primary);
 	font-family: var(--font-family-serif);
 	font-optical-sizing: auto;
 	font-size: var(--font-size-body);
-	font-weight: var(--font-weight-medium);
+	font-weight: var(--font-weight-regular);
 	letter-spacing: var(--letter-spacing-heading-lg);
 	line-height: var(--line-height-heading-md);
 	text-decoration: none;
-}
-
-.site-header__identity::after {
-	color: var(--color-accent);
-	content: ".";
 }
 
 .site-header__identity:hover {
@@ -61,14 +46,14 @@
 	list-style: none;
 }
 
-.primary-navigation li + li {
-	margin-block-start: 0;
-}
-
 .primary-navigation a {
 	display: inline-block;
 	border-block-end: var(--border-width-default) solid transparent;
 	color: var(--color-text-primary);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-label);
 	padding-block: var(--space-1);
 	text-decoration: none;
 }
@@ -84,17 +69,6 @@
 
 .site-header__contact {
 	justify-self: end;
-	border: var(--border-width-default) solid var(--color-accent-border);
-	background-color: var(--color-accent-subtle);
-	color: var(--color-accent-soft);
-	padding: var(--space-1) var(--space-2);
-	text-decoration: none;
-}
-
-.site-header__contact:hover {
-	border-color: var(--color-accent);
-	background-color: var(--color-accent);
-	color: var(--color-background);
 }
 
 .site-footer {
@@ -120,11 +94,9 @@
 	background: transparent;
 	color: var(--color-text-secondary);
 	cursor: pointer;
-	font: inherit;
 	font-size: var(--font-size-caption);
 	line-height: var(--line-height-label);
 	padding: var(--space-1) 0;
-	text-decoration: underline;
 	text-underline-offset: var(--text-underline-offset);
 }
 
@@ -138,10 +110,6 @@
 	gap: var(--space-1);
 	padding-inline-start: 0;
 	list-style: none;
-}
-
-.site-footer__links li + li {
-	margin-block-start: 0;
 }
 
 .site-footer__links a {

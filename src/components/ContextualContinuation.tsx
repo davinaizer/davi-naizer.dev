@@ -8,7 +8,7 @@ type ContextualContinuationProps = {
 function ContextualContinuation({ label, to }: ContextualContinuationProps) {
 	return (
 		<nav aria-label="Continue exploring" className="contextual-continuation">
-			<Link className="contextual-continuation__link" to={to}>
+			<Link className="button--text" to={to}>
 				{label}
 			</Link>
 		</nav>

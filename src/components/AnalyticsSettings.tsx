@@ -77,14 +77,14 @@ function AnalyticsSettings() {
 					) : null}
 					<div className="analytics-settings__actions">
 						<button
-							className="analytics-settings__button"
+							className="analytics-settings__button button--secondary"
 							onClick={() => dialogRef.current?.close()}
 							type="button"
 						>
 							Close
 						</button>
 						<button
-							className="analytics-settings__button analytics-settings__button--primary"
+							className="analytics-settings__button button--primary"
 							type="submit"
 						>
 							Save preferences

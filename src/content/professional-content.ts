@@ -18,11 +18,11 @@ export const professionalContent: ProfessionalContent = {
 	},
 	summary: {
 		summary:
-			"Senior frontend and product engineer with experience building product applications, internal tools, and the engineering systems behind them. My commercial experience centres on React, TypeScript, and JavaScript, alongside recent native iOS development with Swift and SwiftUI.",
+			"Senior frontend and product engineer with experience building product applications, internal tools and the delivery systems behind them. Most of my commercial experience has been with React, TypeScript and JavaScript, while more recently I've been building a native iOS application using Swift and SwiftUI. Throughout my career, I've worked across the product lifecycle, contributing to product development while improving the engineering systems that support software delivery. As I took on more responsibility, I found myself increasingly drawn to frontend architecture, developer tooling, workflow automation and broader product ownership, with a focus on reducing complexity and making software easier to build, maintain and evolve. I naturally gravitate towards recurring sources of friction. Whether that's delivering product features, improving engineering workflows or building internal tools, I enjoy understanding how people work and finding practical ways to make that work simpler.",
 		homeExcerpt:
 			"Hi, I’m Davi. I’m a frontend and product engineer who enjoys understanding how things work, fixing what gets in the way, and building software that is genuinely useful. Most of my commercial work has been with React, TypeScript and JavaScript, and more recently I’ve been building native iOS applications with SwiftUI.",
 		personalNote:
-			"Outside work, I’m usually cooking, making espresso, or spending time with my wife and daughter. I’ve always enjoyed taking things apart, understanding how they work, and helping people solve practical problems.",
+			"Away from work, you’ll find me cooking, making espresso, or with my wife and daughter, ideally with good music on. The take-it-apart-and-see-how-it-works habit never left, so I keep a few independent experiments where I try ideas out for the fun of it.",
 		focusAreas: [
 			"Frontend architecture",
 			"Product development",
@@ -36,39 +36,39 @@ export const professionalContent: ProfessionalContent = {
 			slug: "independent-product-venture-product-engineer-co-creator-2025",
 			company: "Independent Product Project",
 			role: "Product Engineer & Co-creator",
-			startDate: "12/2025",
+			startDate: "01/2026",
 			responsibilities: [
-				"Building Alfred with a backend engineer as an independent side project intended to continue alongside our professional work. The product helps people capture ideas, receive recommendations and turn them into practical plans. I lead development of the native iOS application while sharing responsibility for product direction, application architecture and technical decisions. The application is currently undergoing private TestFlight validation ahead of its first public release.",
+				"Building Alfred, an AI-powered activity recommendation and planning product with another engineer, spanning a C#/.NET backend, native iOS application and React/TypeScript web client and dashboard. I lead development of the iOS application while collaborating on architecture, testing, integration and shared product direction across the three systems. Parts of the web client were implemented with AI assistance and validated through testing and architectural review. The application is currently undergoing private TestFlight validation ahead of its first public release.",
 			],
 			contributions: [
-				"Built the native iOS application from the ground up, delivering the first end-to-end product experience across onboarding, authentication, recommendations and planning workflows.",
-				"Designed the application's layered architecture using MVVM-style presentation, repositories, use cases and dependency injection to keep business logic decoupled, testable and maintainable.",
-				"Worked closely with the backend engineer to shape product workflows, technical decisions and application architecture throughout development.",
-				"Integrated backend services for authentication, real-time updates, deep linking and application state while maintaining clear boundaries between networking, domain logic and presentation.",
+				"Built the native iOS application, delivering the first end-to-end mobile experience across onboarding, authentication, recommendations and planning workflows.",
+				"Collaborated on architecture, testing and cross-system integration across the C#/.NET backend, native iOS application and React/TypeScript web client.",
 				"Developed reusable, accessible UI components with consistent theming and Dynamic Type support, making the interface easier to build, maintain and evolve.",
-				"Added automated tests across the presentation, domain, data and infrastructure layers, focusing on business logic and application behaviour rather than UI interactions.",
-				"Standardised project configuration, build tooling and repository workflows using XcodeGen and automated verification.",
-				"Established an AI-assisted engineering workflow combining code generation with architectural review, testing and manual verification before changes are accepted.",
+				"Designed the iOS application's layered architecture using MVVM-style presentation, repositories, use cases and dependency injection.",
+				"Integrated backend services for authentication, real-time updates, deep linking and application state while maintaining clear boundaries between networking, domain logic and presentation.",
+				"Added automated tests across the presentation, domain, data and infrastructure layers.",
 			],
 			technologies: [
 				"Swift",
 				"SwiftUI",
+				"React",
+				"TypeScript",
+				"C#/.NET",
 				"REST APIs",
 				"Firebase",
 				"XCTest",
 				"XcodeGen",
+				"GitHub",
 				"GitLab",
 			],
 		},
 		{
 			slug: "self-employed-planned-career-break-2024-2025",
 			company: "Self-employed",
-			role: "Planned Career Break",
+			role: "Career Break",
 			startDate: "11/2024",
-			endDate: "11/2025",
-			responsibilities: [
-				"Took a planned break from full-time employment after leaving The Signal Group. During that time I stepped back to re-evaluate my career direction and returned to hands-on product development, which eventually developed into the venture behind Alfred.",
-			],
+			endDate: "12/2025",
+			responsibilities: ["Took a career break after leaving The Signal Group."],
 			contributions: [],
 			technologies: [],
 		},
@@ -80,14 +80,13 @@ export const professionalContent: ProfessionalContent = {
 			endDate: "10/2024",
 			location: "London, UK",
 			responsibilities: [
-				"Worked on Signal Ocean, a maritime intelligence platform used by brokers, operators and analysts to monitor global shipping activity. As part of a cross-functional product team, I worked on the Vessel List area within a large React and TypeScript monorepo. One recurring challenge was that creating reusable Vessel List templates required support requests and manual engineering work. We redesigned that workflow into a self-service experience that allowed company administrators to create and manage templates directly.",
+				"Worked on Signal Ocean, a maritime intelligence platform used by brokers, operators and analysts to monitor global shipping activity. As part of a cross-functional product team, I worked on the Vessel List area within a large fullstack monorepo. One recurring challenge was that creating reusable Vessel List templates required support requests and manual engineering work. We redesigned that workflow into a self-service experience that allowed company administrators to create and manage templates directly.",
 			],
 			contributions: [
-				"Developed the frontend implementation of the Template Admin experience, taking the feature through implementation, testing, fixes and production release.",
-				"Implemented role-based template management for a multi-company SaaS platform, separating administrator management capabilities from end-user template consumption.",
-				"Built data-intensive configuration workflows using AG Grid, including role-based editing, validation, read-only and deletion states, and reusable editing behaviours.",
-				"Worked closely with backend engineers on metadata-driven APIs and shared application state to support reusable template configuration across multiple dashboards.",
-				"Developed React and TypeScript features across the Vessel List area and shared UI component library.",
+				"Developed the frontend implementation of the Template Admin experience, taking the feature through implementation, testing, fixes and production release, including permission-aware creation, editing, validation and deletion flows integrated with frontend state and metadata-driven APIs.",
+				"Built data-intensive Vessels List configuration workflows using AG Grid, including role-based editing, validation, read-only and deletion states, and reusable editing behaviours.",
+				"Maintained shared UI components across dashboards, forms and administration surfaces, including migrations away from deprecated components.",
+				"Maintained focused tests and snapshots and addressed type, lint, SonarLint and refactoring issues during frontend feature development.",
 				"Onboarded a frontend engineer to the monorepo, Vessel List architecture and Azure-based development environment.",
 			],
 			technologies: [
@@ -113,11 +112,11 @@ export const professionalContent: ProfessionalContent = {
 				"Provided technical direction across frontend initiatives focused on code quality, developer experience, onboarding and platform modernisation. Worked with Product, Technical Architects and engineering teams to improve frontend architecture, engineering standards and delivery practices across multiple products.",
 			],
 			contributions: [
+				"Mapped dependencies and technical debt across the BMC reward-component architecture, identifying duplicated logic, legacy constraints and reusable abstractions to guide modernisation.",
 				"Defined a frontend code-quality standardisation programme covering 13 frameworks, tools and shared libraries, introducing consistent linting, formatting, commit validation, Pull Request automation and static analysis.",
 				"Integrated SonarQube with GitHub Actions and Pull Request decoration, investigating monorepo test-reporting issues affecting quality-gate adoption.",
-				"Mapped dependencies and technical debt across the BMC reward-component architecture, identifying duplicated logic, legacy constraints and reusable abstractions to guide modernisation.",
 				"Created a structured onboarding programme covering repositories, architecture, production workflows and developer setup, including automated repository discovery through Confluence.",
-				"Provided technical direction during roadmap planning, refinement and delivery, helping define technical stories and prioritise platform improvements alongside product work.",
+				"Owned the Scrum backlog and roadmap, providing technical direction during planning, refinement and delivery while defining technical stories to prioritise platform improvements alongside product work.",
 			],
 			technologies: [
 				"React",
@@ -143,9 +142,9 @@ export const professionalContent: ProfessionalContent = {
 				"Worked across customer-facing products and internal engineering tooling, increasingly focusing on developer experience, workflow automation and frontend platform improvements.",
 			],
 			contributions: [
+				"Built a React preview application for validating generated promotional UI against real configuration before release, and maintained shared configuration infrastructure used by multiple delivery tools.",
 				"Built a Node.js tool around the Jira REST API that reduced a promotional content workflow from days to minutes.",
-				"Developed reusable tooling around the GitHub Enterprise REST API that removed the need to clone repositories for deployment-related tasks.",
-				"Built internal tooling supporting Offer Builder, promotional content generation, deployment and day-to-day engineering workflows.",
+				"Created a Node.js CLI that generated version-pinned promotional UI from templates and automated pull-request-based delivery; migrated it to TypeScript and introduced supporting CI and release practices.",
 				"Created onboarding guides, architecture documentation and dependency maps that helped engineers understand large projects more quickly.",
 				"Supported the team through mentoring, code reviews and production troubleshooting.",
 			],
@@ -172,10 +171,10 @@ export const professionalContent: ProfessionalContent = {
 			],
 			contributions: [
 				"Led the technical improvement initiative for Landing Pages, defining the proposed frontend architecture, documenting the roadmap and presenting the approach to engineering, QA, design and business stakeholders.",
+				"Contributed to a configuration-driven promotional UI framework and reusable components used across multiple consumer brands, helping non-engineers compose and deliver promotional experiences without changing application code.",
 				"Built reusable frontend components and styling foundations to improve consistency across promotional interfaces.",
-				"Developed GitHub API-based deployment tooling that simplified deployment workflows and reduced reliance on repository cloning.",
-				"Mentored developers, designers and stakeholders through code reviews, frontend debugging, Git support and technical documentation.",
 				"Contributed to customer-facing React applications while helping improve internal engineering tooling and workflows.",
+				"Mentored developers, designers and stakeholders through code reviews, frontend debugging, Git support and technical documentation.",
 			],
 			technologies: [
 				"React",
@@ -200,19 +199,19 @@ export const professionalContent: ProfessionalContent = {
 			technologies: [],
 		},
 		{
-			slug: "unbox-learning-experience-co-founder-technical-lead-2009-2017",
-			company: "UNBOX Learning Experience",
+			slug: "unbox-design-studio-co-founder-technical-lead-2009-2017",
+			company: "UNBOX Design Studio",
 			role: "Co-founder & Frontend Developer",
 			startDate: "10/2009",
 			endDate: "03/2017",
 			location: "Brazil",
 			responsibilities: [
-				"Co-founded a digital learning company developing e-learning platforms, Learning Management Systems (LMS) and interactive educational products for Fortune 500 and global enterprise clients, including Volvo Brasil, Grupo Boticário, MetLife, HSBC and Electrolux. Worked across product discovery, solution design, technical leadership, frontend development and client delivery while coordinating a multidisciplinary team of designers and developers.",
+				"Co-founded a technology and design studio delivering digital learning platforms, Learning Management Systems (LMS), and interactive educational products for Fortune 500 and global enterprise clients, including Volvo Brasil, Grupo Boticário, MetLife, HSBC, and Electrolux. Worked across product discovery, solution design, technical leadership, frontend development, and client delivery as part of a founding team comprising a computer engineer, a UX designer, and a graphic designer.",
 			],
 			contributions: [
 				"Worked directly with clients, designers and instructional specialists to translate business and learning requirements into practical software solutions.",
 				"Led technical delivery of client projects, coordinating a team of up to five developers while remaining hands-on with architecture, frontend development and implementation.",
-				"Reduced e-learning delivery time from around three months to four weeks by developing a reusable framework and improving the end-to-end process across discovery, instructional design, UX, development and quality assurance.",
+				"Reduced e-learning delivery time from around three months to about four weeks by building a JSFL script that extracted copy, content and images directly from the Flash design source files into dynamic, XML-driven content, replacing what had been a manual conversion step.",
 				"Built browser-based learning platforms, interactive educational products and custom Learning Management System (LMS) functionality for enterprise projects.",
 			],
 			technologies: ["JavaScript", "HTML", "CSS", "ActionScript", "Moodle"],
@@ -287,7 +286,7 @@ export const professionalContent: ProfessionalContent = {
 	resume: {
 		label: "Download Resume",
 		url: "/davi-naizer-resume.pdf",
-		updatedAt: "2026-09-22",
+		updatedAt: "2026-09-29",
 	},
 	contact: [
 		{

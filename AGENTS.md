@@ -64,11 +64,11 @@ Use each source for its defined concern:
 Use exactly one stage at a time:
 
 ```text
-plan-next-task → code-pairing → review-task → complete-task
+plan-next-task → implement-task → review-task → complete-task
 ```
 
 - Use `$plan-next-task` before implementation when the developer asks what to do next, requests a task plan, or selects an incomplete TODO item.
-- Use `$code-pairing` after plan approval for implementation discussion, requested bounded code, debugging, or incremental feedback.
+- Use `$implement-task` after plan approval to implement the planned task, validate the result, and hand off to review.
 - Use `$review-task` only when implementation is finished and the developer requests the formal evidence-backed verdict.
 - Use `$complete-task` only after a current same-scope `PASS` to close execution state and refresh the handoff.
 

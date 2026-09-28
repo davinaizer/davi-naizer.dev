@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-15
-version: 1.2
+updatedAt: 2026-09-25
+version: 1.3
 status: active
 ---
 
@@ -384,10 +384,10 @@ A feature is complete when:
 The first public release should contain only:
 
 - Home
-- Experience
-- Selected Projects
-- Case Studies
-- Resume
+- Resume, presenting the resume download above the full career timeline
+- Work, linking to two distinct evidence areas:
+  - Case Studies for detailed professional evidence;
+  - Experiments for selected independent projects and builds.
 - Contact
 
 Implementation should prioritise quality over quantity.

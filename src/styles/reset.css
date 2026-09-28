@@ -43,3 +43,9 @@ h6 {
 :where(#root) {
 	min-height: var(--layout-viewport-min);
 }
+
+@supports (height: 100dvh) {
+	:where(#root) {
+		min-height: var(--layout-viewport-min-dynamic);
+	}
+}

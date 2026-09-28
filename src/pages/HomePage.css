@@ -2,17 +2,12 @@
 	font-size: clamp(4rem, 9vw, 6.5rem);
 	font-weight: var(--font-weight-regular);
 	letter-spacing: var(--letter-spacing-display);
-	line-height: 0.95;
-	margin-top: var(--space-4);
+	line-height: var(--line-height-display);
+	margin-block-start: var(--space-4);
 }
 
 .home__hero {
-	max-inline-size: 70rem;
-}
-
-.home__identity::after {
-	color: var(--color-accent);
-	content: ".";
+	max-inline-size: var(--measure-wide);
 }
 
 .home__headline {
@@ -21,7 +16,7 @@
 	font-size: clamp(1.75rem, 3vw, 2.25rem);
 	font-weight: var(--font-weight-regular);
 	letter-spacing: var(--letter-spacing-heading-md);
-	line-height: 1.2;
+	line-height: var(--line-height-snug);
 }
 
 .home__summary {
@@ -32,104 +27,52 @@
 	margin-block-start: var(--space-3);
 }
 
-.home__actions ul,
-.home__focus ul {
+.home__actions ul {
 	padding-inline-start: 0;
 	list-style: none;
-}
-
-.home__actions ul {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: var(--space-2);
+	gap: var(--space-5);
 }
 
 .home__actions a {
 	display: inline-block;
 	border-block-end: var(--border-width-default) solid var(--color-accent-border);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-caption);
 	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
+	line-height: var(--line-height-label);
 	padding: var(--space-1) 0;
 	text-decoration: none;
-	text-transform: uppercase;
-}
-
-.home__actions a:hover {
-	border-color: var(--color-accent);
 }
 
 .home__action-primary a {
-	border: var(--border-width-default) solid var(--color-accent);
-	background: var(--color-accent);
-	color: var(--color-background);
+	border-block-end-color: var(--color-accent);
 	padding-inline: var(--space-2);
 }
 
-.home__action-primary a:hover {
-	background: transparent;
-	color: var(--color-accent-soft);
+.home__actions a.button--ghost {
+	border: var(--border-width-default) solid var(--color-accent-border);
+	padding: var(--space-1) var(--space-2);
 }
 
-.home__focus,
+.home__actions a.button--ghost:hover {
+	border-color: var(--color-accent);
+}
+
 .home__highlight,
 .home__about {
 	border-block-start: var(--border-width-default) solid
 		var(--color-border-subtle);
 	margin-block-start: var(--layout-section-gap);
+	max-inline-size: var(--measure-narrow);
 	padding-block-start: var(--space-4);
 }
 
-.home__focus {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);
-	gap: var(--space-8);
-}
-
-.home__section-lead > * + * {
-	margin-block-start: var(--space-2);
-}
-
-.home__section-lead > p:last-child {
-	color: var(--color-text-secondary);
-}
-
-.home__focus h2,
 .home__highlight h2,
 .home__about h2 {
 	font-size: var(--font-size-heading-md);
-}
-
-.home__focus ul {
-	align-self: end;
-}
-
-.home__focus li {
-	border-inline-start: var(--border-width-accent) solid var(--color-accent);
-	color: var(--color-text-secondary);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	letter-spacing: var(--letter-spacing-label);
-	padding-inline-start: var(--space-2);
-	text-transform: uppercase;
-}
-
-.home__focus li + li {
-	margin-block-start: var(--space-2);
-}
-
-.home__actions li + li {
-	margin-block-start: 0;
-}
-
-.home__highlight {
-	max-inline-size: 52rem;
-}
-
-.home__about {
-	max-inline-size: 48rem;
 }
 
 .home__about > * + * {
@@ -150,6 +93,7 @@
 	font-size: var(--font-size-label);
 	font-weight: var(--font-weight-medium);
 	letter-spacing: var(--letter-spacing-label);
+	line-height: var(--line-height-label);
 	margin-block-start: var(--space-3);
 	text-transform: uppercase;
 }
@@ -159,13 +103,9 @@
 	margin-block-start: var(--space-2);
 }
 
-.home__highlight > a {
-	display: inline-block;
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	letter-spacing: var(--letter-spacing-label);
+.home__highlight a,
+.home__about a {
 	margin-block-start: var(--space-3);
-	text-transform: uppercase;
 }
 
 @media (max-width: 40rem) {
@@ -177,10 +117,5 @@
 	.home h1 {
 		font-size: clamp(3rem, 15vw, 4rem);
 		line-height: 0.98;
-	}
-
-	.home__focus {
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-4);
 	}
 }

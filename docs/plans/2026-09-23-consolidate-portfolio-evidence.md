@@ -1,97 +1,115 @@
 ---
-title: Consolidate portfolio evidence on the Work page
+title: Preserve Case Studies and repurpose Selected Projects as Experiments
 status: approved
 createdAt: "2026-09-23T22:00:00+01:00"
-updatedAt: "2026-09-24T15:54:30+01:00"
-lastModifiedAt: "2026-09-24T15:54:30+01:00"
+updatedAt: "2026-09-25T20:34:00+01:00"
+lastModifiedAt: "2026-09-25T20:34:00+01:00"
 ---
 
-# Consolidate portfolio evidence on the Work page
+# Preserve Case Studies and repurpose Selected Projects as Experiments
 
 ## Project position
 
-- **Completed:** Milestones 1–4 are complete. The portfolio currently has four long-form Case Studies and three Selected Projects that overlap with Alfred, Signal, and Gamesys.
-- **Current:** Milestone 5, Evidence-driven evolution. Production-only analytics remains the highest-priority task in `TODO.md`, followed by the pending Long-Form Reading Rhythm and Content Resilience UX task. This consolidation is queued immediately after that task.
-- **Next outcome:** Keep Work as the primary navigation destination and make `/work` display the existing Case Studies content as the portfolio's single project-evidence area.
-- **Workflow stage:** Approved implementation plan; queued after the pending analytics and Long-Form Reading Rhythm and Content Resilience tasks. No implementation is included in this plan artifact.
+- **Completed:** Milestones 1–4, production-only analytics, and Long-Form Reading Rhythm and Content Resilience are complete. Case Studies and Experiments implementation now preserves the professional narratives and transfers UV Insect Trap to the Project collection.
+- **Current:** Milestone 5, Evidence-driven evolution. This approved implementation and its current product/engineering guidance are complete, reviewed with `PASS`, and closed.
+- **Current content correction:** UV Insect Trap is now the first Experiment in the Project collection; duplicate professional Project records have been retired after their useful metadata was preserved in Case Studies.
+- **Next outcome:** Keep Work as the primary navigation destination and retain two distinct evidence areas: professional Case Studies and independent Experiments. Do not merge the pages.
+- **Workflow stage:** Approved plan implemented, reviewed with `PASS`, and closed.
 
 ## Objective and product fit
 
-Give recruiters and hiring managers one clear place to review the work, with enough detail to understand context, contribution, decisions, constraints, and outcomes. Keep the established Work navigation item and route, replacing the chooser with the existing long-form Case Studies content. Do not compress the narratives to CV length.
+Give recruiters and hiring managers detailed professional evidence in Case Studies, while making room for selected projects built outside work in Experiments. Keep Work as the starting point for both. Preserve full case-study narratives and make the former Selected Projects page serve a different purpose rather than duplicating Case Studies.
 
-This follows the Cognitive Fit principle in `AGENTS.md`: reduce duplicate areas and maintenance where they do not provide distinct value. Experience and the Resume remain the quick career-scan routes.
+This follows the Cognitive Fit principle in `AGENTS.md`: avoid duplicate narratives and keep maintenance low, while retaining separate areas where the content has a distinct purpose. Experience and Resume remain the quick career-scan routes.
 
-## Current evidence
+## Agreed structure
 
-- `src/pages/WorkPage.tsx` presents two routes to the evidence: Selected Projects and Case Studies.
-- `src/pages/ProjectsPage.tsx` lists Alfred, Signal, and Gamesys project summaries with context, purpose, problem, solution, outcome, technologies, capabilities, and related experience.
-- `src/pages/CaseStudiesPage.tsx` already presents four fuller narratives: Alfred, Signal template administration, Gamesys promotional-content workflow, and HSBC earlier career.
-- In `src/content/evidence-content.ts`, the three Selected Projects repeat subjects already covered by Case Studies. The project summaries and problem/solution/outcome fields add little distinct evidence. The Case Studies also hold the fuller constraints, decisions, implementation detail, and appropriate qualifications.
-- `PRODUCT_REQUIREMENTS.md`, `ROADMAP.md`, architecture, decisions, and TODO currently describe both areas. `public/sitemap.xml` lists `/work`, `/projects`, and `/case-studies`.
-- `src/styles/patterns.css` groups shared Projects and Case Studies selectors, while the route-specific Case Studies presentation also has `src/pages/CaseStudiesPage.css`.
+- `/work` remains the Work chooser and primary navigation destination.
+- `/case-studies` remains the home for professional case studies: Alfred, Signal template administration, Gamesys promotional-content workflow, and HSBC earlier career.
+- The existing `/projects` route is repurposed as **Experiments**, for selected independent projects. Keep the route to avoid unnecessary route churn; update the page title, introductory copy, and Work chooser link, and retain `/projects` in the sitemap as an active destination.
+- The home page’s **Beyond the work** section links to Experiments. The link makes the independent work discoverable without adding another home-page content area.
+- Move the UV Insect Trap entry out of Case Studies and into Experiments. It is the first entry; other candidates such as Kawaii Bridge, Rhyme Adventure, and the LEGO EV3 project are not required in this implementation.
+
+## Project metadata to preserve in Case Studies
+
+Before retiring the three overlapping Project records, move useful, supported metadata into the matching Case Study. Add optional `technologies` and `relatedExperienceSlugs` fields to `CaseStudy` and render them in its existing metadata column. Keep the experience links functional and preserve the existing outcome qualifications.
+
+| Project record | Retain in Case Study | Remove as duplicate or generic |
+| --- | --- | --- |
+| Signal — Vessel List Template Administration | Signal experience link; React, TypeScript, MobX, AG Grid, REST APIs | Repeated summary, context, purpose, problem, solution, and outcome; generic capability labels |
+| Gamesys — Internal Content-production Workflow | Both Gamesys experience links; Node.js, Jira REST API, GitHub Enterprise REST API; the Case Study’s qualified “reported” outcome | Repeated summary, context, purpose, problem, and solution; generic capability labels; the unqualified duplicate outcome |
+| Alfred | Both Alfred experience links; Swift, SwiftUI, REST APIs, Firebase, XCTest, XcodeGen; useful supported detail about use cases, dependency injection, authentication, and deep links | Shorter duplicate summary and narrative fields; generic capability labels |
+
+The current links from Project records are five Experience anchors: one for Signal, two for Gamesys, and two for Alfred. Update the Work chooser to point to both destinations. Keep the existing Projects-to-Case-Studies continuation pointed at `/case-studies`; it remains useful after the rename. `claims` currently has no populated Project evidence references. Retain the `Project` content type for Experiments; review whether the `EvidenceReference` project variant has any active consumer before changing it.
+
+## Experiment content and presentation
+
+Repurpose the existing Projects page and content collection rather than creating another route or a second portfolio system. The Experiments page should make clear that its entries are independent projects, not paid case studies.
+
+The content shape should support software prototypes and physical builds without requiring every entry to use identical sections. Reuse the current Project fields where they fit, and add only what is needed for this work: optional visuals, role/contribution, design or engineering decisions, and reflection. Each entry should be specific about what was built, how it changed, what was observed, and what remains unknown. Do not claim adoption, efficacy, or measured outcomes without evidence.
+
+For the UV Insect Trap, preserve the current story’s useful detail: early suction and light problems; fan and grille trade-offs; the funnel that restricted airflow; assembly and cleaning; the final prototype photo and selected CAD views; the home-use observation; and the unexpected dog response to the steady fan sound. State that the iteration count comes from notes and recollection, and that the reported household result is not a measured mosquito-population change. Keep the voice conversational, practical, and evidence-led, consistent with CognitiveOS writing guidance.
 
 ## Scope
 
-- Retain all four Case Studies, including the HSBC historical story, as the portfolio's only project-evidence content.
-- Keep **Work** as the primary navigation label and `/work` as its direct destination. Replace the Work chooser with the existing Case Studies content; the page keeps the Case Studies heading and narratives.
-- Remove the separate Selected Projects page and its content records. Remove the separate Case Studies route/page; the case-study content is presented on `/work`.
-- Remove the `/projects` and `/case-studies` route definitions without redirects. Both paths should fall through to the existing 404 page and its Home link.
-- Update `public/sitemap.xml` to list `/work` as the only evidence destination and omit `/projects` and `/case-studies`.
-- Review each Project field before removing the Project records. Carry useful, evidence-backed details into the matching Case Study where they improve scanning or context. In particular, retain technologies and related-experience links when relevant; omit generic capability labels and repeated narrative fields when the case study already demonstrates them.
-- Remove the `Project` content type and the `project` variant of `EvidenceReference` if no current consumer remains. Preserve case-study references and update the evidence contract accordingly.
-- Preserve case-study wording that qualifies reported outcomes. Do not carry forward unqualified duplicate claims from the project summaries.
-- Migrate the existing Case Studies styles to the retained Work page styles without changing their visual treatment. Remove chooser/Projects styles and the now-unused shared Projects/Case Studies selector groups from `src/styles/patterns.css`; update `src/index.css` and styling documentation accordingly.
-- Update route, navigation, content, page, and Playwright tests for `/work` as the evidence destination and not-found behavior for the retired paths.
-- Align current product requirements, roadmap scope, architecture, TODO, and handoff guidance with the approved structure. Keep completed TODO items and completed milestone scope as historical records. Add this task after the pending Long-Form Reading Rhythm and Content Resilience task in the Milestone 5 sequence, which itself follows analytics.
-- Add a decision that supersedes the two-area structure and selected-project presentation. Preserve historical rationales and mark the affected decisions clearly. The Alfred case-study allocation remains valid; only the shorter Project projection is superseded. Also mark the shared Projects/Case Studies styling decision as superseded by the Work-owned presentation. Review the static evidence contract and claim-owned relationship decisions, superseding only their Project-specific clauses while retaining the CaseStudy model and references.
+- Preserve `/work` as the chooser and primary navigation destination.
+- Keep `/case-studies` and its four professional narratives as a distinct destination.
+- Add optional technologies and related-experience metadata to Case Studies; populate Signal, Gamesys, and Alfred from the current Project records.
+- Carry Alfred’s useful technical details into its case study when supported by the Project and Experience content.
+- Retire the three overlapping professional Project records only after their useful metadata and links are preserved in Case Studies.
+- Keep the Project model for Experiments. Move UV Insect Trap from the Case Studies collection to the repurposed Projects collection and support its visuals and experiment narrative with small, optional Project fields.
+- Rename the Projects page presentation to **Experiments** and update `/work` chooser copy; retain the Experiments-to-Case-Studies continuation with clear wording.
+- Add a link from the home page’s **Beyond the work** section to the Experiments page.
+- Update the sitemap and current product, roadmap, architecture, decision, TODO, and handoff guidance to reflect the distinct areas. Keep completed TODO items and earlier decisions historical; mark superseded guidance rather than rewriting history.
+- Update relevant unit and Playwright coverage for metadata, both destinations, the home-page link, direct entry, refresh, and responsive experiment visuals.
 
 ## Exclusions
 
-- No new case studies or professional claims.
-- No shortening of existing case studies for CV-style scanning.
-- No changes to Experience, Resume, or the case-study visual treatment beyond changes required to present retained metadata coherently.
+- No merger of Case Studies and Experiments, and no removal of either page.
+- No shortening of existing Case Studies to CV length or removal of supported history.
+- No requirement to add Kawaii Bridge, Rhyme Adventure, or LEGO EV3 in this implementation; each remains subject to its own evidence and content review.
+- No unsupported efficacy, adoption, metric, ownership, or validation claims.
 - No analytics or broader navigation redesign.
 
 ## Assumptions, risks, and decisions
 
-- The user's direction resolves the information architecture: retain the **Work** navigation item and `/work` route, and present all four existing Case Studies there as the sole project-evidence content.
-- `/projects` and `/case-studies` are intentionally removed without redirects and will show the existing 404 page. Updating internal links and the sitemap to `/work` is in scope; legacy URLs are not retained as aliases.
-- The existing wildcard route in `src/app/router.tsx` should handle both retired paths through `NotFoundPage`.
-- The main content risk is losing useful project metadata while removing duplicate Project records. Resolve this by mapping every field to its destination or marking it redundant during implementation review.
-- Current product guidance should describe one Work destination containing Case Studies. Completed TODO items and earlier decisions remain historical, with superseded decisions labeled and linked to the replacement decision rather than rewritten as current guidance.
-- Preserve the TODO sequence: analytics first, then the pending Long-Form Reading Rhythm and Content Resilience task, then this consolidation. This plan does not reprioritize those tasks.
-- Moving Case Studies styles to the Work page is an ownership change only; preserve the rendered visual treatment.
+- The revised direction supersedes the earlier proposal to show all Case Studies on `/work` as the only evidence area. Work remains the chooser; `/case-studies` and `/projects` remain separate destinations, with `/projects` presented as Experiments.
+- `/projects` stays a valid route under its existing path. This avoids a route change while the page’s user-facing name and purpose change.
+- The main content risk is losing useful Project metadata while removing duplicate professional Project records. The mapping above is the preservation contract.
+- The `Project` type must remain because Experiments will use it. Do not remove it as part of consolidating duplicate professional records. Remove the Project evidence-reference variant only if code inspection confirms there is no consumer and no current need.
+- Experiment stories may use different section combinations. Keep optional content fields small and render absent sections cleanly rather than forcing every experiment into a Case Study template.
+- Current product guidance should describe two distinct areas. Historical completed TODO entries and previous decisions remain historical, with superseded direction identified and linked to the replacement decision.
+- Preserve the TODO sequence: analytics first, then Long-Form Reading Rhythm and Content Resilience, then this work. This plan does not reprioritize those tasks.
 
 ## Implementation sequence
 
-1. Map every Project field and incoming internal link to its current use. Decide which technologies and related-experience links provide distinct value in each Case Study.
-2. Move only those details into Case Study content and presentation. Keep existing evidence qualifications and long-form narratives intact.
-3. Replace the Work chooser with the Case Studies content on `/work`. Remove the Selected Projects and Case Studies page components and exports. Migrate the Case Studies content and structure assertions into Work page tests; remove obsolete chooser/Projects assertions. Remove duplicate Project content/types and the Project evidence-reference variant once no consumers remain.
-4. Keep primary navigation and internal evidence links pointed at `/work`. Remove the `/projects` and `/case-studies` route definitions so both paths use the existing wildcard 404 page. Keep only `/work` in the sitemap as the evidence destination.
-5. Move Case Studies route styles to the retained Work page stylesheet, remove chooser/Projects styles and obsolete shared evidence-list selectors, and update the stylesheet manifest. Preserve the current Case Studies rendering.
-6. Update unit and Playwright coverage for direct `/work` navigation and refresh, the retired paths rendering the 404 page with its Home link, retained metadata, and case-study content. Remove assertions tied to the chooser and Projects page.
-7. Update current product and engineering guidance, add the superseding decision, and mark the affected historical decisions superseded or partially superseded. Add this task after the pending Long-Form Reading Rhythm and Content Resilience task in the Milestone 5 TODO sequence. Update the handoff after implementation is reviewed and closed.
+1. Move useful metadata before retiring Project records. Add optional `technologies` and `relatedExperienceSlugs` to `CaseStudy`, populate the three matching Case Studies, and render both in the existing metadata column. Carry supported Alfred details about use cases, dependency injection, authentication, and deep links into the Case Study. Preserve the Gamesys outcome’s “reported” qualification.
+2. Remove the three duplicate professional Project entries after checking every field and Experience link against the mapping above. Keep the `Project` type and collection for independent experiments. Check whether the `EvidenceReference` project variant has an active consumer before deciding its fate.
+3. Repurpose the Projects page and remaining Project collection as Experiments. Move the UV Insect Trap entry and its three selected images there; add only the optional Project fields and rendering needed for its visuals and narrative. Keep experiment claims grounded in the source notes, recollection, and observed home use.
+4. Update the Work chooser so its two links clearly lead to Case Studies and Experiments. Add the **Beyond the work** home-page link to the Experiments route. Keep the existing Experiments-to-Case-Studies continuation and the Case Studies-to-Experience links readable and accessible.
+5. Update `public/sitemap.xml` to list `/work`, `/case-studies`, and `/projects` as the current evidence destinations. Update product requirements, roadmap, architecture, decisions, TODO, and handoff. Record a replacement decision for the two-area structure and mark the previous single-destination proposal superseded while retaining its historical record.
+6. Update focused unit and Playwright coverage. Verify direct entry and refresh at `/work`, `/case-studies`, and `/projects`; confirm the Work chooser and home CTA reach the expected destinations and the Experiments visuals reflow at narrow widths.
+7. Run `pnpm validate` and `pnpm build`, review the final content and diff, and update the handoff when the implementation is reviewed and closed.
 
 ## Acceptance criteria
 
-- Visitors have one project-evidence destination: the Work page at `/work`, displaying the Case Studies content.
-- Case Studies retains all four existing narratives and their evidence limitations.
-- Every useful, supported Project detail is either visible in the relevant Case Study or explicitly judged redundant; no unique evidence is silently lost.
-- Primary navigation remains labeled **Work**, links directly to `/work`, and the route renders the Case Studies content without a chooser.
-- `/work` renders the evidence content on direct entry and refresh. `/projects` and `/case-studies` render the existing 404 page on direct entry and refresh; its Home link works.
-- The primary sitemap includes `/work` as the evidence destination and excludes `/projects` and `/case-studies`.
-- Existing Playwright coverage for Work/Projects navigation and links is migrated to verify the Work content and 404 behavior for retired paths.
-- No duplicate Selected Projects or Work chooser content remains in the user-facing site.
-- Current product requirements, roadmap, architecture, decisions, TODO, handoff, and sitemap consistently describe Work as the single evidence route containing Case Studies. Historical completed TODO entries, milestone scope, and superseded or partially superseded decisions remain clearly historical.
-- No unused Project content model or Project evidence-reference variant remains in active code; CaseStudy records and any case-study evidence references remain supported.
-- Project-only selectors are removed from the shared evidence-list styling; the Case Studies visual treatment remains unchanged under the Work page's stylesheet ownership.
+- Work remains the primary navigation destination and presents two clearly distinct options: professional Case Studies and independent Experiments.
+- `/case-studies` retains Alfred, Signal, Gamesys, and HSBC as detailed professional narratives. The UV Insect Trap is not presented as a professional Case Study.
+- Case Studies display the preserved technologies and related Experience links for Signal, Gamesys, and Alfred. Gamesys retains the qualified reported outcome; the unqualified duplicate is absent.
+- Alfred’s useful, supported technical details from its Project record are incorporated without inflating claims.
+- The existing `/projects` route is titled and described as Experiments and contains the UV Insect Trap as its first entry. Its content structure supports later software or physical experiments without requiring every optional section.
+- The home page’s **Beyond the work** section links to Experiments with wording that makes the destination clear.
+- No duplicate Signal, Gamesys, or Alfred Project narratives remain in Experiments; their useful metadata and links are preserved in their Case Studies.
+- The sitemap includes `/work`, `/case-studies`, and `/projects` as active destinations. Direct entry and refresh work for all three routes.
+- Current product and engineering guidance consistently describes the two-area structure. Completed TODO history and superseded decisions remain clearly historical.
+- Relevant unit tests, Playwright coverage, `pnpm validate`, and `pnpm build` pass; responsive layout and accessible links are verified.
 
 ## Validation
 
-- Run focused route, navigation, Work content, and not-found tests, then run `pnpm test:e2e` for browser coverage.
+- Run the focused Case Study metadata and Experiments content tests, then run `pnpm test:e2e` for browser coverage.
 - Run `pnpm validate` and `pnpm build`; report any pre-existing repository-wide validation issue separately from regressions caused by this change.
-- Review the Case Studies content on `/work` at desktop and narrow widths. In the browser, verify direct entry and refresh at `/work`, `/projects`, and `/case-studies`; confirm the retired paths show the existing 404 page and its Home link returns to the home page.
+- Review Case Studies and Experiments at desktop and narrow widths. Verify direct entry and refresh for `/work`, `/case-studies`, and `/projects`, the Work chooser destinations, and the home-page Experiments link.
 
 ## Approval gate
 
-This plan is approved. The consolidation remains queued after the pending analytics and Long-Form Reading Rhythm and Content Resilience tasks; begin implementation only when it becomes the next task in the TODO sequence.
+This approved plan records the user's direction to retain two distinct evidence areas and repurpose Selected Projects as Experiments. The implementation and current guidance updates are delivered, formally reviewed with `PASS`, and closed.

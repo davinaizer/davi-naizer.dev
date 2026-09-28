@@ -1,4 +1,0 @@
-interface:
-  display_name: "Code Pairing"
-  short_description: "Pair on an approved implementation task"
-  default_prompt: "Use $code-pairing to help me implement the approved task while preserving my ownership and the agreed scope."

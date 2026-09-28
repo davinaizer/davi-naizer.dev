@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement Task"
+  short_description: "Implement an approved task"
+  default_prompt: "Use $implement-task to implement the approved task while preserving my ownership and the agreed scope."

@@ -5,7 +5,7 @@ import { professionalContent } from "../content/professional-content.ts";
 import HomePage from "../pages/HomePage.tsx";
 import { axe } from "../test/axe.ts";
 import App from "./App.tsx";
-import { routes } from "./routes.ts";
+import { routes, workSectionPath } from "./routes.ts";
 
 function renderApp() {
 	const router = createMemoryRouter(
@@ -43,7 +43,7 @@ describe("App", () => {
 		).toBeInTheDocument();
 		expect(
 			screen.getByRole("link", { name: "Explore experience" }),
-		).toHaveAttribute("href", routes.experience);
+		).toHaveAttribute("href", routes.resume);
 		expect(
 			screen.getByRole("link", { name: "Download Resume" }),
 		).toHaveAttribute("href", professionalContent.resume.url);
@@ -51,12 +51,10 @@ describe("App", () => {
 			screen.getByRole("link", { name: "Download Resume" }),
 		).toHaveAttribute("download");
 		expect(
-			within(
-				screen.getByRole("navigation", {
-					name: "Explore core professional areas",
-				}),
-			).getByRole("link", { name: "Contact" }),
-		).toHaveAttribute("href", routes.contact);
+			screen.getByRole("link", {
+				name: "Explore my independent experiments",
+			}),
+		).toHaveAttribute("href", workSectionPath("experiments"));
 		expect(screen.getByText("© 2026 Davi Naizer")).toBeInTheDocument();
 		const footerNavigation = screen.getByRole("navigation", {
 			name: "Social and contact links",

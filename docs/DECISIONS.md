@@ -1,16 +1,176 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-19
-version: 1.23
+updatedAt: 2026-09-28
+version: 1.38
 status: active
 order: ASC
 ---
 
 # Decisions
 
+## Publish Case Studies and Experiments through a required `published` flag — 2026-09-28
+
+**Decision:** Every `CaseStudy` and `Project` carries a required `published: boolean`. `src/content/evidence-content.ts` keeps the full lists private and exports `caseStudies` and `projects` filtered to published entries, so pages, routing and next-entry links see only published content. An unpublished entry's `/work/<slug>` renders the not-found page, and `/work` omits a section with no published entries.
+
+**Rationale:** The developer reviews content gradually and needs to deploy only approved entries. Filtering once in the content module avoids repeating the rule in four consumers, and a required field forces an explicit choice for each new entry. Build-time flags, draft or preview modes and a CMS were not justified for six entries.
+
+**Consequence:** Publishing or hiding a project is a one-line content edit. `public/sitemap.xml` stays hand-edited, and a unit test fails if it disagrees with the published slugs. Home's "Beyond the work" link targets `#experiments`, which does not exist if every Experiment is unpublished.
+
+**Review triggers:** Revisit if drafts need to be previewed before going live, if the entry count makes hand-editing the sitemap error-prone, or if every Experiment is ever unpublished (fix Home's link then).
+
+## Rebuild UV Insect Trap's gallery from higher-fidelity OnShape exports; fix a card-grid row-height defect — 2026-09-28
+
+**Decision:** Developer-directed amendment, same task as the entry below, before completion. UV Insect Trap's two CAD gallery visuals ("Enclosure and grille", "Grille geometry") are replaced with tightly cropped exports from a new, higher-fidelity OnShape re-export batch — a front-symmetric cutaway and a top-down grille render, both on a true-black background close to `--color-background`. The concept and captions for both are unchanged from before. The "finished prototype" photo is also replaced, with a cleaner, more dramatic shot from the same re-export session (no intruding background object, better light on the UV grille). Separately, `.project-page__visual-grid` gains `align-items: start`, fixing a defect where a portrait item next to landscape items stretched every card in the row to equal height without filling that height, leaving visible dead space under the shorter cards' captions.
+
+**Rationale:** The prior gallery images had large, badly-cropped padding baked into the source files (subject filling only 35–57% of the canvas) and a background colour (`#333333`) that didn't match the site, so thumbnails read small and slightly mismatched even before the layout bug. The developer re-exported from OnShape with tighter framing and a background already near `#000000`/`#131313`. The row-height bug was a latent defect in the shared `ProjectGallery`/`patterns.css` pattern (grid rows stretch to their tallest cell by default; the flex column children inside don't grow to fill that stretch), never exposed before because Atelier Florae's gallery mixes only same-aspect portrait items — UV's new portrait "finished prototype" photo next to two landscape CAD images is what surfaced it. `align-items: start` was chosen over forcing every image into a matching aspect ratio, since it fixes the actual defect for any future gallery mixing aspect ratios (this component is shared site-wide) rather than constraining which images a project can use.
+
+**Consequence:** `public/images/uv-insect-trap/cad-assembly-view.png` and `cad-grille-top-view.png` are replaced by `cad-assembly-view.jpg` and `cad-grille-top-view.jpg` (JPEG chosen over PNG for these full-colour gradient renders — under half the file size at quality 90 with no visible artifacting, unlike the flat-line hero drawing where PNG was the right choice). `final-prototype.jpeg` is replaced in place with the new photo. An unreferenced, pre-existing stray photo in the same folder was deleted during this pass. `evidence-content.ts`'s `layout` for "Enclosure and grille" changed from `landscape` to `portrait` to match the new crop's proportions; alt text was rewritten for all three visuals to describe what they now actually show. `e2e/critical-journeys.spec.ts` was updated for the new alt-text pattern. The hero image and the entry below are unaffected. Separately, in the same pass, `outcomes`' first-person "My sister reported…" / "My sister noticed…" phrasing was rewritten in a professional third-person voice (content and honesty unchanged: both observations stay explicitly informal and unmeasured); no other project uses this phrasing pattern.
+
+**Review triggers:** If `.project-page__visual-grid`'s row-height behaviour needs to change again, check Atelier Florae's two-portrait gallery still renders correctly (it should, since `align-items: start` is a no-op when every row is already uniform height).
+
+## Give UV Insect Trap an engineering-drawing hero built from its OnShape source — 2026-09-28
+
+**Decision:** UV Insect Trap's Work card and project-page hero now show a recoloured crop of the developer's own OnShape technical drawing (front elevation and isometric view, side by side, no title block or border chrome), replacing the cropped `final-prototype.jpeg` portrait photo that placeholder-filled the slot after the prior task. The photo moves into the gallery as the closing "finished prototype" item, after the two existing CAD-render visuals; the gallery heading and intro were reworded from "CAD design views" to cover a gallery that now mixes CAD renders and a photograph. This closes the review trigger from "Give Alfred and UV Insect Trap real card and hero images — 2026-09-28": *"Reconsider UV Insect Trap's card image once a purpose-built hero exists for it."*
+
+**Rationale:** The developer supplied several OnShape export options (wireframe, shaded render, shaded cutaway, wireframe cutaway, and an engineering drawing sheet with title block). The two existing gallery visuals are already shaded, coloured, cutaway CAD renders, so reusing that rendering mode for the hero would have been visually redundant — a different crop of a technique the page already shows. The engineering-drawing sheet was chosen instead: it is a genuinely different artifact (documentation, not a product render), and its hairline linework is the closest visual match to the site's own hairline-border, no-gradient aesthetic. Working from the vector SVG (not a raster export) meant the crop could be composed deliberately — front elevation and isometric view, with real margin on every side — rather than needing Alfred's edge-fade technique to hide a forced crop; the third view (the fan/grille top-down orthographic) was dropped because it duplicates `cad-grille-top-view.png`, which also solved the aspect-ratio fit (all three views together would have crushed the outer two to a sliver at `16:9`/`16:10`). The drawing was recoloured into the site's actual tokens — `#131313` background, `#e2e2e2` linework — rather than a generic blueprint blue, and exported as a palette PNG (135KB) rather than JPEG (325KB), since JPEG's block compression visibly degraded the fine hairline/hatching detail that PNG's lossless palette encoding preserved.
+
+**Consequence:** New asset: `public/images/uv-insect-trap/uv-drawing-hero.png`. The original 8.2MB OnShape SVG export is not committed to the repository, following the same precedent as the Figma source for `social-preview.png`: the source lives outside the repo, and only the final web-ready export is version-controlled. `evidence-content.ts`'s `visualsHeading`/`visualsIntro` for UV Insect Trap changed; `e2e/critical-journeys.spec.ts` was updated for the new gallery region name and image count (three visuals, not two). No change to `WorkPage.tsx`/`.css` or `ProjectPageLayout.tsx` — both already render a project's `hero` generically since the prior task.
+
+**Review triggers:** If a future project's best evidence is a CAD/vector source (not screenshots or photos), consider the same "recolour into site tokens, crop from vector for margin control" approach rather than a raster composite. Reconsider the drawing-hero treatment if a future high-fidelity render or photo of the finished device becomes the stronger evidence.
+
+## Give Alfred and UV Insect Trap real card and hero images; adopt the filmstrip format for future hero images — 2026-09-28
+
+**Status:** UV Insect Trap's portion — the portrait-photo crop accepted below as a placeholder — is superseded by "Give UV Insect Trap an engineering-drawing hero built from its OnShape source — 2026-09-28" and "Rebuild UV Insect Trap's gallery…" above. The Alfred filmstrip portion, and the general "deferred branch of the Task D decision" framing, still stand.
+
+**Decision:** Alfred's Work card and project-page hero now show a purpose-built filmstrip of three of the developer's own onboarding screenshots (the value-proposition screen, the mood picker, and the Alfred's Pick recommendation), replacing the typographic panel on its card. UV Insect Trap's card now shows its existing hero photo (previously card-less), cropped `16:10` via `object-fit: cover`; its portrait crop is accepted as a placeholder pending a purpose-built image. Both changes exercise the deferred branch of the Task D card-image decision (`docs/plans/2026-09-26-work-index-routing.md`): "real card images are deferred until more projects have distinct result images." This is not a reversal of that decision — the four remaining projects without a suitable image keep the typographic panel.
+
+**Rationale:** `docs/HANDOFF.md` had flagged this as ready work: "Add per-project visuals only when real result images exist." Alfred had no result image of its own (only an onboarding screenshot already used in its gallery); the developer took new simulator screenshots for this purpose. Raw phone screenshots are portrait and the card/hero slots are wide, so a single screenshot cannot fill either without heavy cropping. A composite of three screenshots placed edge-to-edge, trimmed of the status bar, reused for both the `16:10` card and `16:9` hero via the existing `object-fit: cover` pattern (one export, two slots, matching how `.project-page__hero` already works). A symmetric center-crop cut both outer screens mid-word ("Alfred" reduced to "l finds the"); a black-to-transparent fade at both outer edges (steep ease-in curve, since a linear fade wasn't steep enough to fully obscure the cut text) blends into the screenshots' own near-black background and the site's `--color-background`, so the crop reads as an intentional bleed rather than an error. No phone-bezel mockup was used: every other image on the site (`.project-page__hero`, `.project-page__visual`) is a flat rectangle with a hairline border, no radius, no shadow, and a glossy device mockup would be the one polished/marketing-style image against that otherwise editorial, hairline-and-serif treatment.
+
+**Consequence:** `Project`/`CaseStudy.hero` now drives the Work card image generically (`WorkCard` in `WorkPage.tsx` renders the `hero` image when present, the typographic panel otherwise) rather than only the project-page hero; this was a developer-directed broadening of the approved task plan, which had originally scoped the card-image change to Alfred only and excluded UV Insect Trap. Any project that gains a `hero` going forward will automatically show it on its Work card too — a poorly-cropping hero (like UV's current portrait photo) should be replaced with a purpose-built image rather than special-cased in code. Alfred's `alfred-landing-page.jpg` gallery visual was removed (its content is now the hero); `alfred-idea-flow.jpg` remains as the gallery's sole visual. New asset: `public/images/alfred/alfred-onboarding-filmstrip.jpg`.
+
+**Review triggers:** Reconsider UV Insect Trap's card image once a purpose-built hero exists for it. If a future project's screenshots don't share a near-black background, the fade-to-background-color technique won't blend seamlessly and needs revisiting. Reconsider the filmstrip format itself if a project's best evidence is a single image rather than a sequence.
+
+## Use Libre Franklin as the sans family and set font smoothing — 2026-09-28
+
+**Decision:** Set body and interface text in Libre Franklin (weights 400 and 500), superseding IBM Plex Sans. Apply `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale` on `html`. Newsreader and IBM Plex Mono are unchanged, and the three-family, fixed-role structure recorded on 2026-09-27 stands. The developer rebuilt `public/social-preview.png` in Figma (1200×630, with the D mark on the right, the site's periwinkle accent and the role line "Senior Frontend Engineer") to match the site's type; the Figma file is the source and lives outside the repo.
+
+**Rationale:** After Plex Sans shipped, the developer saw body text render heavier than in the mockup. The computed weight was 400 and only the 400 and 500 faces loaded, so it was not a weight fault. The mockup had set `-webkit-font-smoothing: antialiased` and the site set no smoothing, and on the real Home paragraph the default smoothing was visibly bolder than `antialiased`. The developer tried Atkinson Hyperlegible Next, then chose Libre Franklin with the smoothing rule and judged it right on the real site. Libre Franklin is a Franklin Gothic revival, so it pairs with Newsreader as a newspaper-style serif and sans. Approved plan: `docs/plans/2026-09-28-libre-franklin.md`.
+
+**Consequence:** `--font-family-sans` in `tokens.css`, the Google Fonts request in `index.html`, and `html` in `global.css` changed; `docs/design/DESIGN.md` names the new family. The smoothing rule also lightens Newsreader and IBM Plex Mono on macOS and iOS; other platforms are unchanged. Earlier entries that mention Inter or Plex Sans are historical and left as written.
+
+**Review triggers:** Reconsider if wrapping or width regressions appear (Libre Franklin sets wider than Inter and Plex Sans), or if the smoothing rule makes small text in Newsreader or the mono read too thin on macOS.
+
+## Replace Inter with IBM Plex Sans as the sans family — 2026-09-28 (superseded)
+
+**Status:** Superseded by "Use Libre Franklin as the sans family and set font smoothing — 2026-09-28". Plex Sans shipped in `6ba764f` and was reversed the same day; the cause was missing font smoothing, recorded above.
+
+**Decision:** Set body and interface text in IBM Plex Sans (weights 400 and 500) instead of Inter. Newsreader and IBM Plex Mono are unchanged, and the three-family, fixed-role structure recorded on 2026-09-27 stands. `public/social-preview.png` was patched so its tagline uses Plex Sans too.
+
+**Rationale:** The developer judged Inter overused and a startup default, and chose Plex Sans after reviewing four rendered variants (Inter, Libre Franklin, IBM Plex Sans, Atkinson Hyperlegible Next). Plex Sans and Plex Mono are drawn as one family, so the sans and mono now pair by design, and the choice is easy to justify. Libre Franklin (strongest editorial pairing, wider set) and Atkinson Hyperlegible Next (accessibility story, most personality-forward) were the runners-up. Approved plan: `docs/plans/2026-09-28-ibm-plex-sans.md`.
+
+**Consequence:** `--font-family-sans` in `tokens.css` and the Google Fonts request in `index.html` changed; `docs/design/DESIGN.md` names the new family. Earlier decision, audit and plan entries that mention Inter are historical and left as written. Plex Sans has no optical-size axis, so the request is static weights.
+
+**Review triggers:** Reconsider if wrapping or width regressions appear at 320px, or if the sans reads poorly beside Newsreader in production.
+
+## Merge Experience into Resume — 2026-09-28
+
+**Decision:** Serve the full experience timeline, with its section nav, on `/resume` beneath the resume download. Remove the `/experience` route and its primary-navigation item. The resume download stays on Resume and in the Home hero; a header download button was implemented and then removed at the developer's direction (2026-09-28) to keep the header uncluttered. `/experience` renders the existing not-found page; there is no redirect.
+
+**Rationale:** The developer judged that a hiring manager should reach the CV and the career timeline from one page, without intermediate navigation (PRODUCT_REQUIREMENTS 4.1). Two adjacent pages, one a single download button and the other the timeline, added a navigation step without adding content. This is developer judgement; analytics cannot measure resume clicks. Approved plan: `docs/plans/2026-09-28-merge-experience-into-resume.md`.
+
+**Consequence:** `PRODUCT_REQUIREMENTS.md` §9 and `docs/ARCHITECTURE.md` were amended to match. Internal `/experience#<slug>` links now target `/resume#<slug>`. External links to `/experience` (for example old CV or LinkedIn links) will show the not-found page, consistent with the 2026-09-26 no-redirect precedent for `/case-studies` and `/projects`.
+
+**Review triggers:** Reconsider if the merged page hurts scannability of the timeline or the download, or if evidence shows traffic arriving at `/experience` (then add a hash-preserving redirect).
+
+## Target modern evergreen browsers only; no CSS fallback for `oklch()` — 2026-09-27
+
+**Decision:** The site targets modern evergreen browsers only — Safari 15.4+, Chrome/Edge 111+, Firefox 113+ — and does not add an RGB/hex fallback for the `oklch()`-based color tokens in `tokens.css` (`--color-accent` and its variants). No `browserslist` config or `@supports` fallback query is introduced.
+
+**Rationale:** `oklch()` has shipped in every major evergreen browser since roughly 2023, which comfortably covers the realistic audience for a personal professional-evidence site read by recruiters, hiring managers, and engineers on current tooling. Maintaining a parallel set of hex fallback values for every `oklch()` token would add ongoing upkeep (keeping two colour representations in sync) for a gap with no demonstrated visitor impact. This resolves audit finding T12 (`docs/audit/2026-09-27-visual-css-consistency.md`), which flagged the missing fallback as a low-ROI judgment call pending exactly this policy decision.
+
+**Consequence:** No code change. The existing `oklch()` tokens in `tokens.css` stand as the sole colour representation.
+
+**Review triggers:** Reconsider if analytics or direct evidence shows meaningful traffic from a pre-2023 browser, or if a future CSS feature under consideration has a similarly-scoped support gap that a blanket "evergreen only" policy doesn't cleanly resolve.
+
+## Reserve all-caps mono for supplementary labels; move navigation, buttons and section headings to sentence-case Inter — 2026-09-27
+
+**Decision:** IBM Plex Mono, uppercase and tracked, is used only for supplementary metadata: eyebrows, the chronology line, tags, and card area labels. Primary navigation, buttons, the project-page back link, continuation links, and project-page section headings (Context, Problem, Role…) are essential UI text and move to Inter, sentence case. `docs/design/DESIGN.md`'s Mono Labels rule is updated to state this split.
+
+**Rationale:** `DESIGN.md:98`'s existing rule already said mono labels must stay supplementary and essential information must not depend on them. The CSS audit (`docs/audit/2026-09-27-visual-css-consistency.md`, finding G3) found navigation, buttons and section headings in mono-caps regardless, which is essential information depending on the supplementary style, and a concrete instance where a project-page section heading and its own entry in the section-nav sidebar disagreed on casing for the identical word. Moving the essential-text uses to Inter also softens the all-caps template tell the audit's generic-pattern check flagged (finding G3, cross-referenced under the "AI-generated design tells" checklist).
+
+**Consequence:** `docs/design/DESIGN.md`'s Mono Labels rule reflects the split. Built 2026-09-27 alongside H1: project-page section headings (and the Work index's) got a shared `.section-label-heading` class, kept at `h2` with no heading-level change, so the sentence-case restyle could land on real markup. Navigation, the header Contact button, home hero actions and inline links, the résumé download button, the project-page back link, and continuation links all render in Inter, sentence case; mono-caps remains only for eyebrows, the chronology line, tags, card area labels, and résumé metadata. Touched `shell.css`, `patterns.css`, `HomePage.css`, `ResumePage.css`, `WorkPage.css`/`.tsx`, `ProjectPageLayout.tsx`, `CaseStudyPage.tsx`, and `ExperimentPage.tsx`; no test changed, since none asserted the old class names, mono styling, or heading levels. `NotFoundPage.css`'s `.not-found__action a` is the same pattern but was out of the approved scope and remains mono-caps; tracked as a future candidate in `docs/audit/2026-09-27-visual-css-consistency.md`.
+
+**Review triggers:** Reconsider if sentence-case navigation and buttons read as less distinctive than the mono treatment, now that it's built and screenshotted across Home, Work, a project page, Experience, and Résumé at desktop and the `56rem`/`40rem` breakpoints.
+
+## Remove the background gradient wash; hold DESIGN.md to DESIGN_PRINCIPLES.md's "no gradients" rule — 2026-09-27
+
+**Decision:** Remove the fixed radial accent gradient from the page background. The canvas is a flat `#131313` fill with no gradient anywhere, on the background or on any component. Remove `--gradient-accent-start` and `--gradient-accent-middle` from `src/styles/tokens.css` and the `background-image` rule on `body` in `src/styles/global.css`. Update `docs/design/DESIGN.md`'s Colors and Brand & Style sections to state "no gradients" plainly, matching `docs/DESIGN_PRINCIPLES.md`'s existing "decorative gradients" prohibition.
+
+**Rationale:** The gradient was recorded as a deliberate choice earlier the same day (see the superseded decision below), on the reasoning that the page felt empty without it. On reflection, the developer chose to resolve that tension by removing the gradient rather than carving an exception into `DESIGN_PRINCIPLES.md`, so the two documents stay in agreement instead of one excepting the other. The "life" the page needs is tracked separately as options that don't rely on a gradient, in `docs/design/2026-09-27-adding-life-without-gradient.md`, and remains unbuilt.
+
+**Consequence:** `docs/design/2026-09-27-visual-css-consistency.md` audit finding G5 is resolved by removal, not by exception. `DESIGN_PRINCIPLES.md` needs no change; its prohibition already covered this. The three type families, the OKLCH accent, and the other contents of the superseded decision below are unaffected and still stand.
+
+**Review triggers:** Reconsider if the page reads as empty once the options in `docs/design/2026-09-27-adding-life-without-gradient.md` are evaluated and none of them address it.
+
+**Supersedes:** The background-wash portion of "Record the shipped visual system: three type families, OKLCH accent, and an accent background wash — 2026-09-27," immediately below. The type-family and colour-token portions of that decision stand.
+
+## Record the shipped visual system: three type families, OKLCH accent, and an accent background wash — 2026-09-27
+
+**Status:** The background-wash portion is superseded by "Remove the background gradient wash; hold DESIGN.md to DESIGN_PRINCIPLES.md's 'no gradients' rule — 2026-09-27," above. The three-type-family and colour-token portions still stand.
+
+**Decision:** Treat the shipped visual system as the design baseline and update `docs/design/DESIGN.md` to match it. It uses three type families with fixed roles: Newsreader for headings, the wordmark and the project summary; Inter for body and interface text; IBM Plex Mono for labels and metadata. Colour tokens use the shipped values, including the OKLCH periwinkle accent (`oklch(74% 0.16 275)`) and `#aaa4a5` secondary text. ~~A single fixed, low-intensity radial accent gradient stays on the page background as a deliberate choice, limited to the page background.~~ All three families are kept rather than dropping to two, because Newsreader is suited to headings but not to body copy.
+
+**Rationale:** The site changed after `DESIGN.md` was written (editorial serif headings in `fb347d7`, the blue accent in `d934b20`, and later the OKLCH tokens). The audit in `docs/audit/2026-09-27-visual-css-consistency.md` found the reference document contradicting the shipped site on headline face, secondary and accent colours, label size and tracking, and the gradient. Under the repository authority order the reference documents govern, so leaving them stale would have made correct code look like a defect. The developer confirmed the type-family and colour changes were deliberate.
+
+**Consequence:** `DESIGN.md` now describes Newsreader, the OKLCH accent, and the button, card and navigation treatments as shipped. This supersedes “Use reference hex values for the initial CSS token foundation — 2026-08-10”: OKLCH tokens are in use. Newsreader is not to be used for body copy. Font requests must match rendered usage (audit findings F1–F3).
+
+**Review triggers:** Reconsider if the page needs a light or alternative colour mode, or if a third family stops earning its role.
+
+**Deferred:** Label casing for navigation and buttons (audit G3) is unresolved.
+
+**Supersedes:** “Use reference hex values for the initial CSS token foundation — 2026-08-10”.
+
+## Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26
+
+**Decision:** Make `/work` the single index for all project evidence, following the Option A prototypes. `/work` lists every project as a card in two sections: Case Studies first, then Experiments, with the same card treatment. Each card links directly to its project page at `/work/<slug>`. Remove the intermediate `/case-studies` and `/projects` index pages, and the `/case-studies/<slug>` and `/projects/<slug>` paths, without redirects; they render the not-found page. Project pages keep the shared project-page layout, with the area shown by the eyebrow label and the card section rather than the URL. Apply the prototypes' visual treatment to the Work index and project pages, within the constraints already settled in `docs/plans/2026-09-26-project-pages-prd.md` v4: Role and Constraints as named sections, no stock or placeholder photographs presented as project images, the existing `56rem` breakpoint, and the native `<dialog>` lightbox.
+
+**Rationale:** The observed problem was the extra step between Work and a project, plus inconsistent project presentation. One index with direct links removes the intermediate pages, and one layout lets a reader who has seen a case study know what to expect from an experiment. The paid versus unpaid distinction is preserved structurally by the two card sections and their order, which is sufficient because Experiments can have lower prominence than Case Studies. The 2026-09-26 entry above conflated this option with the earlier plan to merge both areas into one undifferentiated area; Option A keeps the areas distinct.
+
+**Consequence:** `/case-studies` and `/projects` stop being destinations and are not redirected. The developer accepted this on 2026-09-26 because the site had just been published, so no meaningful set of shared or indexed links needed preserving; the earlier plan for permanent redirects was dropped. The sitemap lists `/work` and each `/work/<slug>` page. Home and in-page links that pointed at the area pages point at the `/work` sections instead. Slugs must be unique across both content types. `CaseStudy` and `Project` remain separate content types. The prototype screenshots in `docs/evidence/2026-09-26-option-a-prototypes/` are the visual reference, because the prototype artifacts are not accessible to repository tooling.
+
+**Review triggers:** Reconsider if the Work index becomes hard to scan as projects are added, if visitors cannot distinguish professional from independent work, or if evidence shows visitors or search traffic still arriving at the retired `/case-studies` or `/projects` URLs (restore redirects then).
+
+**Supersedes:** The navigation and routing portions of “Do not merge Case Studies and Experiments; revamp project-page UX within the two areas — 2026-09-26” and the routing portions of `docs/plans/2026-09-26-project-pages-prd.md` v4. The PRD itself is kept unchanged as a historical record.
+
+## Do not merge Case Studies and Experiments; revamp project-page UX within the two areas — 2026-09-26
+
+**Status:** The navigation and routing portions are superseded by “Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26.” The rejection of merging Case Studies and Experiments into one undifferentiated area still stands.
+
+**Decision:** Do not merge Case Studies and Experiments into a single route or evidence area. The two-area structure from 2026-09-25 stands: `/work` remains the chooser, `/case-studies` holds professional evidence, and `/projects` remains the stable public URL for Experiments. Replace the planned merge work with a UX/UI revamp of how projects are presented inside those areas: individual project pages, a shared project-page layout, and area index pages that preview projects instead of rendering every project in full. The detailed scope, routes, and acceptance criteria belong to the approved task plan.
+
+**Rationale:** The merge was proposed before UV Insect Trap and Atelier Florae were identified as further independent experiments. With more experiments to add, the professional versus independent distinction carries more weight, and the observed problem is the presentation within each area (every project concatenated on one page, no single-project page, no in-page navigation, inconsistent visuals) rather than the existence of two areas. Revamping presentation addresses that problem without route churn or breaking URLs already shared.
+
+**Consequence:** The flat `/work/<slug>` routing and removal of the Work chooser proposed in the 2026-09-26 project-page design PRD are not adopted. Project pages must remain within their existing area, and the primary navigation, sitemap entries for `/work`, `/case-studies`, and `/projects`, and the `CaseStudy` and `Project` content types are retained unless the task plan justifies a specific change.
+
+**Review triggers:** Reconsider a merged or flattened structure only under the 2026-09-25 review triggers, in particular if visitor evidence shows the Work chooser is unclear.
+
+**Supersedes:** The earlier plan to merge Case Studies and Experiments into one area.
+
+## Keep professional Case Studies and independent Experiments as distinct Work destinations — 2026-09-25
+
+**Decision:** Keep `/work` as the evidence chooser and maintain two distinct areas: `/case-studies` for detailed professional evidence and `/projects` presented as Experiments for selected independent builds and prototypes. Keep `/projects` as the stable public URL while naming its route constant and page presentation `experiments`. Link to Experiments from Home's “Beyond the work” section. Keep the `Project` content type for Experiments, with optional visuals, role or contribution, decisions, and reflection so entries can use only the sections that fit. Preserve professional Project metadata and Experience links in their Case Studies before removing duplicate Project narratives.
+
+**Rationale:** Professional Case Studies and independent experiments have different evidence contexts. Keeping them separate helps visitors understand the distinction, avoids duplicated professional narratives, and gives personal prototypes room for observed details and unknowns without forcing them into the professional case-study structure. Reusing `/projects` avoids route churn while making the purpose of the destination clear.
+
+**Consequence:** Work remains the entry point to both areas; the shell's primary navigation remains unchanged. The sitemap retains `/work`, `/case-studies`, and `/projects`. Experiment entries remain manually curated Project records, and claims continue to own any evidentiary references rather than adding reciprocal relationships.
+
+**Review triggers:** Reconsider the two-area structure if repeated content maintenance demonstrates duplication, if independent experiments cannot be distinguished clearly from professional evidence, or if visitor evidence shows the Work chooser is unclear.
+
+**Supersedes:** The earlier planning proposal to present all Case Studies on `/work` as the only evidence area. That proposal remains historical; the approved two-area direction is recorded in `docs/plans/2026-09-23-consolidate-portfolio-evidence.md`.
+
 ## Use a central CSS import manifest for layered route-owned styles — 2026-09-19
 
-**Decision:** Keep route-owned stylesheet files colocated with their route components in `src/pages/`, using matching filenames and page-prefixed selectors. Import those files through `src/index.css` with explicit `@layer pages` assignments instead of direct component imports. Keep `src/index.css` as the ordered manifest for all static CSS so reset, tokens, shared styles, route styles, utilities, and overrides have a deterministic cascade order. This supersedes the direct component import and non-registry portions of the 2026-08-14 route-owned CSS decision.
+**Decision:** Keep route-owned stylesheet files colocated with their route components in `src/pages/`, using matching filenames and page-prefixed selectors. Import those files through `src/index.css` with explicit `@layer pages` assignments instead of direct component imports. Keep `src/index.css` as the ordered manifest for all static CSS so reset, tokens, shared styles, and route styles have a deterministic cascade order. This supersedes the direct component import and non-registry portions of the 2026-08-14 route-owned CSS decision.
 
 **Rationale:** Explicit cascade layers require a stable stylesheet import boundary. A central manifest makes the layer order visible and deterministic while preserving file ownership and route-level discoverability. The current application statically loads all route modules, so moving CSS imports into the manifest does not introduce a demonstrated loading or code-splitting cost. This avoids CSS Modules, a dependency, or a broader styling abstraction.
 
@@ -21,6 +181,8 @@ order: ASC
 **Deferred:** CSS Modules, utility frameworks, dynamic stylesheet loading, and generated CSS manifests remain undefined until a demonstrated requirement justifies them.
 
 ## Extend the shared CSS pattern layer for evidence-list reuse — 2026-09-19
+
+**Status:** The shared evidence-list structure remains in use; Projects is now presented as Experiments under the 2026-09-25 two-area decision.
 
 **Decision:** Extend `src/styles/patterns.css` beyond the original four semantic patterns to own the verified base structure shared by the Projects and Case Studies evidence lists. Keep route-specific grid widths, content modifiers, list resets with cascade-sensitive overrides, and responsive modifiers in the colocated page stylesheets. Do not change the rendered DOM or introduce generic utility classes.
 
@@ -76,6 +238,8 @@ order: ASC
 
 ## Allocate Alfred: What To Do Next as the first case study — 2026-08-31
 
+**Status:** The case-study allocation remains current. The companion Alfred Selected Projects record was retired under “Keep professional Case Studies and independent Experiments as distinct Work destinations — 2026-09-25.”
+
 **Decision:** Allocate Alfred to the Case Studies area as **Alfred: What To Do Next**, using the stable slug `alfred-what-to-do-next`. Treat Alfred and the possible future name UpNext as the same project identity; UpNext is not used as the current public case-study name. Keep the existing `alfred` Selected Projects record unchanged as the shorter project projection. Beacon remains deferred.
 
 **Rationale:** The reviewed Alfred evidence provides the strongest current basis for one deeper narrative: clear product intent, mobile UX and implementation ownership, layered architecture, asynchronous recommendation integration, explicit decision states, and broad test coverage. The evidence also gives clear limits: the work is exploratory, and user validation, adoption, public launch, market success, and unsupported metrics are unavailable.
@@ -95,6 +259,8 @@ order: ASC
 **Review triggers:** Reconsider the fields if an approved case study cannot be represented clearly, repeated narrative changes create meaningful maintenance pressure, or a demonstrated product requirement requires a different content boundary. Any flexible block model, content source, or governance metadata proposal remains a separate decision.
 
 ## Select a small set of distinct evidence projects — 2026-08-24
+
+**Status:** Historical selection decision. The three professional Project records were retired after their useful metadata was preserved in Case Studies; see “Keep professional Case Studies and independent Experiments as distinct Work destinations — 2026-09-25.”
 
 **Decision:** Select three public-safe project narratives for the Selected Projects area: **Vessel List Template Administration**, **an internal content-production workflow**, and **Alfred**. Map them to the existing experience entries for Signal, Gamesys / Bally's, and the independent product venture / planned career break respectively. Use these narratives to represent distinct evidence dimensions: production product and frontend delivery; workflow-oriented product engineering and automation; and recent product-engineering ownership, architecture, and learning in an unfamiliar ecosystem.
 
@@ -131,6 +297,8 @@ order: ASC
 **Deferred at the time of this decision:** Evidence confidence, contribution-boundary, and confidentiality rules were left to a separate governance decision; claim content, relationship rendering, and PKM import or synchronisation remain deferred.
 
 ## Use project-owned presentation connections for selected-project context — 2026-08-31
+
+**Status:** The optional fields remain part of the Project content contract. Current professional evidence connections are rendered on the corresponding Case Studies under the 2026-09-25 two-area decision; the Project model remains for independent experiments.
 
 **Decision:** Store optional `relatedExperienceSlugs` and capability labels on manually curated `Project` records. Use stable `ExperienceEntry.slug` values for one-way navigation from selected projects to the experience timeline. Treat capabilities as a curated subset of the existing professional summary focus areas. These are presentation-level connections and do not replace `ProfessionalClaim` as the owner of evidentiary relationships.
 
@@ -251,6 +419,8 @@ order: ASC
 **Deferred:** Browser-level automated accessibility testing, visual regression testing, network mocking, and broad page-level coverage remain undefined until a demonstrated requirement exists.
 
 ## Use a centred primary navigation and Work evidence hub — 2026-08-11
+
+**Status:** Historical navigation decision. Its grouping of Projects and Case Studies is updated by “Keep professional Case Studies and independent Experiments as distinct Work destinations — 2026-09-25”; the Work chooser and stable `/projects` path remain.
 
 **Decision:** Use a shared header with a home-linked identity at the left, centred direct navigation to Experience, Work, and Resume, and a visually distinct Contact link at the right. Add a Work index route that groups the existing Projects and Case Studies routes. Preserve Projects and Case Studies as independently addressable routes without presenting them as primary-navigation items. The original Summary-route decision is superseded by “Consolidate Professional Summary into Home,” and the separate Engineering area is removed by “Remove the Engineering area and obsolete routes.”
 

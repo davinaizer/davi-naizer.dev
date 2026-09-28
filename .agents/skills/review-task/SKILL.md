@@ -64,7 +64,7 @@ Report, in order:
 
 The final verdict must be exactly `PASS` or `CHANGES REQUIRED`.
 
-If the verdict is `CHANGES REQUIRED`, explicitly set the next workflow stage to `code-pairing`. Only `PASS` may proceed to `complete-task`.
+If the verdict is `CHANGES REQUIRED`, explicitly set the next workflow stage to `implement-task`. Only `PASS` may proceed to `complete-task`.
 
 ## Completion criteria
 

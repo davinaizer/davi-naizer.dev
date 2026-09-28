@@ -1,6 +1,6 @@
 ---
 title: Cloudflare Web Analytics manual rollout evidence
-status: partial
+status: verified
 createdAt: 2026-09-24
 updatedAt: 2026-09-24
 ---
@@ -20,21 +20,17 @@ Implement the approved manual, production-only Cloudflare Web Analytics snippet 
 - The disclosure describes the provider, analytics purpose, page/referrer/country/device/performance categories, Cloudflare's reported retention, and the opt-out control.
 - Cloudflare's automatic Pages injection was disabled and a manual Web Analytics site was created, as reported by the developer. The newly generated token is configured in the source.
 
+## Deployment verification
+
+- On production, the manual beacon script loaded on initial entry. SPA route navigation produced Cloudflare RUM requests that returned HTTP 204.
+- After opting out and reloading, the manual beacon script did not load. Re-enabling analytics restored it on the next document load.
+- On `develop.davi-naizer.pages.dev`, no Cloudflare beacon script or analytics requests were observed.
+- The developer manually tested the deployed analytics setup and Cloudflare dashboard and reported them working as expected.
+
 ## Repository validation
 
-- `pnpm check` passes.
-- Focused Cloudflare analytics and settings tests pass; they cover production-host gating, the token in the manual snippet, local preference handling, no entry popup, and settings behaviour.
-- `pnpm test:e2e` passes, including narrow viewport and saved opt-out UI checks.
-- `pnpm build` passes.
-- `pnpm validate` remains blocked by the unrelated expectation in `src/pages/ExperiencePage.test.tsx` that does not account for the earlier-career section heading.
-
-## Pending deployment verification
-
-The first deployment with the manual snippet has not yet occurred. Therefore this evidence does not yet establish:
-
-- that the deployed production and preview HTML no longer receives the previous automatic beacon;
-- that the manual beacon loads on production and is absent on preview and local environments;
-- that opting out and re-enabling analytics changes subsequent production beacon requests; or
-- that the newly created manual Web Analytics site receives the expected dashboard signals.
-
-Update this record with the deployed response and beacon checks before formal review.
+- `pnpm validate` passed: TypeScript, Biome, and 33 tests.
+- `pnpm build` passed.
+- `pnpm test:e2e` passed: 12 tests.
+- PR #7's Quality and Cloudflare Pages checks passed.
+- Cloudflare's dashboard range discrepancy remains documented in the approved plan: this site exposed a 30-day selectable range, while Cloudflare documents up to six months of data availability.

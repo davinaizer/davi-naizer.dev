@@ -12,9 +12,6 @@ function PrimaryNavigation() {
 				<nav className="primary-navigation" aria-label="Primary">
 					<ul>
 						<li>
-							<NavLink to={routes.experience}>Experience</NavLink>
-						</li>
-						<li>
 							<NavLink to={routes.work}>Work</NavLink>
 						</li>
 						<li>
@@ -23,7 +20,10 @@ function PrimaryNavigation() {
 					</ul>
 				</nav>
 
-				<Link className="site-header__contact" to={routes.contact}>
+				<Link
+					className="site-header__contact button--ghost"
+					to={routes.contact}
+				>
 					Contact
 				</Link>
 			</div>

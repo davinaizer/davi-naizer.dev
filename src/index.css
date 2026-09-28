@@ -1,4 +1,4 @@
-@layer reset, tokens, base, layout, components, pages, utilities, overrides;
+@layer reset, tokens, base, layout, components, pages;
 
 @import "./styles/reset.css" layer(reset);
 @import "./styles/tokens.css" layer(tokens);
@@ -7,9 +7,6 @@
 @import "./styles/shell.css" layer(layout);
 @import "./pages/HomePage.css" layer(pages);
 @import "./pages/WorkPage.css" layer(pages);
-@import "./pages/ProjectsPage.css" layer(pages);
-@import "./pages/ExperiencePage.css" layer(pages);
-@import "./pages/CaseStudiesPage.css" layer(pages);
 @import "./pages/ResumePage.css" layer(pages);
 @import "./pages/ContactPage.css" layer(pages);
 @import "./pages/NotFoundPage.css" layer(pages);

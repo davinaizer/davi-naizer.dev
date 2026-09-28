@@ -14,7 +14,7 @@ Refine the project-local AI workflow so it consistently supports developer-owned
 Keep the workflow intentionally small:
 
 ```text
-plan-next-task → code-pairing → review-task → complete-task
+plan-next-task → implement-task → review-task → complete-task
 ```
 
 Do not add, merge, rename, or remove skills unless later usage demonstrates recurring workflow friction.
@@ -46,11 +46,11 @@ Validation:
 - confirm its `agents/openai.yaml` metadata remains aligned;
 - run whitespace and patch-integrity checks.
 
-## Phase 2 — Refine code pairing
+## Phase 2 — Refine implementation skill
 
 **Status:** Complete
 
-Update `code-pairing` to:
+Update `implement-task` to:
 
 - calibrate assistance to the developer's requested level;
 - protect deliberate implementation practice;

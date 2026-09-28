@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-19
-version: 1.39
+updatedAt: 2026-09-28
+version: 1.70
 status: active
 ---
 
@@ -20,7 +20,7 @@ Tasks should be completed in order unless repository evidence or explicit develo
 Each task should remain small enough to:
 
 - plan independently;
-- implement through code pairing;
+- implement through `implement-task`;
 - review against explicit acceptance criteria;
 - complete without starting unrelated work.
 
@@ -31,7 +31,7 @@ Task boundaries should balance developer implementation effort with reliable AI-
 - Separate product, architecture, content, or engineering decisions when they materially affect later implementation.
 - Separate diagnosis or measurement from remediation when the remediation scope is not yet known.
 - Keep the change surface and validation set small enough for `review-task` to assess completely from the approved plan and task-scoped evidence.
-- Prefer a separate task when a failure would otherwise return several unrelated concerns to `code-pairing`.
+- Prefer a separate task when a failure would otherwise return several unrelated concerns to `implement-task`.
 
 ---
 
@@ -236,7 +236,7 @@ The implementation and validation contract is recorded in `docs/plans/2026-09-16
 - [x] Enable and verify Cloudflare Web Analytics for the production deployment.
 - [x] Confirm that the baseline provides useful route, page, referrer, device, and real-user performance signals for the current browser-only site.
 - [x] Record the known boundaries: no custom events, UTM attribution, or direct resume/contact-click measurement; no personal information, session replay, or second analytics platform without a demonstrated need.
-- [ ] Keep the measurement production-only, privacy-minimised, and free of unnecessary dependencies or public-content changes.
+- [x] Keep the measurement production-only, privacy-minimised, and free of unnecessary dependencies or public-content changes.
 
 Acceptance criteria:
 
@@ -245,7 +245,7 @@ Acceptance criteria:
 - Google Search Console remains the complementary source for search visibility and queries.
 - No additional analytics platform is introduced unless a real decision is blocked by the Cloudflare baseline.
 
-Current evidence: `docs/evidence/2026-09-16-analytics-baseline.md`. The production-only and disclosure/opt-out portions remain open.
+Current evidence: `docs/evidence/2026-09-16-analytics-baseline.md` (initial activation) and `docs/evidence/2026-09-24-analytics-manual-rollout.md` (manual production rollout and verification).
 
 ### Priority UX Refinement Queue
 
@@ -304,9 +304,9 @@ Acceptance criteria:
 ### 4. Long-Form Reading Rhythm and Content Resilience
 
 - [x] Review Experience, Selected Projects, and Case Studies together for paragraph measure, heading separation, metadata hierarchy, section rhythm, and narrow-screen density.
-- [ ] Test realistic stress cases including long headings, long link labels, fallback fonts, overridden text spacing, and content reflow at 320 CSS pixels.
-- [ ] Correct only demonstrated inconsistencies using existing tokens and shared patterns before adding any new token or component.
-- [ ] Verify representative desktop, mobile, 200% zoom, and reduced-motion layouts without changing approved professional copy.
+- [x] Test realistic stress cases including long headings, long link labels, fallback fonts, overridden text spacing, and content reflow at 320 CSS pixels.
+- [x] Correct only demonstrated inconsistencies using existing tokens and shared patterns before adding any new token or component.
+- [x] Verify representative desktop, mobile, 200% zoom, and reduced-motion layouts without changing approved professional copy.
 
 Acceptance criteria:
 
@@ -328,10 +328,346 @@ Acceptance criteria:
 - the response remains concise, accessible, and responsive; and
 - the route introduces no special-case shell or dependency.
 
+### Completed developer-directed Case Studies layout fix
+
+- [x] Keep the Case Studies narrative in one grid column so metadata height does not create a gap before later sections.
+- [x] Add focused component and browser regression coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Complete formal review and close the task with `PASS`.
+
 ### Completed developer-directed navigation fix
 
 - [x] Restore the destination scroll position to the top for internal route navigation through the shared React Router shell.
 - [x] Verify the behaviour from the bottom of a long-form route with a browser-level regression test and the relevant quality checks.
+
+### Preserve Case Studies and repurpose Selected Projects as Experiments
+
+Completed and reviewed with `PASS`. The approved scope and acceptance criteria are recorded in `docs/plans/2026-09-23-consolidate-portfolio-evidence.md`.
+
+- [x] Keep Work as the chooser for professional Case Studies and independent Experiments; preserve `/projects` as the Experiments URL.
+- [x] Preserve useful professional Project metadata and Experience links in Case Studies, then remove the duplicate professional Project records.
+- [x] Move UV Insect Trap into Experiments with evidence-qualified narrative and optional visuals and reflection.
+- [x] Update the home Experiments link, sitemap, current product and engineering guidance, and focused unit and browser coverage.
+- [x] Pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Complete formal review and close the task.
+
+### Add Atelier Florae as an Experiment
+
+Completed and reviewed with `PASS`. The approved scope and acceptance criteria are recorded in `docs/plans/2026-09-26-atelier-florae-experiment.md`.
+
+- [x] Add the Atelier Florae Project record, public-safe visuals, and focused Experiments page assertions.
+- [x] Remove the AI-generated brand board at review; record user-confirmed repeat purchases in the plan's evidence boundary.
+- [x] Pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e` (developer-run after the review fix).
+- [x] Complete formal review and close the task with `PASS`.
+
+### Project pages within Case Studies and Experiments
+
+Developer-directed. Scope, layout, and constraints are defined in `docs/plans/2026-09-26-project-pages-prd.md` under the 2026-09-26 decision to keep the two evidence areas.
+
+- **Problem:** `/case-studies` and `/projects` render every project in full on one page; there is no single-project page, no scannable list, and no in-page navigation.
+- **Evidence:** the live site; the problem grows as Experiments gain UV Insect Trap and Atelier Florae.
+- **Objective:** supports job applications (4.1) by giving each project a directly linkable, consistently structured page.
+- **Why now:** new Experiments are being added, and each one lengthens the concatenated pages.
+
+Complete these tasks in order. Plan each one separately with `plan-next-task`.
+
+#### A. Project pages and area indexes
+
+**Case Studies — complete.** Delivered and reviewed with `PASS`. The approved scope, the decision to split this task by area, and acceptance criteria are recorded in `docs/plans/2026-09-26-case-studies-project-pages.md`.
+
+- [x] Add `/case-studies/<slug>` routes with a shared `ProjectPageLayout` component: header, section nav, tags strip, body sections, "Continue exploring", and next case study within the area. Hero remains omitted until a case study has a real result image distinct from its gallery (PRD Task C).
+- [x] Convert `/case-studies` into a card-grid index linking to the project pages.
+- [x] Add the case-study project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
+- [x] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+
+**Experiments — complete.** Delivered per `docs/plans/2026-09-26-experiments-project-pages.md`.
+
+- [x] Reuse the shared `ProjectPageLayout` component for `/projects/<slug>` routes and convert `/projects` into a card-grid index, following the Case Studies pattern.
+- [x] Add the experiment project pages to the sitemap and update `docs/ARCHITECTURE.md` routes.
+- [x] Keep existing URLs working; add focused unit and browser coverage; pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e`.
+
+#### B. Project-page section navigation
+
+Delivered for Case Studies as part of Task A: sticky right rail above `56rem`, inline and wrapping below it; `IntersectionObserver` scroll-spy tuned against Alfred's ~10 sections; anchor links work without JavaScript. The shared `ProjectPageLayout` component carries this behaviour to Experiments automatically once its Task A routes land — no separate implementation is expected.
+
+- [x] Add the section index: sticky right rail above `56rem`, inline and wrapping below it.
+- [x] Highlight the active section on scroll; tune the scroll-spy threshold against real project pages.
+- [x] Anchor links work without JavaScript; add focused coverage and pass the standard checks.
+
+#### C. Gallery and lightbox
+
+Completed and reviewed with `PASS`. The approved scope and acceptance criteria are recorded in `docs/plans/2026-09-26-gallery-lightbox.md`.
+
+- [x] Normalise gallery images per kind (`4:3` landscape photos, `1:2` portrait screenshots) with thumbnails as buttons.
+- [x] Add a full-size view with caption using the native `<dialog>` element: Escape and click-outside close, focus contained and returned.
+- [x] Complete the per-project hero image review and add heroes only where a real result image exists.
+- [x] Add focused accessibility and browser coverage; pass the standard checks.
+
+### Completed hero image lazy-loading fix
+
+Closes the non-blocking LCP-timing nicety noted at the Task C review: the hero `<img>` used `loading="lazy"` despite rendering near the initial viewport.
+
+- [x] Change the hero `<img>` in `ProjectPageLayout.tsx` to `loading="eager"` with `fetchPriority="high"`.
+- [x] Extend the existing hero test in `ExperimentPage.test.tsx` to assert the new attributes; pass `pnpm typecheck`, `pnpm test`, and `pnpm build`.
+- [x] Complete formal review and close the task with `PASS`.
+
+### Apply Option A: Work index and prototype visuals
+
+Developer-directed. Governed by the `DECISIONS.md` entry “Adopt the flattened Work index (Option A) with project pages under `/work` — 2026-09-26.” Visual reference: `docs/evidence/2026-09-26-option-a-prototypes/`. Constraints settled in `docs/plans/2026-09-26-project-pages-prd.md` v4 still apply where the decision says so.
+
+- **Problem:** the implemented project pages kept the intermediate `/work` chooser and area index pages, and the visual treatment does not match the prototypes (for example, an empty band above the tags, underlined card titles, and a different section-nav style).
+- **Evidence:** comparison of the local build against the prototypes on 2026-09-26.
+- **Objective:** supports job applications (4.1) by reaching any project from `/work` in one step, with one consistent page experience.
+- **Why now:** most of the structure already exists; the remaining gap is routing, the index, and visuals.
+
+Complete these tasks in order. Plan each one separately with `plan-next-task`.
+
+#### D. Work card index and `/work/<slug>` routing — Complete
+
+Delivered and reviewed with `PASS`. The approved scope, the card-image decision (option A: a uniform typographic panel with the project name), and the amendment dropping redirects are recorded in `docs/plans/2026-09-26-work-index-routing.md`.
+
+- [x] Turn `/work` into the card index: page lead, then a Case Studies section and an Experiments section, each with a short intro and a two-column card grid (one column on narrow screens), same card treatment in both.
+- [x] Cards follow the prototype anatomy: image area at `16:10`, then area eyebrow, serif title (not underlined), one-line summary, and tags; the whole card is one link with a visible focus state and an accent border on hover and focus.
+- [x] Resolve the one material decision in planning: what the card image area shows for projects without a real image (option A: a uniform typographic panel with the project name).
+- [x] Serve project pages at `/work/<slug>`; back link returns to the matching `/work` section; next-project link stays within the same section in content order.
+- [x] Remove the `/case-studies` and `/projects` index and project routes outright; the old URLs render the existing not-found page (no redirects, per the developer's 2026-09-26 direction, since the site had just been published).
+- [x] Update Home and any other links to the area pages, the sitemap, and `docs/ARCHITECTURE.md` routes; add a test that slugs are unique across both content types.
+- [x] Add focused unit and browser coverage; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
+
+#### E. Project-page visual alignment — Complete
+
+Delivered and reviewed with `PASS`. The approved scope, the `aria-labelledby` nav-name assumption, and acceptance criteria are recorded in `docs/plans/2026-09-26-project-page-visual-alignment.md`.
+
+- [x] Remove the empty band between the summary and the tags strip.
+- [x] Section nav follows the prototype: “On this page” label, sentence-case links without underline, and a left accent bar marking the active section; the inline mobile version wraps under the title.
+- [x] Section headings use the prototype's small uppercase monospace label style; the summary uses the prototype's italic serif treatment; the back link is not underlined.
+- [x] Keep Role and Constraints as named sections, the hero rule, the `56rem` breakpoint, and the existing lightbox behaviour.
+- [x] Verify at desktop and 320 px widths against the prototype screenshots; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
+
+#### F. Experience page section navigation — Complete
+
+Delivered and reviewed with `PASS`. The approved scope, the link-label decision (`Company · years`), and the deferral of the stale-highlight fix are recorded in `docs/plans/2026-09-27-experience-section-nav.md`.
+
+- [x] Extract the section nav and its scroll-spy from `ProjectPageLayout` into a shared `SectionNav` component used by both the project pages and Experience, with no change to project-page behaviour.
+- [x] Add the nav to Experience: sticky right rail above `56rem`, inline and wrapping below it, one link per role entry pointing at the existing entry `id`, active entry highlighted on scroll.
+- [x] Resolve in planning: the link label for each entry (`Company · years`, for example `The Signal Group · 2023–2024`).
+- [x] Anchor links keep working without JavaScript and from existing case-study links; add focused coverage; verify at desktop and 320 px; pass `pnpm typecheck`, scoped `biome check`, `pnpm test`, `pnpm build`, and `pnpm test:e2e` (`pnpm validate` still fails only on the known unrelated `.claude/settings.local.json` formatting issue).
+- [x] Developer-directed amendment: move each entry's Technologies list above its summary and make entries single-column for more horizontal space.
+
+### Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation
+
+Developer-directed. Findings, ranked ROI, and fix batches are recorded in `docs/audit/2026-09-27-visual-css-consistency.md`. The Batch 0 decisions (X1–X6) and the gradient-removal reversal are recorded in `docs/DECISIONS.md`. Options for adding visual "life" without a gradient are captured, unbuilt, in `docs/design/2026-09-27-adding-life-without-gradient.md` for a future task.
+
+- [x] Run a Phase 1 visual/CSS consistency audit across the full site (type scale, colour tokens, spacing, component consistency, generic-pattern check, Google Fonts load).
+- [x] Decide the audit's Batch 0 questions: keep all three type families (X1); show an eyebrow only where it adds information (X2); `h2` is the 24px serif title (X3); confirm square corners and the work-card text plate as intentional, and reconcile the gradient and label-casing findings against the repo's own design docs (X4); reconcile `docs/design/DESIGN.md` with the shipped site (X5); reserve all-caps mono for supplementary labels only (X6).
+- [x] Remove the fixed background gradient wash (`--gradient-accent-start`/`--gradient-accent-middle`, and the `body` `background-image`) so the canvas matches `docs/DESIGN_PRINCIPLES.md`'s existing "no gradients" rule.
+- [x] Update `docs/design/DESIGN.md` to describe the shipped visual system (Newsreader/Inter/IBM Plex Mono roles, the OKLCH accent, no gradients, the mono-label split) instead of its original, superseded reference values.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Heading semantics and label casing (audit findings H1 and G3) — Complete
+
+Delivered and reviewed with `PASS`. Findings, decisions, and rationale are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (H1, G3) and `docs/DECISIONS.md` ("Reserve all-caps mono for supplementary labels…").
+
+- [x] Resolve `h2`'s two visual roles: keep the heading level unchanged everywhere (still `h2`, correct outline, consistent with the deferred `h3` sub-level in finding H4); give the small-label role a shared `.section-label-heading` class instead of an ancestor selector or a page-local class name.
+- [x] Apply `.section-label-heading` to project-page section headings (`ProjectPageLayout.tsx`), the "Continue exploring" heading (`CaseStudyPage.tsx`, `ExperimentPage.tsx`), and the Work index's section headings (`WorkPage.tsx`, replacing `.work__section-title`).
+- [x] Move all-caps tracked mono off essential UI text onto Inter, sentence case: primary navigation and the header Contact button (`shell.css`), home hero actions and inline links (`HomePage.css`), the résumé download button (`ResumePage.css`), the project-page back link and continuation links (`patterns.css`). Mono-caps stays only for eyebrows, the chronology line, tags, card area labels, and résumé metadata.
+- [x] Verify at desktop and the `56rem`/`40rem` breakpoints on Home, Work, a project page, Experience, and Résumé; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build` (no test needed updating: none asserted the old class names, mono styling, or heading levels).
+- [x] `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern but was out of scope; left mono-caps, tracked as a future candidate.
+
+### Font-load correctness (audit findings F1 and F2) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 1, F1, F2).
+
+- [x] Request Newsreader's italic axis in `index.html` so `.project-page__summary`'s existing `font-style: italic` renders a true italic face instead of a browser-faked slant (F1).
+- [x] Request Inter weight 500 in `index.html` so `.section-nav__link[aria-current="true"]` and `.project-page__visual-title` render the intended medium weight instead of falling back to 400 (F2).
+- [x] Verify both faces load (`document.fonts`) and render correctly on a project page; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Remove unused font weights (audit findings F3 and F4) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 1, F3, F4). Developer amended F4 during planning: drop Newsreader 500 and move the wordmark to 400, rather than keep it at 500.
+
+- [x] Remove the unused Inter 600 and 700 weights from the `index.html` font request (F3).
+- [x] Move `.site-header__identity` (the header wordmark) to `var(--font-weight-regular)` and drop the now-unused Newsreader 500 from the `index.html` font request (F4).
+- [x] Verify no visual regression via `document.fonts` and a browser check on Home and Résumé; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Batch 2 token hygiene: high-ROI quick fixes (audit findings T1, T2, T4, T5, T6) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2). Scoped to the five High-ROI/XS-effort findings only; T3 and T7–T12 remain unbuilt future candidates.
+
+- [x] Add `line-height: var(--line-height-label)` to `.home__actions a`, `.home__role-date`, `.home a`, and `.resume__metadata` so mono/caption labels stop rendering at two different line-heights (T1).
+- [x] Switch `.experience__summary` from a hardcoded `1.0625rem`/`1.55` to `--font-size-body`/`--line-height-body` (T2).
+- [x] Set `letter-spacing: var(--letter-spacing-heading-md)` once on the shared `h2, h3` rule in `global.css`, remove the two now-redundant per-page overrides in `ExperiencePage.css`, add the same tracking directly to `.contact__title` (a `<span>`, not a heading), and give `.section-label-heading` an explicit `letter-spacing: normal` so its four `<h2>` usages don't inherit the new tracking (T4).
+- [x] Add a `--color-backdrop` token and use it in both `::backdrop` rules (lightbox, analytics-settings dialog), canonicalising on the lightbox's existing `rgb(0 0 0 / 0.8)` (T5).
+- [x] Add `text-transform: uppercase` to `.resume__metadata` (T6).
+- [x] Verify computed styles and visuals across Home, Résumé, Experience, Work, Contact, and both dialogs at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Batch 2 remainder: mechanical fixes (audit findings T3, T7, T9, T11) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2). Scoped to the four findings needing no developer decision; T8, T10, and T12 remain unbuilt future candidates, each needing its own decision (a hover-style choice, a deliberateness review of off-scale spacing values, and a browser-support policy for `oklch()` fallbacks).
+
+- [x] Add `--line-height-display` (0.95), `--line-height-snug` (1.2), `--line-height-relaxed` (1.45), and `--line-height-caption` (1.5) to `tokens.css`; use them in place of the five hardcoded line-height values in `HomePage.css` and `patterns.css` (T3).
+- [x] Extract `.tag-list`/`.tag-list li` once into `patterns.css`, reused by `ProjectPageLayout.tsx`, `WorkPage.tsx`, and `ExperiencePage.tsx`; keep `.work__card-tags` as a margin-only modifier (T7).
+- [x] Change `.home h1` from `margin-top` to `margin-block-start` (T9).
+- [x] Re-confirm `--color-border-strong` is still used (dialog and lightbox borders, `ContactPage.css`); no code change needed (T11).
+- [x] Verify computed styles (exact line-height ratios) and tag-pill rendering across Home, Work, Experience, and a project page; pass `pnpm typecheck`, `biome check src`, `pnpm test`, and `pnpm build`.
+
+### Batch 2: button consolidation (audit finding T8) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T8). The developer resolved T8's one material decision (a single primary-button hover) after reviewing the three existing hover treatments. T10 and T12 remain unbuilt future candidates; a follow-up live audit also queued T13 (Text/Link and Secondary button consolidation) into the same Batch 2 remainder.
+
+- [x] Add shared `.button--ghost` and `.button--primary` classes to `patterns.css`; skip a separate `.button` base class since ghost and primary share no properties beyond border width/style.
+- [x] Apply `.button--ghost` to the header Contact link (`PrimaryNavigation.tsx`, `shell.css`) and the résumé download link (`ResumePage.tsx`, `ResumePage.css`), removing the duplicated block.
+- [x] Apply `.button--primary` to Home's "Explore experience" button (`HomePage.tsx`, `HomePage.css`) and the analytics dialog's "Save preferences" button (`AnalyticsSettings.tsx`), unifying their hover to the developer's chosen "unfill" treatment (solid accent fades to transparent, text becomes accent-soft, border stays accent).
+- [x] Verify zero visual change on the header Contact and résumé buttons, zero visual change on Home's primary button (including a cascade-layer fix so all four border edges stay consistent), and the intended hover-only change on the analytics dialog's primary button; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 2: spacing deliberateness review and max-width consolidation (audit finding T10) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T10). The developer resolved T10's two scope decisions: confirm all six off-scale spacing values as deliberate, and consolidate the six differing max-widths into shared measures, accepting small width changes. T12 and T13 remain unbuilt future candidates.
+
+- [x] Add one-line comments to `--space-tag-block` and `--space-marker-offset` in `tokens.css` recording their optical purpose; swap the bare `2rem` grid-column literal in `ExperiencePage.css` for `var(--space-4)` (zero visual change).
+- [x] Add `--measure-narrow` (48rem), `--measure-standard` (62rem), and `--measure-wide` (70rem) to `tokens.css`, reusing existing values rather than inventing new ones; replace all six flagged `max-inline-size` declarations across `HomePage.css`, `ExperiencePage.css`, and `patterns.css` (`.page-lead`, the lightbox) with the appropriate token.
+- [x] Accept the three resulting width changes: `.home__highlight` narrows 52→48rem (merged into the shared `.home__highlight, .home__about` selector alongside `.home__about`, which was already 48rem), the lightbox widens 60→62rem, and `.experience__entry` widens 68→70rem.
+- [x] Verify computed styles and visuals across Home, Experience, and the lightbox at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 2: target-browser policy and oklch() fallback close-out (audit finding T12) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T12). The developer's one decision — target modern evergreen browsers only, no `oklch()` fallback — is recorded in `docs/DECISIONS.md`. Documentation-only; no source code changed. T13 remains the last unbuilt Batch 2 candidate.
+
+- [x] Record the target-browser decision in `docs/DECISIONS.md`: evergreen browsers only (Safari 15.4+, Chrome/Edge 111+, Firefox 113+), no RGB/hex fallback for the `oklch()`-based color tokens in `tokens.css`.
+- [x] Mark T12 resolved in the audit doc, cross-referencing the decision.
+- [x] Confirm the repository still builds with `pnpm build` (sanity check; no source files changed).
+
+### Batch 2: extract shared Secondary and Text/Link button classes (audit finding T13) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 2, T13). This closes Batch 2 of the CSS audit — all 13 findings resolved. The developer resolved T13's scope decisions (exclude the footer social icons and the footer's "Privacy & analytics" link; unify the Text/Link CTA on the underline style) and, mid-implementation, redirected Home's "Download Resume" to `.button--ghost` instead of the planned `.button--text`, to match the identical action on the Résumé page.
+
+- [x] Add `.button--secondary` to `patterns.css`, extracted from the byte-identical outline treatment already shared by `.analytics-settings__button` (the dialog's "Close") and `.project-page__lightbox-close` (the gallery lightbox's close button) — a duplicate the original audit note didn't catch. Apply it to both.
+- [x] Add `.button--text` to `patterns.css` for the shared CTA typography; apply it to the Experience and Résumé continuation links (`ContextualContinuation.tsx`), replacing `.contextual-continuation__link`.
+- [x] Developer-directed amendment: apply `.button--ghost` (not `.button--text`) to Home's "Download Resume" link, matching the Résumé page's identical action; add a local override in `HomePage.css` for the cascade-layer interaction this introduced.
+- [x] Exclude `.site-footer__text-link` and `.site-footer__links a` from this consolidation (per developer decision — the audit note's claim that the footer icons already matched `.button--ghost` was incorrect); exclude `.primary-navigation a`, `.section-nav__link`, and `.project-page__back` (active/current-state navigation semantics).
+- [x] Review-flagged and fixed: the ghost button's hover border-color wasn't fully saturating on Home's download link (a cascade-layer interaction from the local override); the lightbox close button lost its pre-existing `:focus-visible` state when consolidated into the shared class. Both independently re-verified fixed via live keyboard-focus and hover checks.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 3: spacing normalisation (audit findings S1–S5) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 3). This closes Batch 3 of the CSS audit. The developer resolved all five findings' decisions, including reusing T13's new `.button--text` class for two of Home's plain links rather than inventing another class.
+
+- [x] S1: fixed a live doubled-margin bug where `.home a`'s catch-all margin leaked onto the hero buttons; scoped the rule to `.home__highlight a, .home__about a` and applied `.button--text` to Home's "View career timeline" and "Explore my independent experiments" links, matching Experience's and Résumé's continuation links.
+- [x] S2: unified the intro-to-content gap at 64px (`--space-8`) across project pages, Work, Experience, and Contact (Work already matched; the other three changed).
+- [x] S3: normalised `.experience__earlier-career`'s divider padding token to `--space-4`, matching Home's dividers — currently dead code (the section is commented out in `ExperiencePage.tsx`, found during an earlier task), so this has no visible effect yet.
+- [x] S4: unified Experience's timeline marker-row inline padding with its own block padding and Contact's link row at 48px (`--space-6`).
+- [x] S5: aligned gallery-caption padding with work-card body padding at 24px (`--space-3`).
+- [x] Verify computed styles and visuals across Home, Experience, Contact, Work, and a project page at desktop widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 4: heading hierarchy (audit findings H2 and H3) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 4, H2, H3); the approved plan and its mid-implementation decision are recorded in `docs/plans/2026-09-27-batch4-heading-hierarchy-h2-h3.md`. H4 remains an unbuilt future candidate (needs a content-structure decision; larger scope).
+
+- [x] H2: `/work`'s section headings ("Case studies", "Experiments") stay real `h2`s, restyled at the standard 24px serif size; the card `h3`s below them shrink to `--font-size-body-lg` (20px), fixing the inverted visual hierarchy with a correct `h1 → h2 → h3` outline.
+- [x] Developer-directed mid-implementation change: the originally approved option (demote the section labels to non-headings) was replaced with the above after it surfaced a `heading-order` violation in the repository's `vitest-axe` check; the developer approved the alternative.
+- [x] H3: `/experience`'s dormant "Earlier career" entry titles get a smaller `h3` step (`--font-size-body-lg`) than the section's own `h2`, scoped to `.experience__timeline--earlier .experience__entry-header h3`; no visible effect yet since that section is commented out in `ExperiencePage.tsx` (pre-existing, same as S3).
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`.
+
+### Batch 4: case-study heading sub-level (audit finding H4) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 4, H4); the approved plan and its two developer-directed mid-implementation additions are recorded in `docs/plans/2026-09-28-batch4-h4-case-study-subheadings.md`. This closes Batch 4 of the CSS/markup audit entirely.
+
+- [x] H4: case-study pages' "Product / UX" and "Engineering" are no longer `h2` siblings of "Decisions" — folded into the "Decisions" section's content as `h3` subheadings (wrapped in a new `.project-page__decisions-detail` element), correcting the `h1 → h2 → h3` outline and dropping the section-nav from 10 to 8 entries per case study.
+- [x] Developer-directed mid-implementation addition: fixed a spacing regression caused by this repository's CSS reset zeroing default margins on the new `h3`/`p` elements, via scoped rules in `patterns.css`.
+- [x] Developer-directed mid-implementation addition: restyled the new `h3`s to match `.experience__detail h3`'s existing mono/uppercase/accent-soft treatment (validated against the `frontend-design` skill) rather than the unstyled serif default or the "Decisions" `h2` label style, preserving the visual distinction between the two heading levels.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Batch 5: remove low-value eyebrows, align case-study label (audit findings G1 and H5) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (Batch 5, G1, H5). The plan was not saved to `docs/plans/`: X2 (Batch 0) and the audit's own per-instance list already resolved every keep/remove decision, so there was no unresolved material decision or handoff risk to record.
+
+- [x] G1: removed the `.eyebrow` above every `h1` that restated it or added nothing — `WorkPage.tsx` ("Selected work"), `ExperiencePage.tsx` ("Career history"), `ResumePage.tsx` ("Professional profile"), `ContactPage.tsx` ("Get in touch"), `NotFoundPage.tsx` ("Page status"), and `HomePage.tsx` ("A little about me"). Kept `HomePage.tsx`'s "Current role" and the project-page area-label eyebrow (`ProjectPageLayout.tsx`) unchanged, per X2/G1's explicit per-instance decision; the dead-code "Earlier career" eyebrow (commented out in `ExperiencePage.tsx`) is also untouched.
+- [x] H5: removed `HomePage.tsx`'s empty hero eyebrow, which previously rendered only its accent-bar `::before` with no text.
+- [x] Aligned naming (called out directly in G1's fix instructions): `CaseStudyPage.tsx`'s area label renamed from "Case study" to "Product case study", matching the Work-index card's label for the same content; `WorkProjectPage.test.tsx` updated to match.
+- [x] Verified `.page-lead` spacing (flexbox `gap`) renders correctly with no stray gap on all five affected pages. Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Close out the audit: Batch 5 remainder and F5 (audit findings G2, G4, G8–G11, F5) — Complete
+
+Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `docs/audit/2026-09-27-visual-css-consistency.md` (all findings now marked resolved); the approved plan, including a recommendation and rationale for each finding, is recorded in `docs/plans/2026-09-28-close-out-audit-batch5-f5.md`. Bundled at the developer's request to reduce planning granularity for the remaining low-ROI items — mirrors Batch 3's precedent (S1–S5 delivered as one `PASS`). **This closes the entire 2026-09-27 CSS/markup consistency audit.**
+
+- [x] G2: replaced `.experience__contributions`'s misleading numbered counter (01, 02, 03…) with the accent-bar-border treatment already used by `.project-page__outcomes-list`, since the contributions aren't an ordered sequence. CSS-only; no markup or test changes needed.
+- [x] G4, G8, G9, G10, G11, F5: each confirmed "no action needed" against its exact audit text, with rationale recorded in the audit doc. F5 in particular was found to be superseded — its premise (a single Inter weight) no longer holds since the earlier F2 fix added a second weight.
+- [x] Also updated the audit doc's G1 and H5 rows to "Fixed" — they were delivered in the prior task but never marked resolved there; caught and corrected while editing the same document for this task's own findings.
+- [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+
+### Merge Experience into Resume (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (re-reviewed after the developer-directed header-button removal). Governed by `docs/plans/2026-09-28-merge-experience-into-resume.md` and the `DECISIONS.md` entry "Merge Experience into Resume — 2026-09-28". Supports PRODUCT_REQUIREMENTS 4.1. Evidence is developer judgement (analytics cannot measure resume clicks).
+
+- [x] Render the experience timeline and section nav unchanged on `/resume` beneath a trimmed intro, the "Updated" date and the download button.
+- [x] Remove the Experience route, page, nav item and sitemap entry; `/experience` renders not-found (no redirect).
+- [x] Retarget internal `/experience` links to `/resume`. (A header "Download Resume" button was implemented, then removed at the developer's direction on 2026-09-28; the download remains on Resume and the Home hero.)
+- [x] Amend PRODUCT_REQUIREMENTS §9 and `docs/ARCHITECTURE.md`; update unit and e2e tests.
+- [x] Formal review (`PASS`) and completion.
+
+### Contributions square markers (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Governed by `docs/plans/2026-09-28-contributions-square-markers.md`. Evidence is developer visual review. Developer chose Option A: the Outcomes list on project pages keeps its accent bar.
+
+- [x] Replace the accent bar on `.experience__contributions` with one small square marker per item (half the timeline dot, `--color-accent-border`), aligned to the first line, with `--space-2` between items and a `Highlight` fallback in forced-colors mode.
+- [x] CSS only (`src/pages/ResumePage.css`); no markup, content or token changes.
+- [x] Formal review (`PASS`) and completion.
+
+### Wordmark square stop (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (after two developer-directed amendments to the social image). Governed by `docs/plans/2026-09-28-wordmark-square-stop.md`. Evidence is developer visual review. Developer chose Option C: regenerate the icon assets too.
+
+- [x] Replace the round full stop on the header wordmark and the Home h1 with one shared solid accent square (`patterns.css`), with a forced-colors fallback; the "." no longer appears in the accessible name.
+- [x] Update `public/favicon.svg` (square stop, square tile) and regenerate `favicon-16x16.png`, `favicon-32x32.png`, `favicon-512.png` and `apple-touch-icon.png` from it.
+- [x] Rebuild `public/social-preview.png` with the site typefaces (Newsreader, Inter, IBM Plex Mono) and the square stops, same 1200×630 layout, name baseline-aligned with the D mark, and the gradient wash removed for a flat `#131313` canvas (developer-directed amendments after the first implementation, which had only painted over the round stops).
+- [x] Formal review (`PASS`) and completion.
+
+### Replace Inter with IBM Plex Sans (developer-directed) — Complete, superseded by Libre Franklin
+
+Delivered and reviewed with `PASS`. Governed by `docs/plans/2026-09-28-ibm-plex-sans.md` and the `DECISIONS.md` entry "Replace Inter with IBM Plex Sans as the sans family — 2026-09-28". Evidence is developer visual review of four rendered variants. Developer chose IBM Plex Sans, and option A: patch the social preview.
+
+- [x] Swap the sans family in `tokens.css` and the Google Fonts request in `index.html` (weights 400 and 500); Newsreader and IBM Plex Mono unchanged.
+- [x] Redraw the `public/social-preview.png` tagline in Plex Sans, same position, size class and colour.
+- [x] Update `docs/design/DESIGN.md` and add the decision entry.
+- [x] Verify fonts load and there is no horizontal overflow at 1280, 896, 640 and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+### Use Libre Franklin and set font smoothing (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (after two `CHANGES REQUIRED` rounds). Governed by `docs/plans/2026-09-28-libre-franklin.md` and the `DECISIONS.md` entry "Use Libre Franklin as the sans family and set font smoothing — 2026-09-28", which supersedes the Plex Sans entry. Evidence is developer visual review on the real site; the Plex Sans heaviness was traced to missing font smoothing.
+
+- [x] Set `--font-family-sans` to Libre Franklin in `tokens.css` and request `Libre+Franklin:wght@400;500` in `index.html`; Newsreader and IBM Plex Mono unchanged.
+- [x] Add `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale` on `html` in `global.css`.
+- [x] Replace `public/social-preview.png` with the developer's Figma card at exactly 1200×630 (the first export was 1198×630 and was re-exported).
+- [x] Update the two stale `ResumePage.test.tsx` expectations left by the canon-resume sync (developer-directed amendment): "2026–Present" and "Career Break".
+- [x] Update `docs/design/DESIGN.md`; add the superseding decision and mark the Plex Sans entry superseded.
+- [x] Verify fonts load and there is no horizontal overflow at 1280, 896, 640 and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+### Give Alfred and UV Insect Trap real card and hero images (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Governed by the `DECISIONS.md` entry "Give Alfred and UV Insect Trap real card and hero images; adopt the filmstrip format for future hero images — 2026-09-28" (no separate plan file was saved). Exercises the deferred branch of the Task D card-image decision now that Alfred has a real result image; the developer directed mid-task that UV Insect Trap's existing hero should also drive its card, broadening the approved plan's original Alfred-only scope.
+
+- [x] Build a `16:10`/`16:9` filmstrip from three developer-supplied Alfred onboarding screenshots (value proposition, mood picker, Alfred's Pick recommendation), with a black-to-background fade at both outer edges instead of a phone-bezel mockup; export to `public/images/alfred/alfred-onboarding-filmstrip.jpg`.
+- [x] Add `hero` to Alfred's `evidence-content.ts` entry; remove the now-redundant `alfred-landing-page.jpg` gallery visual.
+- [x] `WorkCard` (`WorkPage.tsx`/`.css`) renders a project's `hero` image, `16:10`, `object-fit: cover`, in place of the typographic panel when one exists; UV Insect Trap's card now shows its existing (portrait, placeholder-quality) hero photo this way too.
+- [x] Add card-image and hero-attribute test coverage (`WorkPage.test.tsx`, `CaseStudyPage.test.tsx`).
+- [x] Verify at desktop and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+Non-blocking, carried to `docs/HANDOFF.md`: `public/images/alfred/alfred-landing-page.jpg` is now an unreferenced asset (not deleted); the new card `<img>` uses `loading="lazy"` even for the above-the-fold Alfred card, unlike the eager-loaded project-page hero.
+
+### Give UV Insect Trap a real engineering-drawing hero and gallery (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (after two developer-directed amendments before completion). Governed by two `DECISIONS.md` entries: "Give UV Insect Trap an engineering-drawing hero built from its OnShape source — 2026-09-28" and "Rebuild UV Insect Trap's gallery from higher-fidelity OnShape exports; fix a card-grid row-height defect — 2026-09-28" (no separate plan file was saved). Closes the review trigger from the prior task: UV's card/hero portrait-photo crop was an accepted placeholder pending a purpose-built image.
+
+- [x] Build UV's hero from the developer's OnShape SVG export: recolour into the site's own tokens (`#131313` background, `#e2e2e2` linework), crop to front elevation + isometric view with real margin on every side; export to `public/images/uv-insect-trap/uv-drawing-hero.png`; set as `hero` in `evidence-content.ts`.
+- [x] Developer-directed amendment: rebuild the two CAD gallery visuals and the "finished prototype" photo from a second, higher-fidelity OnShape re-export batch (tight crops, true-black backgrounds matching the site); reorder the photo to close the gallery.
+- [x] Developer-directed amendment: fix a latent row-height defect in the shared `ProjectGallery`/`patterns.css` grid (`align-items: start`) that left dead space under shorter cards whenever a gallery mixes landscape and portrait items — surfaced by, but not specific to, this project.
+- [x] Developer-directed amendment: rewrite `outcomes`' first-person "My sister reported…" copy into a professional third-person voice; honesty and content unchanged.
+- [x] Verify at desktop and mobile widths; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+Non-blocking, carried to `docs/HANDOFF.md`: the "Give Alfred and UV Insect Trap real card and hero images" entry above still describes UV's now-superseded placeholder crop in its own text, without a `Status:` pointer forward (repo convention for partial supersession); cosmetic only, newest-first ordering surfaces the correction first.
 
 ---
 
@@ -353,9 +689,34 @@ These tasks are intentionally separate from the approved application scope. Comp
 - [x] Verify the resume download, email, LinkedIn, project, case-study, and experience-anchor links on the current Cloudflare Pages preview deployment.
 - [x] Re-run route and link verification after the current changes are merged to the Cloudflare Pages production branch.
 - [x] Run production performance, accessibility, SEO, and best-practice measurements.
-- [ ] Review representative production layouts in Safari, Chrome, and Firefox across mobile, tablet, and desktop viewports.
-- [ ] Verify production focus visibility and colour contrast in real browsers.
-- [ ] Confirm whether externally hosted Google Fonts remain acceptable for production reliability, privacy, and rendering performance.
+- [x] Review representative production layouts in Safari, Chrome, and Firefox across mobile, tablet, and desktop viewports.
+
+Evidence: `docs/evidence/2026-09-24-production-layout-review.md`.
+- [x] Verify production focus visibility and colour contrast in real browsers.
+
+Evidence: `docs/evidence/2026-09-24-production-focus-contrast-review.md`.
+- [x] Review and implement the CSS audit remediation plan: `docs/plans/2026-09-26-css-audit-remediation.md`.
+
+Evidence: `docs/plans/2026-09-26-css-audit-remediation.md`.
+
+### Add a publish flag for Case Studies and Experiments (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-28-publish-flag.md`. Governed by the `DECISIONS.md` entry "Publish Case Studies and Experiments through a required `published` flag — 2026-09-28".
+
+- [x] Add a required `published` flag to `CaseStudy` and `Project`; export only published entries from `evidence-content.ts`; hide an empty section on `/work`; all six entries start published.
+- [x] Add tests for the filter, the not-found page for an unpublished URL, the empty section, and sitemap/published-slug agreement.
+- [x] Pass `pnpm typecheck`, `pnpm check`, `pnpm test` and `pnpm build`; e2e not run because the published set is unchanged.
+
+Non-blocking, carried to `docs/HANDOFF.md`: Home's link to `#experiments` dangles if every Experiment is unpublished.
+
+### Make page and e2e tests independent of which projects are published (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-28-status-independent-tests.md`. Follow-up to the publish flag after four projects were unpublished and six unit tests, the e2e suite and the sitemap broke.
+
+- [x] Add synthetic fixtures (`src/test/evidence-fixtures.ts`) and mock `evidence-content.ts` in the page tests; add direct tests for next-entry skipping and unpublished URLs.
+- [x] Remove the four unpublished URLs from `public/sitemap.xml`.
+- [x] Derive e2e journey targets from the published set; skip journeys with nothing to exercise, with a stated reason.
+- [x] Pass `pnpm typecheck`, `pnpm check`, `pnpm test`, `pnpm build` and `pnpm test:e2e` (4 skipped with the current flags).
 
 ---
 
