@@ -22,6 +22,7 @@ export type EvidenceReference =
 
 type EvidenceBase = {
 	slug: string;
+	published: boolean;
 	title: string;
 	summary: string;
 	context?: string;

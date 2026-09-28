@@ -67,55 +67,59 @@ function WorkPage() {
 				</p>
 			</header>
 
-			<section
-				aria-labelledby="case-studies-heading"
-				className="work__section"
-				id={workSectionIds.caseStudies}
-			>
-				<h2 id="case-studies-heading">Case studies</h2>
-				<p className="work__section-intro">
-					Detailed accounts of how I approached a problem, the decisions I made,
-					and what I would do differently.
-				</p>
-				<ul className="work__grid">
-					{caseStudies.map((caseStudy) => (
-						<WorkCard
-							areaLabel="Product case study"
-							hero={caseStudy.hero}
-							key={caseStudy.slug}
-							slug={caseStudy.slug}
-							summary={caseStudy.summary}
-							tags={caseStudy.technologies}
-							title={caseStudy.title}
-						/>
-					))}
-				</ul>
-			</section>
+			{caseStudies.length > 0 ? (
+				<section
+					aria-labelledby="case-studies-heading"
+					className="work__section"
+					id={workSectionIds.caseStudies}
+				>
+					<h2 id="case-studies-heading">Case studies</h2>
+					<p className="work__section-intro">
+						Detailed accounts of how I approached a problem, the decisions I
+						made, and what I would do differently.
+					</p>
+					<ul className="work__grid">
+						{caseStudies.map((caseStudy) => (
+							<WorkCard
+								areaLabel="Product case study"
+								hero={caseStudy.hero}
+								key={caseStudy.slug}
+								slug={caseStudy.slug}
+								summary={caseStudy.summary}
+								tags={caseStudy.technologies}
+								title={caseStudy.title}
+							/>
+						))}
+					</ul>
+				</section>
+			) : null}
 
-			<section
-				aria-labelledby="experiments-heading"
-				className="work__section"
-				id={workSectionIds.experiments}
-			>
-				<h2 id="experiments-heading">Experiments</h2>
-				<p className="work__section-intro">
-					Prototypes and builds I’ve explored independently, with notes on what
-					I tried, observed, and would change.
-				</p>
-				<ul className="work__grid">
-					{projects.map((project) => (
-						<WorkCard
-							areaLabel="Independent experiment"
-							hero={project.hero}
-							key={project.slug}
-							slug={project.slug}
-							summary={project.summary}
-							tags={project.technologies}
-							title={project.title}
-						/>
-					))}
-				</ul>
-			</section>
+			{projects.length > 0 ? (
+				<section
+					aria-labelledby="experiments-heading"
+					className="work__section"
+					id={workSectionIds.experiments}
+				>
+					<h2 id="experiments-heading">Experiments</h2>
+					<p className="work__section-intro">
+						Prototypes and builds I’ve explored independently, with notes on
+						what I tried, observed, and would change.
+					</p>
+					<ul className="work__grid">
+						{projects.map((project) => (
+							<WorkCard
+								areaLabel="Independent experiment"
+								hero={project.hero}
+								key={project.slug}
+								slug={project.slug}
+								summary={project.summary}
+								tags={project.technologies}
+								title={project.title}
+							/>
+						))}
+					</ul>
+				</section>
+			) : null}
 		</section>
 	);
 }

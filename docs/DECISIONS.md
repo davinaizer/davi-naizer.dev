@@ -8,6 +8,16 @@ order: ASC
 
 # Decisions
 
+## Publish Case Studies and Experiments through a required `published` flag — 2026-09-28
+
+**Decision:** Every `CaseStudy` and `Project` carries a required `published: boolean`. `src/content/evidence-content.ts` keeps the full lists private and exports `caseStudies` and `projects` filtered to published entries, so pages, routing and next-entry links see only published content. An unpublished entry's `/work/<slug>` renders the not-found page, and `/work` omits a section with no published entries.
+
+**Rationale:** The developer reviews content gradually and needs to deploy only approved entries. Filtering once in the content module avoids repeating the rule in four consumers, and a required field forces an explicit choice for each new entry. Build-time flags, draft or preview modes and a CMS were not justified for six entries.
+
+**Consequence:** Publishing or hiding a project is a one-line content edit. `public/sitemap.xml` stays hand-edited, and a unit test fails if it disagrees with the published slugs. Home's "Beyond the work" link targets `#experiments`, which does not exist if every Experiment is unpublished.
+
+**Review triggers:** Revisit if drafts need to be previewed before going live, if the entry count makes hand-editing the sitemap error-prone, or if every Experiment is ever unpublished (fix Home's link then).
+
 ## Rebuild UV Insect Trap's gallery from higher-fidelity OnShape exports; fix a card-grid row-height defect — 2026-09-28
 
 **Decision:** Developer-directed amendment, same task as the entry below, before completion. UV Insect Trap's two CAD gallery visuals ("Enclosure and grille", "Grille geometry") are replaced with tightly cropped exports from a new, higher-fidelity OnShape re-export batch — a front-symmetric cutaway and a top-down grille render, both on a true-black background close to `--color-background`. The concept and captions for both are unchanged from before. The "finished prototype" photo is also replaced, with a cleaner, more dramatic shot from the same re-export session (no intruding background object, better light on the UV grille). Separately, `.project-page__visual-grid` gains `align-items: start`, fixing a defect where a portrait item next to landscape items stretched every card in the row to equal height without filling that height, leaving visible dead space under the shorter cards' captions.

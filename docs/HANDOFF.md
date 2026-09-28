@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-28
-version: 1.90
+version: 1.91
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-**UV Insect Trap now has a real engineering-drawing hero and a rebuilt gallery**, delivered with same-scope `PASS` (after two developer-directed amendments before completion). The hero is a recoloured crop of the developer's OnShape technical drawing (front elevation + isometric, site tokens, real margin on every side), replacing the portrait-photo placeholder crop from the prior task. The gallery's two CAD visuals and its closing photo are rebuilt from a higher-fidelity OnShape re-export batch (tight crops, true-black backgrounds). A latent CSS defect in the shared `ProjectGallery`/`patterns.css` grid — cards stretching to a mismatched row height, leaving dead space under shorter captions whenever a gallery mixes aspect ratios — is fixed (`align-items: start`), benefiting any future gallery, not just this one. `outcomes`' first-person "My sister reported…" copy was also rewritten into a professional voice, content and honesty unchanged.
+**Case Studies and Experiments can now be published or hidden with a required `published` flag**, delivered with same-scope `PASS`. `evidence-content.ts` keeps the full lists private and exports only published entries, so pages, routes and next-entry links follow the flag. An unpublished entry's `/work/<slug>` renders the not-found page, and `/work` omits a section with no published entries. All six entries are currently `published: true`. To hide one, set its flag to `false` and remove its line from `public/sitemap.xml`; a unit test fails if the sitemap and the published slugs disagree.
 
 ## Next task candidate
 
@@ -22,9 +22,8 @@ None. `TODO.md` has no incomplete task. The developer should bring a new objecti
 
 ## Evidence pointers
 
-- `docs/DECISIONS.md` ("Give UV Insect Trap an engineering-drawing hero built from its OnShape source — 2026-09-28" and "Rebuild UV Insect Trap's gallery from higher-fidelity OnShape exports; fix a card-grid row-height defect — 2026-09-28", both with review triggers; no separate plan file was saved), `TODO.md` ("Give UV Insect Trap a real engineering-drawing hero and gallery (developer-directed) — Complete")
-- `src/content/evidence-content.ts`, `src/styles/patterns.css`, `public/images/uv-insect-trap/` (`uv-drawing-hero.png`, `cad-assembly-view.jpg`, `cad-grille-top-view.jpg`, `final-prototype.jpeg`)
-- `e2e/critical-journeys.spec.ts` (updated gallery region name, image count, and alt-text pattern)
+- `docs/DECISIONS.md` ("Publish Case Studies and Experiments through a required `published` flag — 2026-09-28"), `docs/plans/2026-09-28-publish-flag.md`, `TODO.md` ("Add a publish flag for Case Studies and Experiments (developer-directed) — Complete")
+- `src/content/evidence-content.ts`, `src/content/evidence-content.test.ts`, `src/pages/WorkPage.tsx`, `src/pages/unpublished-content.test.tsx`, `public/sitemap.xml`
 - Prior work: `docs/plans/2026-09-26-work-index-routing.md` (Task D, the card-image decision this task's deferred branch exercises), `docs/plans/2026-09-28-libre-franklin.md`, `docs/audit/2026-09-27-visual-css-consistency.md` (fully closed)
 
 ## Blockers
@@ -33,6 +32,7 @@ None.
 
 ## Constraints and deferred work
 
+- Publish flag: Home's "Beyond the work" link to `#experiments` dangles if every Experiment is unpublished (review trigger in `docs/DECISIONS.md`); next-entry skipping over unpublished entries has no direct test; the sitemap is hand-edited and guarded only by the unit test.
 - `public/social-preview.png` is built in Figma; the Figma file is the source and lives outside the repo. Its role line reads "Senior Frontend Engineer" while the Home subtitle and `og:title` say "Senior Frontend & Product Engineer"; align one side if it matters. Social platforms cache preview images, so the new card may be slow to appear.
 - The smoothing rule also lightens Newsreader and IBM Plex Mono on macOS and iOS; revisit if small serif or mono text reads too thin. Libre Franklin sets wider than Inter, so keep an eye on wrapping (review trigger in `docs/DECISIONS.md`).
 - Font-swap verification covered overflow at 1280, 896, 640 and 320px with screenshots at all four widths; a keyboard focus pass and a fallback-font layout-shift measurement were not done.

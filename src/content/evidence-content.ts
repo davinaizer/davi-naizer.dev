@@ -1,8 +1,15 @@
 import type { CaseStudy, Project } from "../types/evidence.ts";
 
-export const caseStudies: readonly CaseStudy[] = [
+export function onlyPublished<T extends { published: boolean }>(
+	entries: readonly T[],
+): readonly T[] {
+	return entries.filter((entry) => entry.published);
+}
+
+const allCaseStudies: readonly CaseStudy[] = [
 	{
 		slug: "alfred-what-to-do-next",
+		published: true,
 		title: "Alfred: What To Do Next",
 		summary:
 			"A native iOS product exploring how to help people decide what to do next.",
@@ -69,6 +76,7 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "signal-vessel-list-template-administration",
+		published: true,
 		title: "Vessel List Template Administration",
 		summary:
 			"A self-service, role-aware workflow for creating and managing reusable templates in Signal Ocean’s Vessel List.",
@@ -112,6 +120,7 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "promotional-content-production-workflow",
+		published: true,
 		title: "A Repeatable Promotional Content Workflow",
 		summary:
 			"A set of internal authoring, preview, and delivery tools made a repetitive promotional-content workflow faster and easier to review.",
@@ -156,6 +165,7 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "hsbc-learning-portal-and-assessment-tools",
+		published: true,
 		title: "Building Tools for Employee Learning",
 		summary:
 			"I changed the course search and built a tool for creating question banks and randomised assessments.",
@@ -193,9 +203,10 @@ export const caseStudies: readonly CaseStudy[] = [
 	},
 ];
 
-export const projects: readonly Project[] = [
+const allProjects: readonly Project[] = [
 	{
 		slug: "atelier-florae",
+		published: true,
 		title: "Atelier Florae: From Brand to Product",
 		summary:
 			"An end-to-end brand and packaging system for a small artisanal candle launch, shaped through early market testing and customer feedback.",
@@ -265,6 +276,7 @@ export const projects: readonly Project[] = [
 	},
 	{
 		slug: "uv-insect-trap",
+		published: true,
 		title: "UV Insect Trap",
 		summary:
 			"A 3D-printed trap shaped through repeated work on airflow, grille noise, and cleaning.",
@@ -333,3 +345,6 @@ export const projects: readonly Project[] = [
 		technologies: ["CAD", "OnShape", "3D Printing"],
 	},
 ];
+
+export const caseStudies = onlyPublished(allCaseStudies);
+export const projects = onlyPublished(allProjects);
