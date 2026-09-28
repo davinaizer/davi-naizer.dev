@@ -76,7 +76,7 @@ const allCaseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "signal-vessel-list-template-administration",
-		published: true,
+		published: false,
 		title: "Vessel List Template Administration",
 		summary:
 			"A self-service, role-aware workflow for creating and managing reusable templates in Signal Ocean’s Vessel List.",
@@ -120,7 +120,7 @@ const allCaseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "promotional-content-production-workflow",
-		published: true,
+		published: false,
 		title: "A Repeatable Promotional Content Workflow",
 		summary:
 			"A set of internal authoring, preview, and delivery tools made a repetitive promotional-content workflow faster and easier to review.",
@@ -165,7 +165,7 @@ const allCaseStudies: readonly CaseStudy[] = [
 	},
 	{
 		slug: "hsbc-learning-portal-and-assessment-tools",
-		published: true,
+		published: false,
 		title: "Building Tools for Employee Learning",
 		summary:
 			"I changed the course search and built a tool for creating question banks and randomised assessments.",
@@ -206,7 +206,7 @@ const allCaseStudies: readonly CaseStudy[] = [
 const allProjects: readonly Project[] = [
 	{
 		slug: "atelier-florae",
-		published: true,
+		published: false,
 		title: "Atelier Florae: From Brand to Product",
 		summary:
 			"An end-to-end brand and packaging system for a small artisanal candle launch, shaped through early market testing and customer feedback.",

@@ -22,7 +22,7 @@ export const professionalContent: ProfessionalContent = {
 		homeExcerpt:
 			"Hi, I’m Davi. I’m a frontend and product engineer who enjoys understanding how things work, fixing what gets in the way, and building software that is genuinely useful. Most of my commercial work has been with React, TypeScript and JavaScript, and more recently I’ve been building native iOS applications with SwiftUI.",
 		personalNote:
-			"Outside work, I’m usually cooking, making espresso, or spending time with my wife and daughter. I’ve always enjoyed taking things apart, understanding how they work, and helping people solve practical problems.",
+			"Away from work, you’ll find me cooking, making espresso, or with my wife and daughter, ideally with good music on. The take-it-apart-and-see-how-it-works habit never left, so I keep a few independent experiments where I try ideas out for the fun of it.",
 		focusAreas: [
 			"Frontend architecture",
 			"Product development",
