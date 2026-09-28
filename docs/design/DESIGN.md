@@ -29,17 +29,17 @@ typography:
     lineHeight: "1.3"
     letterSpacing: -0.015em
   body-lg:
-    fontFamily: IBM Plex Sans
+    fontFamily: Libre Franklin
     fontSize: 20px
     fontWeight: "400"
     lineHeight: "1.6"
   body-md:
-    fontFamily: IBM Plex Sans
+    fontFamily: Libre Franklin
     fontSize: 16px
     fontWeight: "400"
     lineHeight: "1.6"
   caption:
-    fontFamily: IBM Plex Sans
+    fontFamily: Libre Franklin
     fontSize: 14px
     fontWeight: "400"
     lineHeight: "1.5"
@@ -95,7 +95,7 @@ Colours are authored in OKLCH where a hue is involved, so accent tints keep cons
 Typography is the core of this design system. Three families, each with one role:
 
 - **Newsreader** (serif) for headings, the header wordmark, and the project summary. It is not used for body copy.
-- **IBM Plex Sans** for body text, intros, captions, and interface text.
+- **Libre Franklin** for body text, intros, captions, and interface text.
 - **IBM Plex Mono** for technical labels and metadata, to hint at the software engineering focus.
 
 **Hierarchy Rules:**
@@ -104,7 +104,7 @@ Typography is the core of this design system. Three families, each with one role
 - **Alignment:** Stick to a rigorous left-aligned "ragged right" rag. Avoid justified text.
 - **Spacing:** Headlines have tight line-heights (0.95–1.3) to feel like architectural blocks, while body text uses generous leading (1.6) for readability. Body measure is capped at 65ch.
 - **Headings:** `h1` is the 48px serif page title (the home hero is larger). `h2` is the 24px serif title for a section or entry. Small mono labels are a separate style class and are not a heading level.
-- **Mono Labels:** Use IBM Plex Mono, uppercase and tracked, only for categories, dates, eyebrows and tags: supplementary metadata, never the only carrier of essential information. Primary navigation, buttons, the project-page back link, continuation links, and section headings (Context, Problem, Role…) are essential UI text, not supplementary labels, and are set in IBM Plex Sans, sentence case, not all-caps mono.
+- **Mono Labels:** Use IBM Plex Mono, uppercase and tracked, only for categories, dates, eyebrows and tags: supplementary metadata, never the only carrier of essential information. Primary navigation, buttons, the project-page back link, continuation links, and section headings (Context, Problem, Role…) are essential UI text, not supplementary labels, and are set in Libre Franklin, sentence case, not all-caps mono.
 - **Eyebrows:** Show an eyebrow above a heading only when it adds information the heading does not (for example the project type or the career period).
 
 ## Layout & Spacing

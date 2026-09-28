@@ -135,7 +135,7 @@ describe("ResumePage", () => {
 			professionalContent.experience.map(({ slug }) => `#${slug}`),
 		);
 		expect(links[0]).toHaveTextContent(
-			"Independent Product Project · 2025–Present",
+			"Independent Product Project · 2026–Present",
 		);
 		expect(
 			within(
@@ -151,7 +151,7 @@ describe("ResumePage", () => {
 		renderResumePage();
 
 		const careerBreak = screen
-			.getByRole("heading", { level: 2, name: "Planned Career Break" })
+			.getByRole("heading", { level: 2, name: "Career Break" })
 			.closest("article");
 		if (!careerBreak) {
 			throw new Error(

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-28
-version: 1.87
+version: 1.88
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-**The site's sans family is now IBM Plex Sans instead of Inter**, delivered with same-scope `PASS`. `--font-family-sans` in `tokens.css` and the Google Fonts request in `index.html` changed (weights 400 and 500); Newsreader and IBM Plex Mono and their roles are unchanged. The `public/social-preview.png` tagline was redrawn in Plex Sans, and `docs/design/DESIGN.md` names the new family. This follows the wordmark square stop, also closed with `PASS`.
+**The site's sans family is now Libre Franklin**, with font smoothing set on `html`, delivered with same-scope `PASS`. This supersedes the earlier IBM Plex Sans swap (`6ba764f`): Plex Sans rendered heavy on macOS because the site set no smoothing, and the fix plus Libre Franklin was chosen on the real site. `--font-family-sans` in `tokens.css`, the Google Fonts request in `index.html` (weights 400 and 500) and `html` in `global.css` changed; Newsreader and IBM Plex Mono and their roles are unchanged. `public/social-preview.png` is now a Figma-built 1200×630 card, and two stale `ResumePage.test.tsx` expectations from the canon-resume sync were updated.
 
 ## Next task candidate
 
@@ -22,10 +22,10 @@ None. `TODO.md` has no incomplete task. The developer should bring a new objecti
 
 ## Evidence pointers
 
-- `docs/plans/2026-09-28-ibm-plex-sans.md` (approved plan and the social-preview decision), `docs/DECISIONS.md` ("Replace Inter with IBM Plex Sans as the sans family — 2026-09-28", with its review trigger), `TODO.md` ("Replace Inter with IBM Plex Sans — Complete")
-- `src/styles/tokens.css`, `index.html`, `public/social-preview.png`, `docs/design/DESIGN.md`
-- `docs/plans/2026-09-28-wordmark-square-stop.md` (previous task; created the social-preview layout)
-- Prior work: `docs/audit/2026-09-27-visual-css-consistency.md` (fully closed), `docs/plans/2026-09-28-merge-experience-into-resume.md`, `docs/plans/2026-09-28-contributions-square-markers.md`
+- `docs/plans/2026-09-28-libre-franklin.md` (approved plan and its two developer-directed amendments), `docs/DECISIONS.md` ("Use Libre Franklin as the sans family and set font smoothing — 2026-09-28", with its review trigger; the Plex Sans entry is marked superseded), `TODO.md` ("Use Libre Franklin and set font smoothing — Complete")
+- `src/styles/tokens.css`, `src/styles/global.css`, `index.html`, `public/social-preview.png`, `docs/design/DESIGN.md`
+- `docs/plans/2026-09-28-ibm-plex-sans.md` (the superseded Plex Sans plan, kept as history)
+- Prior work: `docs/audit/2026-09-27-visual-css-consistency.md` (fully closed), `docs/plans/2026-09-28-wordmark-square-stop.md`, `docs/plans/2026-09-28-merge-experience-into-resume.md`
 
 ## Blockers
 
@@ -33,9 +33,10 @@ None.
 
 ## Constraints and deferred work
 
-- Verification of the font swap covered overflow at 1280, 896, 640 and 320px on all main routes, with screenshots reviewed only at 1280 and 320px. A keyboard focus pass and the 896/640px visuals were not done; spot-check when convenient.
-- `public/social-preview.png` has no source file in the repo. The tagline was patched over the existing PNG; changing it again means repeating that or recreating the layout. Social platforms cache preview images, so the new card may be slow to appear.
-- `docs/design/DESIGN.md` Components → Buttons still says "`label-mono` text" although buttons are sentence-case Plex Sans (pre-existing doc drift).
+- `public/social-preview.png` is built in Figma; the Figma file is the source and lives outside the repo. Its role line reads "Senior Frontend Engineer" while the Home subtitle and `og:title` say "Senior Frontend & Product Engineer"; align one side if it matters. Social platforms cache preview images, so the new card may be slow to appear.
+- The smoothing rule also lightens Newsreader and IBM Plex Mono on macOS and iOS; revisit if small serif or mono text reads too thin. Libre Franklin sets wider than Inter, so keep an eye on wrapping (review trigger in `docs/DECISIONS.md`).
+- Font-swap verification covered overflow at 1280, 896, 640 and 320px with screenshots at all four widths; a keyboard focus pass and a fallback-font layout-shift measurement were not done.
+- `docs/design/DESIGN.md` Components → Buttons still says "`label-mono` text" although buttons are sentence-case sans (pre-existing doc drift).
 - The Outcomes list keeps its accent bar; revisit if it also reads heavy on case-study pages. Forced-colours rendering of the contribution and wordmark squares was not observed in a real forced-colours environment, nor the wordmark at 320px.
 - No redirects: add a hash-preserving `/experience` redirect only if evidence shows traffic to it (review trigger in `docs/DECISIONS.md`; same policy for the retired `/case-studies` and `/projects`).
 - Home's "Explore experience" button and "View career timeline" link lead to the Resume page under unchanged labels; the intro wraps to three lines at 320px. Revisit only if either reads poorly.

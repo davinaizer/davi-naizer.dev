@@ -1,14 +1,26 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.33
+version: 1.34
 status: active
 order: ASC
 ---
 
 # Decisions
 
-## Replace Inter with IBM Plex Sans as the sans family — 2026-09-28
+## Use Libre Franklin as the sans family and set font smoothing — 2026-09-28
+
+**Decision:** Set body and interface text in Libre Franklin (weights 400 and 500), superseding IBM Plex Sans. Apply `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale` on `html`. Newsreader and IBM Plex Mono are unchanged, and the three-family, fixed-role structure recorded on 2026-09-27 stands. The developer rebuilt `public/social-preview.png` in Figma (1200×630, with the D mark on the right, the site's periwinkle accent and the role line "Senior Frontend Engineer") to match the site's type; the Figma file is the source and lives outside the repo.
+
+**Rationale:** After Plex Sans shipped, the developer saw body text render heavier than in the mockup. The computed weight was 400 and only the 400 and 500 faces loaded, so it was not a weight fault. The mockup had set `-webkit-font-smoothing: antialiased` and the site set no smoothing, and on the real Home paragraph the default smoothing was visibly bolder than `antialiased`. The developer tried Atkinson Hyperlegible Next, then chose Libre Franklin with the smoothing rule and judged it right on the real site. Libre Franklin is a Franklin Gothic revival, so it pairs with Newsreader as a newspaper-style serif and sans. Approved plan: `docs/plans/2026-09-28-libre-franklin.md`.
+
+**Consequence:** `--font-family-sans` in `tokens.css`, the Google Fonts request in `index.html`, and `html` in `global.css` changed; `docs/design/DESIGN.md` names the new family. The smoothing rule also lightens Newsreader and IBM Plex Mono on macOS and iOS; other platforms are unchanged. Earlier entries that mention Inter or Plex Sans are historical and left as written.
+
+**Review triggers:** Reconsider if wrapping or width regressions appear (Libre Franklin sets wider than Inter and Plex Sans), or if the smoothing rule makes small text in Newsreader or the mono read too thin on macOS.
+
+## Replace Inter with IBM Plex Sans as the sans family — 2026-09-28 (superseded)
+
+**Status:** Superseded by "Use Libre Franklin as the sans family and set font smoothing — 2026-09-28". Plex Sans shipped in `6ba764f` and was reversed the same day; the cause was missing font smoothing, recorded above.
 
 **Decision:** Set body and interface text in IBM Plex Sans (weights 400 and 500) instead of Inter. Newsreader and IBM Plex Mono are unchanged, and the three-family, fixed-role structure recorded on 2026-09-27 stands. `public/social-preview.png` was patched so its tagline uses Plex Sans too.
 

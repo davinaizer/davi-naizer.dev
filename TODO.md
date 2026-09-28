@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-28
-version: 1.65
+version: 1.66
 status: active
 ---
 
@@ -621,13 +621,25 @@ Delivered and reviewed with `PASS` (after two developer-directed amendments to t
 - [x] Rebuild `public/social-preview.png` with the site typefaces (Newsreader, Inter, IBM Plex Mono) and the square stops, same 1200×630 layout, name baseline-aligned with the D mark, and the gradient wash removed for a flat `#131313` canvas (developer-directed amendments after the first implementation, which had only painted over the round stops).
 - [x] Formal review (`PASS`) and completion.
 
-### Replace Inter with IBM Plex Sans (developer-directed) — Complete
+### Replace Inter with IBM Plex Sans (developer-directed) — Complete, superseded by Libre Franklin
 
 Delivered and reviewed with `PASS`. Governed by `docs/plans/2026-09-28-ibm-plex-sans.md` and the `DECISIONS.md` entry "Replace Inter with IBM Plex Sans as the sans family — 2026-09-28". Evidence is developer visual review of four rendered variants. Developer chose IBM Plex Sans, and option A: patch the social preview.
 
 - [x] Swap the sans family in `tokens.css` and the Google Fonts request in `index.html` (weights 400 and 500); Newsreader and IBM Plex Mono unchanged.
 - [x] Redraw the `public/social-preview.png` tagline in Plex Sans, same position, size class and colour.
 - [x] Update `docs/design/DESIGN.md` and add the decision entry.
+- [x] Verify fonts load and there is no horizontal overflow at 1280, 896, 640 and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
+- [x] Formal review (`PASS`) and completion.
+
+### Use Libre Franklin and set font smoothing (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (after two `CHANGES REQUIRED` rounds). Governed by `docs/plans/2026-09-28-libre-franklin.md` and the `DECISIONS.md` entry "Use Libre Franklin as the sans family and set font smoothing — 2026-09-28", which supersedes the Plex Sans entry. Evidence is developer visual review on the real site; the Plex Sans heaviness was traced to missing font smoothing.
+
+- [x] Set `--font-family-sans` to Libre Franklin in `tokens.css` and request `Libre+Franklin:wght@400;500` in `index.html`; Newsreader and IBM Plex Mono unchanged.
+- [x] Add `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale` on `html` in `global.css`.
+- [x] Replace `public/social-preview.png` with the developer's Figma card at exactly 1200×630 (the first export was 1198×630 and was re-exported).
+- [x] Update the two stale `ResumePage.test.tsx` expectations left by the canon-resume sync (developer-directed amendment): "2026–Present" and "Career Break".
+- [x] Update `docs/design/DESIGN.md`; add the superseding decision and mark the Plex Sans entry superseded.
 - [x] Verify fonts load and there is no horizontal overflow at 1280, 896, 640 and 320px; pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 - [x] Formal review (`PASS`) and completion.
 
