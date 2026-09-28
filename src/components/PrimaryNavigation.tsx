@@ -12,9 +12,6 @@ function PrimaryNavigation() {
 				<nav className="primary-navigation" aria-label="Primary">
 					<ul>
 						<li>
-							<NavLink to={routes.experience}>Experience</NavLink>
-						</li>
-						<li>
 							<NavLink to={routes.work}>Work</NavLink>
 						</li>
 						<li>

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
 updatedAt: 2026-09-28
-version: 1.83
+version: 1.84
 status: active
 ---
 
@@ -9,11 +9,11 @@ status: active
 
 ## Completed outcome
 
-**The entire 2026-09-27 CSS/markup consistency audit is now closed**, delivered with same-scope `PASS`. The final task bundled Batch 5's remaining items (G2, G4, G8–G11) plus F5 — at the developer's request, to reduce planning granularity for the remaining low-ROI items, mirroring Batch 3's precedent. G2 (`.experience__contributions`'s misleading numbered counter) was the only item needing a code change, replaced with the accent-bar-border treatment already used by `.project-page__outcomes-list`. G4, G8, G9, G10, G11, and F5 were each confirmed "no action needed" against their exact audit text (F5 turned out to be superseded by the earlier F2 fix). G1 and H5's audit-doc rows were also corrected to "Fixed" — they were delivered in the prior task but never marked resolved there. This follows Batch 5's G1/H5 and Batch 4 (H1–H4, G3), all already closed.
+**Experience is merged into Resume**, delivered with same-scope `PASS`. `/resume` now shows the intro, "Updated" date and download button above the unchanged experience timeline and section nav (`ExperienceTimeline` extracted to `src/components/`). The Experience route, page, nav item and sitemap entry are removed; `/experience` renders not-found with no redirect (developer decision). Internal `/experience#slug` links now target `/resume#slug`. PRD §9 and `docs/ARCHITECTURE.md` were amended (developer-approved). A header "Download Resume" button was implemented, then removed at the developer's direction after the first review; the download lives on Resume and the Home hero.
 
 ## Next task candidate
 
-None. `TODO.md` has no incomplete task, and the audit that has driven the last several tasks is fully closed — there is no more audit-derived work to pick up. The developer should bring a new objective (from `PRODUCT_REQUIREMENTS.md`/`ROADMAP.md`, or their own direction) to the next `plan-next-task` invocation.
+None. `TODO.md` has no incomplete task. The developer should bring a new objective to the next `plan-next-task` invocation.
 
 ## Roadmap position
 
@@ -22,19 +22,13 @@ None. `TODO.md` has no incomplete task, and the audit that has driven the last s
 
 ## Evidence pointers
 
-- `docs/audit/2026-09-27-visual-css-consistency.md` (**every finding now marked resolved — the audit is fully closed**: F1–F5, T1–T13, S1–S5, H1–H5, G1–G11)
-- `docs/plans/2026-09-28-close-out-audit-batch5-f5.md` (this final task's plan, with a recommendation and rationale for each of G2, G4, G8–G11, F5), `docs/plans/2026-09-28-batch4-h4-case-study-subheadings.md` (H4's plan, including its two developer-directed mid-implementation additions), `docs/plans/2026-09-27-batch4-heading-hierarchy-h2-h3.md` (H2/H3's plan, including its own mid-implementation Option A → Option B change). G1/H5 had no plan file — no material decision or handoff risk to record.
-- `docs/audit/buttons-links-audit/` (screenshots behind the T13 finding)
-- `docs/DECISIONS.md` ("Target modern evergreen browsers only; no CSS fallback for `oklch()`", "Reserve all-caps mono for supplementary labels…", "Remove the background gradient wash…", "Record the shipped visual system…" — all 2026-09-27)
-- `docs/design/DESIGN.md` (rewritten to match the shipped site)
-- `index.html` (Google Fonts request: final Batch 1 set — Inter 400/500, Newsreader 400 roman+italic/600, IBM Plex Mono 400/500)
-- `src/styles/tokens.css` (`--color-backdrop`, four `--line-height-*` tokens, three `--measure-*` tokens, comments on `--space-tag-block`/`--space-marker-offset`), `src/styles/global.css` (shared `h2, h3` letter-spacing), `src/styles/patterns.css` (`.section-label-heading`, `.eyebrow` — now used in only three places: Home "Current role", the project-page area label, and the dead-code "Earlier career" — `.project-page__decisions-detail` spacing/typography rules, both `::backdrop` rules, `.tag-list`, `.button--ghost`, `.button--primary`, `.button--secondary`, `.button--text`, `.page-lead`/`.section-layout` now on `--space-8`, gallery caption padding on `--space-3`)
-- `src/styles/shell.css` (`.site-header__identity` at weight 400; `.site-header__contact` layout-only, styled via `.button--ghost`)
-- `src/pages/WorkPage.tsx`, `src/pages/ExperiencePage.tsx`, `src/pages/ResumePage.tsx`, `src/pages/ContactPage.tsx`, `src/pages/NotFoundPage.tsx`, `src/pages/HomePage.tsx` (G1/H5: eyebrows removed), `src/pages/CaseStudyPage.tsx` (H4: "Product / UX"/"Engineering" nested as `h3`s inside "Decisions", wrapped in `.project-page__decisions-detail`; G1: `areaLabel` renamed to "Product case study"), `src/pages/WorkPage.css` (H2: section `h2`s no longer use `.section-label-heading`, sized at `--font-size-heading-md` via `.work__section > h2`; `.work__card h3` now `--font-size-body-lg`), `src/pages/ExperiencePage.css` (H3: `.experience__timeline--earlier .experience__entry-header h3` on `--font-size-body-lg`; G2: `.experience__contributions` no longer uses a numbered counter, now a `border-inline-start` accent bar matching `.project-page__outcomes-list`; also `.experience__entry` on `--measure-wide`, `.experience__layout` on `--space-8`, `.experience__earlier-career` divider padding on `--space-4`, `.experience__item` inline padding on `--space-6`)
-- `src/pages/HomePage.css` (`.home__hero` on `--measure-wide`; `.home__highlight`/`.home__about` merged onto one shared `--measure-narrow` rule; `.home__actions a.button--ghost` and its `:hover` override for the download link; `.home a` catch-all replaced with `.home__highlight a, .home__about a`), `src/pages/ContactPage.css` (`.contact__links` on `--space-8`), `src/pages/ResumePage.css` (earlier Batch 2/3 fixes)
-- `src/components/ProjectPageLayout.tsx`, `src/pages/ExperimentPage.tsx` (`.tag-list` and `.section-label-heading` usages — `.section-label-heading` is no longer used on `/work`, only on project-page and Work-index-adjacent sub-labels)
-- `src/components/PrimaryNavigation.tsx`, `src/pages/ResumePage.tsx`, `src/pages/HomePage.tsx`, `src/components/AnalyticsSettings.tsx`, `src/components/ProjectGallery.tsx`, `src/components/ContextualContinuation.tsx` (`.button--ghost`/`.button--primary`/`.button--secondary`/`.button--text` usages)
-- `TODO.md` ("Close out the audit: Batch 5 remainder and F5 (audit findings G2, G4, G8–G11, F5) — Complete"; "Batch 5: remove low-value eyebrows, align case-study label (audit findings G1 and H5) — Complete"; "Batch 4: case-study heading sub-level (audit finding H4) — Complete"; "Batch 4: heading hierarchy (audit findings H2 and H3) — Complete"; "Batch 3: spacing normalisation (audit findings S1–S5) — Complete"; "Batch 2: extract shared Secondary and Text/Link button classes (audit finding T13) — Complete"; "Batch 2: target-browser policy and oklch() fallback close-out (audit finding T12) — Complete"; "Batch 2: spacing deliberateness review and max-width consolidation (audit finding T10) — Complete"; "Batch 2: button consolidation (audit finding T8) — Complete"; "Batch 2 remainder: mechanical fixes (audit findings T3, T7, T9, T11) — Complete"; "Batch 2 token hygiene: high-ROI quick fixes (audit findings T1, T2, T4, T5, T6) — Complete"; "Remove unused font weights (audit findings F3 and F4) — Complete"; "Font-load correctness (audit findings F1 and F2) — Complete"; "Heading semantics and label casing (audit findings H1 and G3) — Complete"; "Completed developer-directed CSS consistency audit, gradient removal, and design-doc reconciliation")
+- `docs/plans/2026-09-28-merge-experience-into-resume.md` (approved plan, developer-directed amendment removing the header button, and re-review note)
+- `docs/DECISIONS.md` ("Merge Experience into Resume — 2026-09-28", with its review trigger)
+- `PRODUCT_REQUIREMENTS.md` §9 and `docs/ARCHITECTURE.md` (Navigation and rendering), both amended
+- `src/pages/ResumePage.tsx`, `src/pages/ResumePage.css` (timeline `experience__*` rules moved here verbatim), `src/components/ExperienceTimeline.tsx`, `src/components/SectionNav.tsx`, `src/components/PrimaryNavigation.tsx`
+- `e2e/critical-journeys.spec.ts` (Resume timeline, continuation, and removed-routes coverage)
+- `TODO.md` ("Merge Experience into Resume (developer-directed) — Complete")
+- Prior work: `docs/audit/2026-09-27-visual-css-consistency.md` (fully closed), `docs/design/DESIGN.md`
 
 ## Blockers
 
@@ -42,17 +36,15 @@ None.
 
 ## Constraints and deferred work
 
-- The entire audit is closed. Six low-ROI findings were resolved as "confirmed, no action needed" rather than code changes — revisit only if new evidence emerges: G4 (middle-dot meta strings, acceptable as-is), G8 (timeline glow ring, kept), G9 (3px accent bar padded differently in section-nav vs outcomes list — different roles, not meant to match), G10 (border contrast 1.99:1/2.32:1 — acceptable since text always accompanies these borders), G11 (12px nav/button text — kept at developer default; revisit if it reads small in practice), F5 (Inter's `opsz` axis — moot, now used across two weights after F2).
-- `.project-page__decisions-detail h3` (H4) duplicates `.experience__detail h3`'s seven CSS properties verbatim across two files (`patterns.css`, `ExperiencePage.css`) — a deliberate developer choice to reuse an existing visual treatment exactly, not extracted into a shared class since only two usages exist. Revisit only if a third instance of this "small mono label" role appears (this repo's own precedent, T7, extracted shared CSS only once a pattern reached three copies).
-- `.primary-navigation a`, `.section-nav__link`, `.project-page__back`, `.site-footer__text-link`, and `.site-footer__links a` were deliberately kept out of the T13 button/link consolidation — the first three carry active/current-state navigation semantics, and the footer two are a muted utility action and (per developer decision, correcting the original audit note) a visually distinct icon treatment, respectively.
-- `.experience__earlier-career`/`.experience__earlier-career-header`'s tokens (T10, S3) and the earlier-career entry `h3` sizing (H3) currently have no visual effect: the whole "Earlier career" section is commented out in `ExperiencePage.tsx` (pre-existing, unrelated to any of these tasks).
-- `docs/design/2026-09-27-adding-life-without-gradient.md` has unbuilt options for adding visual "life" now that the gradient is gone (tonal surfaces, editorial typographic craft, one kinetic moment, larger real evidence imagery, Swiss print marks, grain — in that recommended order); a Diagram Panel decision (Option 2, applied to project diagrams) was finalised separately (commit `efe31f7`). Revisit the rest when picked back up.
-- `NotFoundPage.css`'s `.not-found__action a` is the same essential-action pattern as the rest of the G3 fix but was out of that task's approved scope; still mono-caps.
-- `docs/DECISIONS.md`'s "Remove the background gradient wash…" entry has a pre-existing wrong file reference (`docs/design/2026-09-27-visual-css-consistency.md`, should be `docs/audit/...`); cosmetic, noted during review, not yet fixed.
-- Section-nav highlight can go stale (deliberately deferred in an earlier task): the scroll-spy in `SectionNav.tsx` only updates when a section crosses its 20–30% viewport band. Affects project pages and Experience; non-blocking.
-- Two Experience nav labels wrap in the desktop rail ("Independent Product Project · 2025–Present", "Gamesys / Bally's Interactive · 2020–2022"); readable, revisit only if tighter labels are wanted.
-- No redirects: restore them only if evidence shows traffic arriving at the retired `/case-studies` or `/projects` URLs (review trigger in `docs/DECISIONS.md`).
-- Task D review improvements, non-blocking: `CaseStudyPage` and `ExperimentPage` keep an unreachable not-found fallback now that `WorkProjectPage` resolves slugs; the Work card e2e test does not assert the `::after` focus ring; the "does not duplicate list separators" e2e test loops over a single path.
-- Work card image panels use one accent tint and repeat the project title; add real card images or per-project tints only when projects gain distinct result images.
-- Hero classification: only UV Insect Trap has a hero (a real finished-result photo distinct from its gallery). Revisit only if a future case study or experiment gains a comparable finished-result image.
-- Non-blocking, pre-existing repository note: the composite `pnpm validate` script fails on `.claude/settings.local.json` formatting, a file gitignored via the developer's global gitignore and unrelated to any tracked task. Scoped checks (`pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`) are unaffected. Revisit only if this recurs and warrants a Biome ignore-rule task.
+- No redirects: add a hash-preserving `/experience` redirect only if evidence shows traffic to it (review trigger in `docs/DECISIONS.md`; same policy for the retired `/case-studies` and `/projects`).
+- Home's "Explore experience" button and "View career timeline" link now lead to the Resume page under unchanged labels; the intro wraps to three lines at 320px. Revisit only if either reads poorly.
+- The whole "Earlier career" section is commented out in `ResumePage.tsx` (moved as-is from the old Experience page), so its CSS in `ResumePage.css` has no visual effect.
+- Section-nav highlight can go stale (scroll-spy in `SectionNav.tsx` updates only when a section crosses its 20–30% viewport band); non-blocking.
+- Two timeline nav labels wrap in the desktop rail ("Independent Product Project · 2025–Present", "Gamesys / Bally's Interactive · 2020–2022"); revisit only if tighter labels are wanted.
+- Six low-ROI audit findings were closed as "no action needed" (G4, G8–G11, F5); see the audit doc before reopening.
+- `.project-page__decisions-detail h3` duplicates `.experience__detail h3`'s seven properties across `patterns.css` and `ResumePage.css`; extract only if a third usage appears.
+- `.primary-navigation a`, `.section-nav__link`, `.project-page__back`, and the footer links were deliberately kept out of the button/link consolidation (T13).
+- `docs/design/2026-09-27-adding-life-without-gradient.md` holds unbuilt visual-life options; `NotFoundPage.css`'s `.not-found__action a` is still mono-caps; `docs/DECISIONS.md`'s gradient entry has a wrong file reference (cosmetic).
+- Task D review improvements (non-blocking): `CaseStudyPage`/`ExperimentPage` keep an unreachable not-found fallback; the Work card e2e test does not assert the `::after` focus ring; one e2e test loops over a single path.
+- Work card image panels use one accent tint; hero images exist only for UV Insect Trap. Add per-project visuals only when real result images exist.
+- Non-blocking: `pnpm validate` fails on `.claude/settings.local.json` formatting (gitignored, unrelated). Scoped checks are unaffected.

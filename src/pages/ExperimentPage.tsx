@@ -136,7 +136,7 @@ function ExperimentPage() {
 					<ul className="project-page__continue-links">
 						{relatedExperience.map((entry) => (
 							<li key={entry.slug}>
-								<Link to={`${routes.experience}#${entry.slug}`}>
+								<Link to={`${routes.resume}#${entry.slug}`}>
 									Relevant experience: {entry.role} at {entry.company}
 								</Link>
 							</li>

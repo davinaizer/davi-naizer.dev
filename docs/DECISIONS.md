@@ -8,6 +8,16 @@ order: ASC
 
 # Decisions
 
+## Merge Experience into Resume — 2026-09-28
+
+**Decision:** Serve the full experience timeline, with its section nav, on `/resume` beneath the resume download. Remove the `/experience` route and its primary-navigation item. The resume download stays on Resume and in the Home hero; a header download button was implemented and then removed at the developer's direction (2026-09-28) to keep the header uncluttered. `/experience` renders the existing not-found page; there is no redirect.
+
+**Rationale:** The developer judged that a hiring manager should reach the CV and the career timeline from one page, without intermediate navigation (PRODUCT_REQUIREMENTS 4.1). Two adjacent pages, one a single download button and the other the timeline, added a navigation step without adding content. This is developer judgement; analytics cannot measure resume clicks. Approved plan: `docs/plans/2026-09-28-merge-experience-into-resume.md`.
+
+**Consequence:** `PRODUCT_REQUIREMENTS.md` §9 and `docs/ARCHITECTURE.md` were amended to match. Internal `/experience#<slug>` links now target `/resume#<slug>`. External links to `/experience` (for example old CV or LinkedIn links) will show the not-found page, consistent with the 2026-09-26 no-redirect precedent for `/case-studies` and `/projects`.
+
+**Review triggers:** Reconsider if the merged page hurts scannability of the timeline or the download, or if evidence shows traffic arriving at `/experience` (then add a hash-preserving redirect).
+
 ## Target modern evergreen browsers only; no CSS fallback for `oklch()` — 2026-09-27
 
 **Decision:** The site targets modern evergreen browsers only — Safari 15.4+, Chrome/Edge 111+, Firefox 113+ — and does not add an RGB/hex fallback for the `oklch()`-based color tokens in `tokens.css` (`--color-accent` and its variants). No `browserslist` config or `@supports` fallback query is introduced.

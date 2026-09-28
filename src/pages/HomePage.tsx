@@ -19,7 +19,7 @@ function HomePage() {
 				>
 					<ul>
 						<li className="home__action-primary">
-							<Link className="button--primary" to={routes.experience}>
+							<Link className="button--primary" to={routes.resume}>
 								Explore experience
 							</Link>
 						</li>
@@ -46,7 +46,7 @@ function HomePage() {
 				{currentRoleSummary ? (
 					<p className="home__role-summary">{currentRoleSummary}</p>
 				) : null}
-				<Link className="button--text" to={routes.experience}>
+				<Link className="button--text" to={routes.resume}>
 					View career timeline
 				</Link>
 			</section>

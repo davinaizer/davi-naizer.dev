@@ -1,6 +1,3 @@
-import { routes } from "../app/routes.ts";
-import ContextualContinuation from "../components/ContextualContinuation.tsx";
-import SectionNav from "../components/SectionNav.tsx";
 import { professionalContent } from "../content/professional-content.ts";
 import type { ExperienceEntry } from "../types/professional.ts";
 
@@ -12,12 +9,14 @@ function navLabel(entry: ExperienceEntry): string {
 	return `${entry.company} · ${years}`;
 }
 
-const navItems = professionalContent.experience.map((entry) => ({
-	id: entry.slug,
-	label: navLabel(entry),
-}));
+export const experienceNavItems = professionalContent.experience.map(
+	(entry) => ({
+		id: entry.slug,
+		label: navLabel(entry),
+	}),
+);
 
-function ExperienceTimeline({
+export function ExperienceTimeline({
 	entries,
 	earlier = false,
 }: {
@@ -80,45 +79,4 @@ function ExperienceTimeline({
 	);
 }
 
-function ExperiencePage() {
-	const { experience } = professionalContent;
-
-	return (
-		<section className="experience page-section">
-			<header className="experience__header page-lead">
-				<h1>Experience</h1>
-				<p className="experience__intro page-intro">
-					The roles, products and teams that have shaped how I work today.
-				</p>
-			</header>
-
-			<div className="section-layout experience__layout">
-				<SectionNav idPrefix="experience" items={navItems} />
-				<div className="section-layout__content">
-					<ExperienceTimeline entries={experience} />
-				</div>
-			</div>
-
-			{/*<section
-				aria-labelledby="experience-earlier-career-heading"
-				className="experience__earlier-career"
-			>
-				<header className="experience__earlier-career-header">
-					<p className="eyebrow">Earlier career</p>
-					<h2 id="experience-earlier-career-heading">
-						Starting out in support and web development
-					</h2>
-					<p className="page-intro">
-						I started in computer support, then moved into web and digital
-						learning.
-					</p>
-				</header>
-				<ExperienceTimeline entries={earlierCareer} earlier />
-			</section>*/}
-
-			<ContextualContinuation label="Explore selected work" to={routes.work} />
-		</section>
-	);
-}
-
-export default ExperiencePage;
+export default ExperienceTimeline;

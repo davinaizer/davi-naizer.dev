@@ -594,6 +594,16 @@ Delivered and reviewed with `PASS`. Findings and fix guidance are recorded in `d
 - [x] Also updated the audit doc's G1 and H5 rows to "Fixed" — they were delivered in the prior task but never marked resolved there; caught and corrected while editing the same document for this task's own findings.
 - [x] Pass `pnpm typecheck`, `biome check src`, `pnpm test`, `pnpm build`, and `pnpm test:e2e`.
 
+### Merge Experience into Resume (developer-directed) — Complete
+
+Delivered and reviewed with `PASS` (re-reviewed after the developer-directed header-button removal). Governed by `docs/plans/2026-09-28-merge-experience-into-resume.md` and the `DECISIONS.md` entry "Merge Experience into Resume — 2026-09-28". Supports PRODUCT_REQUIREMENTS 4.1. Evidence is developer judgement (analytics cannot measure resume clicks).
+
+- [x] Render the experience timeline and section nav unchanged on `/resume` beneath a trimmed intro, the "Updated" date and the download button.
+- [x] Remove the Experience route, page, nav item and sitemap entry; `/experience` renders not-found (no redirect).
+- [x] Retarget internal `/experience` links to `/resume`. (A header "Download Resume" button was implemented, then removed at the developer's direction on 2026-09-28; the download remains on Resume and the Home hero.)
+- [x] Amend PRODUCT_REQUIREMENTS §9 and `docs/ARCHITECTURE.md`; update unit and e2e tests.
+- [x] Formal review (`PASS`) and completion.
+
 ---
 
 ## Post-MVP Publication Follow-up

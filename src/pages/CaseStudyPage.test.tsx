@@ -124,7 +124,7 @@ describe("CaseStudyPage", () => {
 				within(continuation).getByRole("link", {
 					name: `Relevant experience: ${entry.role} at ${entry.company}`,
 				}),
-			).toHaveAttribute("href", `${routes.experience}#${entry.slug}`);
+			).toHaveAttribute("href", `${routes.resume}#${entry.slug}`);
 		}
 
 		expect(

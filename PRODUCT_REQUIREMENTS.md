@@ -384,11 +384,10 @@ A feature is complete when:
 The first public release should contain only:
 
 - Home
-- Experience
+- Resume, presenting the resume download above the full career timeline
 - Work, linking to two distinct evidence areas:
   - Case Studies for detailed professional evidence;
   - Experiments for selected independent projects and builds.
-- Resume
 - Contact
 
 Implementation should prioritise quality over quantity.

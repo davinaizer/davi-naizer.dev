@@ -1,7 +1,6 @@
 // src/app/routes.ts
 export const routes = {
 	home: "/",
-	experience: "/experience",
 	work: "/work",
 	workProject: "/work/:slug",
 	resume: "/resume",

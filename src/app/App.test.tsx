@@ -43,7 +43,7 @@ describe("App", () => {
 		).toBeInTheDocument();
 		expect(
 			screen.getByRole("link", { name: "Explore experience" }),
-		).toHaveAttribute("href", routes.experience);
+		).toHaveAttribute("href", routes.resume);
 		expect(
 			screen.getByRole("link", { name: "Download Resume" }),
 		).toHaveAttribute("href", professionalContent.resume.url);

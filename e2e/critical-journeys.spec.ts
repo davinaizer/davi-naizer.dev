@@ -198,18 +198,18 @@ test("continues to the next case study and back to the index from a project page
 	).toBeInViewport();
 });
 
-test("navigates Experience by role with a sticky rail on desktop and an inline nav on mobile", async ({
+test("navigates the Resume timeline by role with a sticky rail on desktop and an inline nav on mobile", async ({
 	page,
 }) => {
 	await page.setViewportSize({ width: 1024, height: 900 });
-	await page.goto("/experience");
+	await page.goto("/resume");
 
 	const nav = page.getByRole("navigation", { name: "On this page" });
 	const link = nav.getByRole("link", { name: "The Signal Group · 2023–2024" });
 	const navBox = await nav.boundingBox();
 	const timelineBox = await page.locator(".experience__timeline").boundingBox();
 	if (!navBox || !timelineBox) {
-		throw new Error("Expected Experience layout boxes to be measurable.");
+		throw new Error("Expected Resume layout boxes to be measurable.");
 	}
 	expect(navBox.x).toBeGreaterThan(timelineBox.x);
 
@@ -226,15 +226,13 @@ test("navigates Experience by role with a sticky rail on desktop and an inline n
 	await expect(link).toHaveAttribute("aria-current", "true");
 
 	await page.setViewportSize({ width: 320, height: 900 });
-	await page.goto("/experience");
+	await page.goto("/resume");
 	const mobileNavBox = await nav.boundingBox();
 	const mobileTimelineBox = await page
 		.locator(".experience__timeline")
 		.boundingBox();
 	if (!mobileNavBox || !mobileTimelineBox) {
-		throw new Error(
-			"Expected mobile Experience layout boxes to be measurable.",
-		);
+		throw new Error("Expected mobile Resume layout boxes to be measurable.");
 	}
 	expect(mobileNavBox.y).toBeLessThan(mobileTimelineBox.y);
 	expect(
@@ -330,9 +328,11 @@ test("navigates through the shell and Work routes", async ({ page }) => {
 	const primaryNavigation = page.getByRole("navigation", { name: "Primary" });
 	await page.goto("/");
 
-	await primaryNavigation.getByRole("link", { name: "Experience" }).click();
-	await expect(page).toHaveURL(/\/experience$/);
-	await expect(page.getByRole("heading", { name: "Experience" })).toBeVisible();
+	await primaryNavigation.getByRole("link", { name: "Resume" }).click();
+	await expect(page).toHaveURL(/\/resume$/);
+	await expect(
+		page.getByRole("heading", { level: 1, name: "Resume" }),
+	).toBeVisible();
 
 	await primaryNavigation.getByRole("link", { name: "Work" }).click();
 	await expect(page).toHaveURL(/\/work$/);
@@ -438,7 +438,7 @@ test("opens the gallery lightbox with the keyboard and closes it with the close 
 test("restores the top of the destination after navigating from the bottom", async ({
 	page,
 }) => {
-	await page.goto("/experience");
+	await page.goto("/resume");
 	await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
 	await expect
 		.poll(() => page.evaluate(() => window.scrollY))
@@ -456,14 +456,9 @@ test("restores the top of the destination after navigating from the bottom", asy
 test("continues between long-form routes", async ({ page }) => {
 	const continuations = [
 		{
-			from: "/experience",
+			from: "/resume",
 			label: "Explore selected work",
 			to: /\/work$/,
-		},
-		{
-			from: "/resume",
-			label: "Get in touch",
-			to: /\/contact$/,
 		},
 	] as const;
 
@@ -481,8 +476,7 @@ test("keeps contextual continuations usable at a narrow viewport", async ({
 	page,
 }) => {
 	const continuations = [
-		{ path: "/experience", label: "Explore selected work" },
-		{ path: "/resume", label: "Get in touch" },
+		{ path: "/resume", label: "Explore selected work" },
 	] as const;
 
 	await page.setViewportSize({ width: 320, height: 900 });
@@ -508,7 +502,7 @@ test("keeps contextual continuations usable at a narrow viewport", async ({
 test("does not duplicate list separators before continuations", async ({
 	page,
 }) => {
-	for (const path of ["/experience"]) {
+	for (const path of ["/resume"]) {
 		await page.goto(path);
 
 		await expect(
@@ -526,9 +520,6 @@ test("supports keyboard traversal through the shell navigation", async ({
 	const header = page.getByRole("banner");
 	const links = [
 		header.getByRole("link", { name: "Davi Naizer" }),
-		header
-			.getByRole("navigation", { name: "Primary" })
-			.getByRole("link", { name: "Experience" }),
 		header
 			.getByRole("navigation", { name: "Primary" })
 			.getByRole("link", { name: "Work" }),
@@ -551,13 +542,7 @@ test("keeps shell links visible without horizontal overflow at a narrow viewport
 	await page.goto("/");
 
 	const header = page.getByRole("banner");
-	for (const name of [
-		"Davi Naizer",
-		"Experience",
-		"Work",
-		"Resume",
-		"Contact",
-	]) {
+	for (const name of ["Davi Naizer", "Work", "Resume", "Contact"]) {
 		await expect(header.getByRole("link", { name })).toBeVisible();
 	}
 
@@ -643,6 +628,7 @@ test("recovers from an unknown route", async ({ page }) => {
 test("does not expose removed routes", async ({ page }) => {
 	for (const path of [
 		"/engineering",
+		"/experience",
 		"/summary",
 		"/case-studies",
 		"/projects",
