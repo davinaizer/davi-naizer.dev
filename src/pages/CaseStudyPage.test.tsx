@@ -80,6 +80,17 @@ describe("CaseStudyPage", () => {
 		expect(
 			within(decisionsSection).getByText(first.engineering),
 		).toBeInTheDocument();
+		if (first.aiWorkflow) {
+			expect(
+				within(decisionsSection).getByRole("heading", {
+					level: 3,
+					name: "AI-assisted workflow",
+				}),
+			).toBeInTheDocument();
+			expect(
+				within(decisionsSection).getByText(first.aiWorkflow),
+			).toBeInTheDocument();
+		}
 
 		const technologies = screen.getByRole("list", { name: "Technologies" });
 		for (const technology of first.technologies ?? []) {

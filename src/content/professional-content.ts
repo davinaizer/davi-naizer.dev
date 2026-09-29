@@ -3,7 +3,7 @@ import type { ProfessionalContent } from "../types/professional";
 export const professionalContent: ProfessionalContent = {
 	identity: {
 		name: "Davi Naizer",
-		headline: "Senior Frontend & Product Engineer",
+		headline: "Senior Frontend Engineer",
 		location: "Hove, United Kingdom",
 		profileLinks: [
 			{
@@ -38,23 +38,23 @@ export const professionalContent: ProfessionalContent = {
 			role: "Product Engineer & Co-creator",
 			startDate: "01/2026",
 			responsibilities: [
-				"Building Alfred, an AI-powered activity recommendation and planning product with another engineer, spanning a C#/.NET backend, native iOS application and React/TypeScript web client and dashboard. I lead development of the iOS application while collaborating on architecture, testing, integration and shared product direction across the three systems. Parts of the web client were implemented with AI assistance and validated through testing and architectural review. The application is currently undergoing private TestFlight validation ahead of its first public release.",
+				"Building Alfred, an AI-powered activity recommendation and planning product, with another engineer under our independent venture, Chaotic Focus. The product spans a C#/.NET backend with an asynchronous LLM enrichment pipeline, a native iOS application and a React/TypeScript web client and dashboard. I lead development of the iOS application, while my co-creator built the backend and web client, and we collaborate on architecture, testing, integration and product direction across the three systems. We use AI-assisted development, with the output reviewed through testing and architectural validation. The application is currently undergoing private TestFlight validation ahead of its first public release.",
 			],
 			contributions: [
 				"Built the native iOS application, delivering the first end-to-end mobile experience across onboarding, authentication, recommendations and planning workflows.",
-				"Collaborated on architecture, testing and cross-system integration across the C#/.NET backend, native iOS application and React/TypeScript web client.",
-				"Developed reusable, accessible UI components with consistent theming and Dynamic Type support, making the interface easier to build, maintain and evolve.",
+				"Shared technical and product decisions with the backend engineer, including decisions that shaped both the client and the server.",
 				"Designed the iOS application's layered architecture using MVVM-style presentation, repositories, use cases and dependency injection.",
+				"Built iOS platform features including widgets, CarPlay, voice capture, push notifications, location and maps, and Sign in with Apple.",
 				"Integrated backend services for authentication, real-time updates, deep linking and application state while maintaining clear boundaries between networking, domain logic and presentation.",
 				"Added automated tests across the presentation, domain, data and infrastructure layers.",
+				"Managed the project's planning and delivery with Notion and Trello, keeping meeting notes and running weekly one-to-ones to align priorities and decisions.",
 			],
 			technologies: [
 				"Swift",
 				"SwiftUI",
-				"React",
-				"TypeScript",
-				"C#/.NET",
+				"WidgetKit",
 				"REST APIs",
+				"SignalR",
 				"Firebase",
 				"XCTest",
 				"XcodeGen",
@@ -86,7 +86,7 @@ export const professionalContent: ProfessionalContent = {
 				"Developed the frontend implementation of the Template Admin experience, taking the feature through implementation, testing, fixes and production release, including permission-aware creation, editing, validation and deletion flows integrated with frontend state and metadata-driven APIs.",
 				"Built data-intensive Vessels List configuration workflows using AG Grid, including role-based editing, validation, read-only and deletion states, and reusable editing behaviours.",
 				"Maintained shared UI components across dashboards, forms and administration surfaces, including migrations away from deprecated components.",
-				"Maintained focused tests and snapshots and addressed type, lint, SonarLint and refactoring issues during frontend feature development.",
+				"Addressed type, lint, SonarLint and refactoring issues during frontend feature development.",
 				"Onboarded a frontend engineer to the monorepo, Vessel List architecture and Azure-based development environment.",
 			],
 			technologies: [
@@ -113,7 +113,7 @@ export const professionalContent: ProfessionalContent = {
 			],
 			contributions: [
 				"Mapped dependencies and technical debt across the BMC reward-component architecture, identifying duplicated logic, legacy constraints and reusable abstractions to guide modernisation.",
-				"Defined a frontend code-quality standardisation programme covering 13 frameworks, tools and shared libraries, introducing consistent linting, formatting, commit validation, Pull Request automation and static analysis.",
+				"Defined a frontend code-quality standardisation programme covering 13 frameworks, tools and shared libraries across 29 repositories, introducing consistent linting, formatting, commit validation, Pull Request automation and static analysis.",
 				"Integrated SonarQube with GitHub Actions and Pull Request decoration, investigating monorepo test-reporting issues affecting quality-gate adoption.",
 				"Created a structured onboarding programme covering repositories, architecture, production workflows and developer setup, including automated repository discovery through Confluence.",
 				"Owned the Scrum backlog and roadmap, providing technical direction during planning, refinement and delivery while defining technical stories to prioritise platform improvements alongside product work.",
@@ -146,7 +146,6 @@ export const professionalContent: ProfessionalContent = {
 				"Built a Node.js tool around the Jira REST API that reduced a promotional content workflow from days to minutes.",
 				"Created a Node.js CLI that generated version-pinned promotional UI from templates and automated pull-request-based delivery; migrated it to TypeScript and introduced supporting CI and release practices.",
 				"Created onboarding guides, architecture documentation and dependency maps that helped engineers understand large projects more quickly.",
-				"Supported the team through mentoring, code reviews and production troubleshooting.",
 			],
 			technologies: [
 				"React",
@@ -172,8 +171,7 @@ export const professionalContent: ProfessionalContent = {
 			contributions: [
 				"Led the technical improvement initiative for Landing Pages, defining the proposed frontend architecture, documenting the roadmap and presenting the approach to engineering, QA, design and business stakeholders.",
 				"Contributed to a configuration-driven promotional UI framework and reusable components used across multiple consumer brands, helping non-engineers compose and deliver promotional experiences without changing application code.",
-				"Built reusable frontend components and styling foundations to improve consistency across promotional interfaces.",
-				"Contributed to customer-facing React applications while helping improve internal engineering tooling and workflows.",
+				"Built reusable components and styling foundations to improve consistency across promotional interfaces, and contributed to customer-facing React applications while helping improve internal engineering tooling and workflows.",
 				"Mentored developers, designers and stakeholders through code reviews, frontend debugging, Git support and technical documentation.",
 			],
 			technologies: [
@@ -212,7 +210,6 @@ export const professionalContent: ProfessionalContent = {
 				"Worked directly with clients, designers and instructional specialists to translate business and learning requirements into practical software solutions.",
 				"Led technical delivery of client projects, coordinating a team of up to five developers while remaining hands-on with architecture, frontend development and implementation.",
 				"Reduced e-learning delivery time from around three months to about four weeks by building a JSFL script that extracted copy, content and images directly from the Flash design source files into dynamic, XML-driven content, replacing what had been a manual conversion step.",
-				"Built browser-based learning platforms, interactive educational products and custom Learning Management System (LMS) functionality for enterprise projects.",
 			],
 			technologies: ["JavaScript", "HTML", "CSS", "ActionScript", "Moodle"],
 		},

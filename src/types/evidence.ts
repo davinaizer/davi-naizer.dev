@@ -56,6 +56,7 @@ export type CaseStudy = EvidenceBase & {
 	decisions: readonly string[];
 	productAndUx: string;
 	engineering: string;
+	aiWorkflow?: string;
 	outcomes: readonly Outcome[];
 	reflection: string;
 };

@@ -27,6 +27,7 @@ export const fixtureCaseStudies: readonly CaseStudy[] = [
 		decisions: ["Decision one."],
 		productAndUx: "Product and UX one.",
 		engineering: "Engineering one.",
+		aiWorkflow: "AI-assisted workflow fixture.",
 		outcomes,
 		reflection: "Reflection one.",
 		technologies: ["Fixture Tech A", "Fixture Tech B"],
