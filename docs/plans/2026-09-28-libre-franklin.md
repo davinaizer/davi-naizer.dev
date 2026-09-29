@@ -43,7 +43,9 @@ Record the reversal as a superseding `DECISIONS.md` entry, and mark the 2026-09-
 
 ## Amendment (2026-09-28, developer-directed, after the second review returned `CHANGES REQUIRED`)
 
-The developer rebuilt `public/social-preview.png` in Figma instead of the tagline redraw described under Scope and the criteria above. Those preview items are superseded: the card is a new layout (D mark on the right, the site's periwinkle accent, role line "Senior Frontend Engineer"), and the criterion is that it is exactly 1200x630 to match the `og:image:width` and `og:image:height` in `index.html`. The first export was 1198x630 and was re-exported at 1200x630 (verified with `file`). The Figma file is the source and lives outside the repo. Open item for the developer: the card's role line differs from the "Senior Frontend & Product Engineer" used by the site's Home subtitle and `og:title`.
+The developer rebuilt `public/social-preview.png` in Figma instead of the tagline redraw described under Scope and the criteria above. Those preview items are superseded: the card is a new layout (D mark on the right, the site's periwinkle accent, role line "Senior Frontend Engineer"), and the criterion is that it is exactly 1200x630 to match the `og:image:width` and `og:image:height` in `index.html`. The first export was 1198x630 and was re-exported at 1200x630 (verified with `file`). The Figma file is the source and lives outside the repo.
+
+**Resolution (2026-09-29):** site metadata and the social-preview role line now consistently use `Senior Frontend Engineer`, matching the canonical resume metadata. The former title-alignment open item is closed.
 
 ## Exclusions
 

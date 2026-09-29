@@ -20,7 +20,9 @@ const allCaseStudies: readonly CaseStudy[] = [
 		technologies: [
 			"Swift",
 			"SwiftUI",
+			"WidgetKit",
 			"REST APIs",
+			"SignalR",
 			"Firebase",
 			"XCTest",
 			"XcodeGen",
@@ -40,15 +42,16 @@ const allCaseStudies: readonly CaseStudy[] = [
 			},
 		],
 		context:
-			"Alfred: What To Do Next was an exploratory native iOS product built around a decision-first loop: Idea -> Recommendation -> Decision -> Event/commitment. The product work covered onboarding, idea capture, recommendations, and planning.",
+			"Alfred: What To Do Next is a native iOS product built around a decision-first loop: Idea -> Recommendation -> Decision -> Event/commitment. It is an independent venture, Chaotic Focus, that I run with another engineer, and it spans a C#/.NET backend with an asynchronous LLM enrichment pipeline, the iOS app, and a React/TypeScript web client. The app is in private TestFlight validation ahead of a first public release. The iOS work covered onboarding, idea capture, recommendations, planning, and platform features such as widgets and CarPlay.",
 		problem:
 			"The product was designed to help move an idea or intention toward a concrete next action. A browsing-first experience would leave the decision unresolved, so the core problem was to make recommendation, choice, and commitment understandable as one flow.",
-		role: "I led development of the native iOS application and shared responsibility for product direction, architecture, and technical decisions.",
+		role: "I built the native iOS application and the engineering workflow used to develop it. I shared product direction, architecture, and integration decisions with my co-creator, and I handled project management: planning in Notion and Trello, meeting notes, and weekly one-to-ones. My co-creator built the backend, the enrichment pipeline, and the web client.",
 		constraints: [
-			"The work was exploratory; I have no user feedback or adoption data.",
+			"The app is in private TestFlight validation; I have no public user feedback or adoption data.",
 			"Recommendation generation was asynchronous, so the app needed to show progress, completion, and refresh states.",
 			"The mobile app needed clear boundaries between feature presentation, domain logic, data mapping, infrastructure, and application routing.",
-			"The backend engineer owned infrastructure, data management, model training, and API development.",
+			"My co-creator owned the API, data layer, LLM enrichment pipeline, and web client. I worked against those contracts and shared decisions that affected both sides, but I did not build them.",
+			"Much of the code was written with AI assistance, so the risk was drift from the architecture. I needed rules, checks, and review that did not rely on remembering the conventions.",
 		],
 		decisions: [
 			"Make the product decision-first: connect Idea -> Recommendation -> Decision -> Event/commitment instead of treating recommendations as passive browsing. This narrows exploration in exchange for a clearer next action.",
@@ -56,11 +59,15 @@ const allCaseStudies: readonly CaseStudy[] = [
 			"Use layered mobile architecture with feature presentation, domain services, repository protocols, DTO mapping, infrastructure adapters, and routing. The additional boundaries support isolation and testing at the cost of more types and files.",
 			"Keep recommendation enrichment asynchronous at the client boundary so the app can capture intent while later results arrive through API and real-time updates. This requires explicit intermediate and refresh states.",
 			"Model recommendation readiness and commitment states explicitly so accepting, dismissing, scheduling, deferring, and refreshing are distinguishable actions rather than variations of passive browsing.",
+			"Replace early polling with SignalR/WebSocket updates for recommendation results, so the app learns when enrichment completes instead of asking repeatedly. The cost is connection handling: reconnects, retries, and duplicate deliveries.",
+			"Write down how agents may work in the repository: route each task before planning, separate planning, implementation, review, and handoff, and record durable state in docs rather than in chat history. This adds process overhead, so contained work uses a shorter three-stage flow.",
 		],
 		productAndUx:
 			"The design took someone from onboarding and a few preferences to an idea, a recommendation, and a commitment. It gave one recommendation a clear rationale while keeping other options available. This was the product direction, not a finding from user validation.",
 		engineering:
-			"View models held the screen state; use cases and dependency injection kept business logic decoupled from presentation; repositories, DTO mapping, and API services handled data access. Idea capture checked for empty details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed generating, awaiting, ready, and error states. The app checked for results periodically and handled real-time updates. Authentication and deep links connected entry and return paths to application state. A person could accept or dismiss a recommendation. When they chose to schedule one, the app carried the idea and recommendation into event creation. I owned the iOS app; the backend engineer owned the API and enrichment services.",
+			"View models held the screen state; use cases and dependency injection kept business logic decoupled from presentation; repositories, DTO mapping, and API services handled data access. Idea capture checked for empty details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed generating, awaiting, ready, and error states. The first version polled for results; I replaced that with SignalR/WebSocket updates. The client reconnects automatically, retries after five seconds, and de-duplicates completion results. Authentication and deep links connected entry and return paths to application state. A person could accept or dismiss a recommendation, and scheduling one carried the idea and recommendation into event creation. Platform work included widgets, CarPlay, push notifications, location and maps, Sign in with Apple, and a Lock Screen widget where you speak an idea and Alfred suggests events. I owned the iOS app; my co-creator owned the API and enrichment services.",
+		aiWorkflow:
+			"Alongside the app I wrote a governance set for AI coding agents. AGENTS.md is a short entry point that links to invariants, architectural decisions, a file-ownership map, and agent rules. Every task is routed first as Simplified, Full, or Diagnostic, then moves through separate stages: plan, UX, architecture, implementation, review, and handoff. Nine repository skills cover those roles, and each has evaluation cases. A workflow packet passes state between stages, and scripts check the packet, status blocks, routing decisions, document timestamps, and the skills themselves. Implementation is not complete until verification passes through the repository's own script. I set the scope, the acceptance criteria, and the checks, and reviewed what the agents produced. I built this before I knew much about agent governance, and later found it resembled practices used at larger organisations; I did not copy it from a reference.",
 		outcomes: [
 			{
 				statement:
@@ -70,9 +77,15 @@ const allCaseStudies: readonly CaseStudy[] = [
 				statement:
 					"I added automated tests for routing, view models, domain services, data mapping, repositories, notifications, real-time refresh, and design-system utilities.",
 			},
+			{
+				statement:
+					"I set up an agent workflow with routing rules, role-specific skills, handoff packets, and validation scripts. It kept AI-assisted changes inside the architecture and checked them before review.",
+				detail:
+					"The evidence is the repository itself: the governance documents, the skills and their evaluation cases, and the validation scripts. I have no measurement of defects avoided or time saved.",
+			},
 		],
 		reflection:
-			"I would test the idea with users earlier. Then I’d keep the architecture boundaries that made features easier to isolate or test.",
+			"I would test the idea with users earlier. I would keep the architecture boundaries that made features easier to isolate or test. I would also add contract tests against the backend earlier, so client and server changes are checked against each other, not only through the app.",
 	},
 	{
 		slug: "signal-vessel-list-template-administration",

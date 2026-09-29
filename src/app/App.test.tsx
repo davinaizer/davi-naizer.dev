@@ -38,9 +38,7 @@ describe("App", () => {
 			}),
 		).toHaveAttribute("href", routes.contact);
 		expect(await screen.findByRole("main")).toHaveTextContent("Davi Naizer");
-		expect(
-			screen.getByText("Senior Frontend & Product Engineer"),
-		).toBeInTheDocument();
+		expect(screen.getByText("Senior Frontend Engineer")).toBeInTheDocument();
 		expect(
 			screen.getByRole("link", { name: "Explore experience" }),
 		).toHaveAttribute("href", routes.resume);

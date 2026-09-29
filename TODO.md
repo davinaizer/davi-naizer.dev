@@ -718,6 +718,16 @@ Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-28-status-independ
 - [x] Derive e2e journey targets from the published set; skip journeys with nothing to exercise, with a stated reason.
 - [x] Pass `pnpm typecheck`, `pnpm check`, `pnpm test`, `pnpm build` and `pnpm test:e2e` (4 skipped with the current flags).
 
+### Verify and close the professional-content refresh (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-29-professional-content-refresh.md`. The developer-authored positioning, resume metadata, and Alfred evidence update were verified against the canonical resume source and the Alfred repository evidence.
+
+- [x] Align the public headline, document metadata, social-preview role line, and resume artifact with the canonical `Senior Frontend Engineer` positioning.
+- [x] Preserve evidence-backed Alfred content and contribution boundaries, including the optional AI-assisted workflow subsection.
+- [x] Add fixture-driven coverage for the optional subsection and resolve the stale title-alignment note in `docs/plans/2026-09-28-libre-franklin.md`.
+- [x] Pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e` (22 passed, 4 skipped with the current publish flags).
+- [x] Complete formal review (`PASS`) and close the task.
+
 ---
 
 ## Backlog Rules

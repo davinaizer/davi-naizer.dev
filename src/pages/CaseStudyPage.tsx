@@ -67,6 +67,12 @@ function CaseStudyPage() {
 					<p>{caseStudy.productAndUx}</p>
 					<h3>Engineering</h3>
 					<p>{caseStudy.engineering}</p>
+					{caseStudy.aiWorkflow ? (
+						<>
+							<h3>AI-assisted workflow</h3>
+							<p>{caseStudy.aiWorkflow}</p>
+						</>
+					) : null}
 				</div>
 			),
 		},
