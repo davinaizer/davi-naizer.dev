@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router";
 import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
+import DiagramPanel from "../components/DiagramPanel.tsx";
 import ProjectGallery from "../components/ProjectGallery.tsx";
 import ProjectPageLayout, {
 	type ProjectPageSection,
@@ -17,6 +18,7 @@ function CaseStudyPage() {
 		return <NotFoundPage />;
 	}
 
+	const [aiLead, ...aiRest] = caseStudy.aiWorkflow ?? [];
 	const nextCaseStudy = caseStudies[currentIndex + 1];
 	const relatedExperience = (caseStudy.relatedExperienceSlugs ?? [])
 		.map((experienceSlug) =>
@@ -46,7 +48,7 @@ function CaseStudyPage() {
 			id: `${caseStudy.slug}-constraints`,
 			heading: "Constraints",
 			content: (
-				<ul className="project-page__list">
+				<ul className="marker-list">
 					{caseStudy.constraints.map((constraint) => (
 						<li key={constraint}>{constraint}</li>
 					))}
@@ -58,19 +60,26 @@ function CaseStudyPage() {
 			heading: "Decisions",
 			content: (
 				<div className="project-page__decisions-detail">
-					<ul className="project-page__list">
+					<h3 className="facet-label">Key decisions</h3>
+					<ul className="marker-list">
 						{caseStudy.decisions.map((decision) => (
 							<li key={decision}>{decision}</li>
 						))}
 					</ul>
-					<h3>Product / UX</h3>
+					<h3 className="facet-label">Product / UX</h3>
 					<p>{caseStudy.productAndUx}</p>
-					<h3>Engineering</h3>
+					<h3 className="facet-label">Engineering</h3>
 					<p>{caseStudy.engineering}</p>
-					{caseStudy.aiWorkflow ? (
+					{aiLead ? (
 						<>
-							<h3>AI-assisted workflow</h3>
-							<p>{caseStudy.aiWorkflow}</p>
+							<h3 className="facet-label">AI-assisted workflow</h3>
+							<p>{aiLead}</p>
+							{caseStudy.aiWorkflowDiagrams?.map((diagram) => (
+								<DiagramPanel diagram={diagram} key={diagram.filename} />
+							))}
+							{aiRest.map((paragraph) => (
+								<p key={paragraph}>{paragraph}</p>
+							))}
 						</>
 					) : null}
 				</div>
@@ -80,7 +89,7 @@ function CaseStudyPage() {
 			id: `${caseStudy.slug}-outcomes`,
 			heading: "Outcomes",
 			content: (
-				<ul className="project-page__list project-page__outcomes-list">
+				<ul className="marker-list">
 					{caseStudy.outcomes.map((outcome) => (
 						<li key={outcome.statement}>
 							{outcome.statement}

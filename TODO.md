@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-28
-version: 1.70
+updatedAt: 2026-09-30
+version: 1.72
 status: active
 ---
 
@@ -726,6 +726,27 @@ Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-29-professional-co
 - [x] Preserve evidence-backed Alfred content and contribution boundaries, including the optional AI-assisted workflow subsection.
 - [x] Add fixture-driven coverage for the optional subsection and resolve the stale title-alignment note in `docs/plans/2026-09-28-libre-franklin.md`.
 - [x] Pass `pnpm validate`, `pnpm build`, and `pnpm test:e2e` (22 passed, 4 skipped with the current publish flags).
+- [x] Complete formal review (`PASS`) and close the task.
+
+### Add AI-workflow diagrams to the Alfred case study (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-30-alfred-ai-workflow-diagrams.md`. Two Diagram Panel diagrams (Simplified and Full routes) and corrected AI-assisted workflow copy, checked against the alfred-ios governance sources.
+
+- [x] Add the typed `aiWorkflowDiagrams` field, the `DiagramPanel` component and `diagram-panel.css`, with tests.
+- [x] Split `aiWorkflow` into paragraphs and render the diagrams after the first.
+- [x] Correct the Alfred workflow copy against `docs/governance` and `.agents/skills`; state Codex as the documentation basis and GSD as a later selective comparison.
+- [x] Fix the review findings (verification-script caption, "structured handoffs").
+- [x] Pass `pnpm validate` and `pnpm build`.
+- [x] Complete formal review (`PASS`) and close the task.
+
+### Align project-page lists and section labels with the Resume visual language (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-30-project-page-language-alignment.md` (Option B, amended to Option C for facet labels after rendered mockups). Governed by the `DECISIONS.md` entry "Align project-page lists and section labels with the Resume visual language — 2026-09-30".
+
+- [x] Add a shared `.marker-list` pattern (square marker, forced-colors fallback) and use it for Constraints, Decisions and Outcomes on Case Study and Experiment pages and for Resume contributions; remove `.project-page__list` and `.project-page__outcomes-list`.
+- [x] Restyle project-page section `h2`s as the Resume mono label (uppercase, tracked, accent-soft).
+- [x] Developer-directed amendment: add a shared `.facet-label` (medium sans, primary colour, no rules) for `h3` facet labels on Work (new "Key decisions" plus Product / UX, Engineering, AI-assisted workflow) and Resume (Technologies, Selected contributions).
+- [x] Update `DECISIONS.md`, `DESIGN.md` and the plan; pass `pnpm validate`, `pnpm build` and `pnpm test:e2e` (22 passed, 4 skipped).
 - [x] Complete formal review (`PASS`) and close the task.
 
 ---

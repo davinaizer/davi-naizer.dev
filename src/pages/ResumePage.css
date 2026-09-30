@@ -91,7 +91,7 @@
 }
 
 .experience__entry h2,
-.experience__entry h3 {
+.experience__entry-header h3 {
 	font-size: var(--font-size-heading-md);
 }
 
@@ -99,8 +99,7 @@
 	font-size: var(--font-size-body-lg);
 }
 
-.experience__chronology,
-.experience__detail h3 {
+.experience__chronology {
 	color: var(--color-accent-soft);
 	font-family: var(--font-family-mono);
 	font-size: var(--font-size-label);
@@ -128,41 +127,7 @@
 	margin-block-end: var(--space-2);
 }
 
-.experience__contributions {
-	list-style: none;
-	padding-inline-start: 0;
-}
-
-.experience__contributions > li {
-	--contribution-marker-size: calc(var(--size-timeline-dot) / 2);
-	position: relative;
-	padding-inline-start: var(--space-2);
-}
-
-.experience__contributions > li::before {
-	content: "";
-	position: absolute;
-	inset-block-start: calc(
-		var(--line-height-body) *
-		0.5em -
-		var(--contribution-marker-size) /
-		2
-	);
-	inset-inline-start: 0;
-	inline-size: var(--contribution-marker-size);
-	block-size: var(--contribution-marker-size);
-	background: var(--color-accent-border);
-}
-
-.experience__contributions > li + li {
-	margin-block-start: var(--space-2);
-}
-
 @media (forced-colors: active) {
-	.experience__contributions > li::before {
-		background: Highlight;
-	}
-
 	.experience__item:where(:first-child)::before {
 		border-color: Highlight;
 		background: Highlight;

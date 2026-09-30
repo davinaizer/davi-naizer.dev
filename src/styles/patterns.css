@@ -174,40 +174,69 @@
 	line-height: var(--line-height-label);
 }
 
+.project-page__section > h2 {
+	color: var(--color-accent-soft);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-label);
+	letter-spacing: var(--letter-spacing-label);
+	text-transform: uppercase;
+}
+
+.facet-label {
+	color: var(--color-text-primary);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: normal;
+	line-height: var(--line-height-label);
+}
+
 .project-page__section .section-label-heading {
 	margin-block-end: var(--space-2);
 }
 
-.project-page__list {
-	padding-inline-start: var(--space-3);
+.marker-list {
+	list-style: none;
+	padding-inline-start: 0;
 }
 
-.project-page__list li + li {
-	margin-block-start: var(--space-1);
+.marker-list > li {
+	--marker-size: calc(var(--size-timeline-dot) / 2);
+	position: relative;
+	padding-inline-start: var(--space-2);
+}
+
+.marker-list > li::before {
+	content: "";
+	position: absolute;
+	inset-block-start: calc(
+		var(--line-height-body) *
+		0.5em -
+		var(--marker-size) /
+		2
+	);
+	inset-inline-start: 0;
+	inline-size: var(--marker-size);
+	block-size: var(--marker-size);
+	background: var(--color-accent-border);
+}
+
+.marker-list > li + li {
+	margin-block-start: var(--space-2);
+}
+
+@media (forced-colors: active) {
+	.marker-list > li::before {
+		background: Highlight;
+	}
 }
 
 .project-page__decisions-detail > * + * {
 	margin-block-start: var(--space-4);
 }
 
-.project-page__decisions-detail h3 {
-	color: var(--color-accent-soft);
-	font-family: var(--font-family-mono);
-	font-size: var(--font-size-label);
-	font-weight: var(--font-weight-medium);
-	letter-spacing: var(--letter-spacing-label);
-	line-height: var(--line-height-label);
-	text-transform: uppercase;
-}
-
-.project-page__decisions-detail h3 + p {
+.project-page__decisions-detail .facet-label + * {
 	margin-block-start: var(--space-2);
-}
-
-.project-page__outcomes-list {
-	border-inline-start: var(--border-width-accent) solid var(--color-accent);
-	list-style: none;
-	padding-inline-start: var(--space-2);
 }
 
 .project-page__hero {

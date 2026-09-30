@@ -16,6 +16,22 @@ export type Hero = {
 	alt: string;
 };
 
+export type DiagramNode = {
+	label: string;
+	detail: string;
+};
+
+export type Diagram = {
+	/** Monospace filename shown in the panel title bar. */
+	filename: string;
+	/** Accessible name describing the whole sequence. */
+	title: string;
+	nodes: readonly DiagramNode[];
+	/** Index of the node drawn with the accent border. */
+	activeIndex?: number;
+	caption: string;
+};
+
 export type EvidenceReference =
 	| { kind: "project"; slug: string }
 	| { kind: "case-study"; slug: string };
@@ -56,7 +72,8 @@ export type CaseStudy = EvidenceBase & {
 	decisions: readonly string[];
 	productAndUx: string;
 	engineering: string;
-	aiWorkflow?: string;
+	aiWorkflow?: readonly string[];
+	aiWorkflowDiagrams?: readonly Diagram[];
 	outcomes: readonly Outcome[];
 	reflection: string;
 };

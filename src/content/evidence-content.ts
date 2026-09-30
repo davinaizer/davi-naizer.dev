@@ -60,14 +60,49 @@ const allCaseStudies: readonly CaseStudy[] = [
 			"Keep recommendation enrichment asynchronous at the client boundary so the app can capture intent while later results arrive through API and real-time updates. This requires explicit intermediate and refresh states.",
 			"Model recommendation readiness and commitment states explicitly so accepting, dismissing, scheduling, deferring, and refreshing are distinguishable actions rather than variations of passive browsing.",
 			"Replace early polling with SignalR/WebSocket updates for recommendation results, so the app learns when enrichment completes instead of asking repeatedly. The cost is connection handling: reconnects, retries, and duplicate deliveries.",
-			"Write down how agents may work in the repository: route each task before planning, separate planning, implementation, review, and handoff, and record durable state in docs rather than in chat history. This adds process overhead, so contained work uses a shorter three-stage flow.",
+			"Write down how agents may work in the repository: route each task before planning, separate planning, implementation, review, and handoff, and record durable state in docs rather than in chat history. This adds process overhead, so small contained changes take the Simplified route, which skips UX and architecture.",
 		],
 		productAndUx:
 			"The design took someone from onboarding and a few preferences to an idea, a recommendation, and a commitment. It gave one recommendation a clear rationale while keeping other options available. This was the product direction, not a finding from user validation.",
 		engineering:
 			"View models held the screen state; use cases and dependency injection kept business logic decoupled from presentation; repositories, DTO mapping, and API services handled data access. Idea capture checked for empty details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed generating, awaiting, ready, and error states. The first version polled for results; I replaced that with SignalR/WebSocket updates. The client reconnects automatically, retries after five seconds, and de-duplicates completion results. Authentication and deep links connected entry and return paths to application state. A person could accept or dismiss a recommendation, and scheduling one carried the idea and recommendation into event creation. Platform work included widgets, CarPlay, push notifications, location and maps, Sign in with Apple, and a Lock Screen widget where you speak an idea and Alfred suggests events. I owned the iOS app; my co-creator owned the API and enrichment services.",
-		aiWorkflow:
-			"Alongside the app I wrote a governance set for AI coding agents. AGENTS.md is a short entry point that links to invariants, architectural decisions, a file-ownership map, and agent rules. Every task is routed first as Simplified, Full, or Diagnostic, then moves through separate stages: plan, UX, architecture, implementation, review, and handoff. Nine repository skills cover those roles, and each has evaluation cases. A workflow packet passes state between stages, and scripts check the packet, status blocks, routing decisions, document timestamps, and the skills themselves. Implementation is not complete until verification passes through the repository's own script. I set the scope, the acceptance criteria, and the checks, and reviewed what the agents produced. I built this before I knew much about agent governance, and later found it resembled practices used at larger organisations; I did not copy it from a reference.",
+		aiWorkflow: [
+			"Much of Alfred's code was written with AI coding agents, so I built the rules they work under. Every task starts with a router that classifies it: Simplified for small contained changes, Full for user-facing or cross-cutting features, and Diagnostic when the cause of a problem is unclear. Small changes take the short path, and the longer routes are used only when a task's complexity or uncertainty calls for them. Each route runs through separate stages, and each stage has its own written instructions for the agent (a \"skill\"): plan, UX, architecture, implementation, review, and handoff. A stage that lacks the previous stage's output sends the task back to the router. Only the implementation stage changes code; the handoff stage only updates documentation.",
+			"Work is not finished until the repository's verification script passes, and a review checks the change against the project's architecture rules, for example that all navigation goes through a single router. If verification fails twice, the task goes back to the auditor or the router instead of getting another attempt. Progress is kept in repository documents rather than chat history, so a task can resume in a fresh session. A validation script checks each skill's structure, required guardrails, and evaluation coverage, and each skill has evaluation cases. I set the scope, acceptance criteria, and checks, and reviewed what the agents produced.",
+			"I designed the skills for Codex, working from its documentation on skills, instructions, and invocation. I later compared the result with GSD, an open-source agent workflow framework. Instead of adopting it wholesale, I read it against Alfred's architecture and kept phase sequencing, durable state, fresh-context handoffs, and bounded re-entry after failed verification. I rejected its large command set, auto-approval, and parallel implementation, because each would add a second authority over routing and verification and more process than small tasks need.",
+		],
+		aiWorkflowDiagrams: [
+			{
+				filename: "simplified-route.flow",
+				title: "Simplified route: five stages from routing to handoff",
+				nodes: [
+					{ label: "Route", detail: "Router classifies the task" },
+					{ label: "Plan", detail: "Scope and acceptance criteria" },
+					{ label: "Implement", detail: "Approved plan only" },
+					{ label: "Review", detail: "Architecture rules checked" },
+					{ label: "Handoff", detail: "Documentation updated" },
+				],
+				activeIndex: 0,
+				caption:
+					"Simplified route, used for small contained changes. The verification script runs at the end of Implement, and Review checks that it passed.",
+			},
+			{
+				filename: "full-route.flow",
+				title:
+					"Full route: six stages, adding UX and architecture before implementation",
+				nodes: [
+					{ label: "Route", detail: "Router classifies the task" },
+					{ label: "UX", detail: "User flow and states" },
+					{ label: "Architecture", detail: "Boundaries and sequencing" },
+					{ label: "Implement", detail: "Approved plan only" },
+					{ label: "Review", detail: "Architecture rules checked" },
+					{ label: "Handoff", detail: "Documentation updated" },
+				],
+				activeIndex: 0,
+				caption:
+					"Full route, used for user-facing or cross-cutting work. A Diagnostic route adds an auditor stage that classifies an unclear problem before any plan.",
+			},
+		],
 		outcomes: [
 			{
 				statement:
@@ -79,9 +114,9 @@ const allCaseStudies: readonly CaseStudy[] = [
 			},
 			{
 				statement:
-					"I set up an agent workflow with routing rules, role-specific skills, handoff packets, and validation scripts. It kept AI-assisted changes inside the architecture and checked them before review.",
+					"I set up an agent workflow with routing rules, role-specific skills, structured handoffs, and a validation script. It kept AI-assisted changes inside the architecture and checked them before review.",
 				detail:
-					"The evidence is the repository itself: the governance documents, the skills and their evaluation cases, and the validation scripts. I have no measurement of defects avoided or time saved.",
+					"The evidence is the repository itself: the governance documents, the skills and their evaluation cases, and the validation script. I have no measurement of defects avoided or time saved.",
 			},
 		],
 		reflection:

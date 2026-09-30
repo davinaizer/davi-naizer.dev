@@ -4,6 +4,7 @@
 @import "./styles/tokens.css" layer(tokens);
 @import "./styles/global.css" layer(base);
 @import "./styles/patterns.css" layer(components);
+@import "./styles/diagram-panel.css" layer(components);
 @import "./styles/shell.css" layer(layout);
 @import "./pages/HomePage.css" layer(pages);
 @import "./pages/WorkPage.css" layer(pages);

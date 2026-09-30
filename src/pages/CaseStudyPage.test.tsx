@@ -65,6 +65,12 @@ describe("CaseStudyPage", () => {
 		expect(
 			within(decisionsSection).getByRole("heading", {
 				level: 3,
+				name: "Key decisions",
+			}),
+		).toBeInTheDocument();
+		expect(
+			within(decisionsSection).getByRole("heading", {
+				level: 3,
 				name: "Product / UX",
 			}),
 		).toBeInTheDocument();
@@ -80,15 +86,24 @@ describe("CaseStudyPage", () => {
 		expect(
 			within(decisionsSection).getByText(first.engineering),
 		).toBeInTheDocument();
-		if (first.aiWorkflow) {
+		expect(
+			within(decisionsSection).getByRole("heading", {
+				level: 3,
+				name: "AI-assisted workflow",
+			}),
+		).toBeInTheDocument();
+		for (const paragraph of first.aiWorkflow ?? []) {
+			expect(within(decisionsSection).getByText(paragraph)).toBeInTheDocument();
+		}
+		for (const diagram of first.aiWorkflowDiagrams ?? []) {
+			const flow = within(decisionsSection).getByRole("list", {
+				name: diagram.title,
+			});
+			expect(within(flow).getAllByRole("listitem")).toHaveLength(
+				diagram.nodes.length,
+			);
 			expect(
-				within(decisionsSection).getByRole("heading", {
-					level: 3,
-					name: "AI-assisted workflow",
-				}),
-			).toBeInTheDocument();
-			expect(
-				within(decisionsSection).getByText(first.aiWorkflow),
+				within(decisionsSection).getByText(diagram.caption),
 			).toBeInTheDocument();
 		}
 

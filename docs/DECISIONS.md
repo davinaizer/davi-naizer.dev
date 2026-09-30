@@ -1,12 +1,32 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-28
-version: 1.38
+updatedAt: 2026-09-30
+version: 1.40
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Align project-page lists and section labels with the Resume visual language — 2026-09-30
+
+**Decision:** Project-page section titles (`h2` inside `.project-page__section`) take the Resume label style: IBM Plex Mono, uppercase, tracked, `--color-accent-soft`. Facet labels (`h3`) on both page types take one shared `.facet-label` style: Libre Franklin, medium, `--font-size-body`, `--color-text-primary`, no rules. On project pages they are Key decisions (a new label above the bullets), Product / UX, Engineering and AI-assisted workflow; on Resume, Technologies and Selected contributions, which move from mono accent to this style. Mono uppercase marks a section, sans marks a facet within it. Developer chose this (Option C, no hairlines) over hanging labels, serif titles and ruled variants after reviewing rendered mockups; adding the "Key decisions" `h3` was judged enough to make the hierarchy clear. Lists that were disc bullets (Constraints, Decisions) or a continuous accent bar (Outcomes) on Case Study and Experiment pages, and the Resume contributions list, share one `.marker-list` pattern in `src/styles/patterns.css`: a small square marker per item, spacing `--space-2`, and a `Highlight` fallback in forced-colors mode. This extends the shared patterns layer beyond the original four (see "Add a small shared CSS pattern layer for stable core route reuse", 2026-08-24) and moves the marker rules out of `ResumePage.css`. `.project-page__list` and `.project-page__outcomes-list` are removed.
+
+**Rationale:** The site read as two visual languages: Resume used square markers and mono labels, project pages used disc bullets, an accent bar and grey sans titles. The 2026-09-28 contributions-markers plan set the review trigger "revisit if the Outcomes bar also reads heavy on case-study pages"; the developer's request met it. Option B, chosen by the developer, gives both page types one label and marker language. The facet-label amendment (same day) replaced Option B's grey sans `h3`, which read as a caption dimmer than body text and was inconsistent with Resume's own `h3` labels.
+
+**Consequence:** Supersedes the project-page section-heading part of "Reserve all-caps mono for supplementary labels…" (2026-09-27) and the matching Mono Labels line in `docs/design/DESIGN.md`. Navigation, buttons, the back link and continuation links remain sentence-case sans. "Continue exploring" and the Work index headings keep `.section-label-heading` (grey sans); aligning them was outside the approved scope. The sidebar section nav stays sentence case while headings display uppercase via `text-transform` only; DOM text and accessible names are unchanged. Plan: `docs/plans/2026-09-30-project-page-language-alignment.md`.
+
+**Review triggers:** Reconsider if the sentence-case nav beside uppercase headings reads as inconsistent, if the primary-colour sans facet labels read as too weak beside the mono `h2`s, or if long facets (Engineering) still need structure beyond a label, or if the unaligned "Continue exploring" and Work headings look out of place.
+
+## Show AI-workflow diagrams in case studies with a Diagram Panel — 2026-09-30
+
+**Decision:** Case studies can carry `aiWorkflowDiagrams`, rendered by a `DiagramPanel` component inside the "AI-assisted workflow" subsection. The panel is a bordered `<figure>` with a monospace filename bar, an ordered list of nodes, and a caption. No fill, radius, shadow, gradient or motion. The active node is marked by border width (`--border-width-accent`) with the accent colour as reinforcement; inactive nodes use `--color-border-strong`. Below the container width of 52rem the nodes stack vertically instead of scrolling. Its styles live in `src/styles/diagram-panel.css`. `aiWorkflow` becomes a list of paragraphs so a diagram can sit after the first.
+
+**Rationale:** The Alfred case study needs to show the routing and stage logic behind its agent workflow, which prose alone conveys poorly. A small custom component keeps the site free of a charting or diagram dependency, and ordered-list semantics keep the sequence readable to assistive technology. Inactive nodes use the stronger border token because `--color-border-subtle` is too low-contrast against the background for non-text graphics.
+
+**Consequence:** Two diagrams (simplified and full route) ship with the Alfred case study. The connector lines are decorative CSS. The panel expresses a linear sequence only; loops and branches (the Diagnostic route, the two-failed-verifications re-entry rule) stay in the copy.
+
+**Review triggers:** Reconsider if a diagram needs branches or back-edges, if a third diagram type is added, or if the vertical stack reads poorly on narrow screens.
 
 ## Publish Case Studies and Experiments through a required `published` flag — 2026-09-28
 
@@ -93,6 +113,8 @@ order: ASC
 **Review triggers:** Reconsider if analytics or direct evidence shows meaningful traffic from a pre-2023 browser, or if a future CSS feature under consideration has a similarly-scoped support gap that a blanket "evergreen only" policy doesn't cleanly resolve.
 
 ## Reserve all-caps mono for supplementary labels; move navigation, buttons and section headings to sentence-case Inter — 2026-09-27
+
+**Status:** Partly superseded 2026-09-30: project-page section headings return to mono uppercase (see "Align project-page lists and section labels with the Resume visual language"). The rest stands.
 
 **Decision:** IBM Plex Mono, uppercase and tracked, is used only for supplementary metadata: eyebrows, the chronology line, tags, and card area labels. Primary navigation, buttons, the project-page back link, continuation links, and project-page section headings (Context, Problem, Role…) are essential UI text and move to Inter, sentence case. `docs/design/DESIGN.md`'s Mono Labels rule is updated to state this split.
 

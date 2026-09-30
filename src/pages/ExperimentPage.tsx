@@ -71,7 +71,7 @@ function ExperimentPage() {
 			id: `${project.slug}-decisions`,
 			heading: "Design and engineering decisions",
 			content: (
-				<ul className="project-page__list">
+				<ul className="marker-list">
 					{project.decisions.map((decision) => (
 						<li key={decision}>{decision}</li>
 					))}
@@ -98,7 +98,7 @@ function ExperimentPage() {
 			id: `${project.slug}-outcomes`,
 			heading: "What I observed",
 			content: (
-				<ul className="project-page__list project-page__outcomes-list">
+				<ul className="marker-list">
 					{project.outcomes.map((outcome) => (
 						<li key={outcome.statement}>
 							{outcome.statement}

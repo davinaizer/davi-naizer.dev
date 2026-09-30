@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-10
-updatedAt: 2026-09-29
-version: 1.93
+updatedAt: 2026-09-30
+version: 1.95
 status: active
 ---
 
@@ -9,7 +9,7 @@ status: active
 
 ## Completed outcome
 
-**The professional-content refresh is complete and reviewed with `PASS`.** Public positioning, document metadata, social-preview role text, and the resume artifact now use `Senior Frontend Engineer`, aligned with `/Users/naizer/Workspace/resume-builder/source/canon-resume`. Alfred's case study includes evidence-backed engineering and AI-assisted workflow detail with preserved contribution boundaries. The optional case-study subsection is typed, rendered conditionally, and covered by fixture-driven tests.
+**The project-page language alignment task is complete and reviewed with `PASS`.** Case Study, Experiment and Resume pages share one `.marker-list` square-marker pattern and one `.facet-label` for `h3` facet labels; project-page section `h2`s use the Resume mono label style. Case-study Decisions gain a "Key decisions" `h3`.
 
 ## Next task candidate
 
@@ -22,12 +22,11 @@ None. `TODO.md` has no incomplete task. The developer should bring a new objecti
 
 ## Evidence pointers
 
-- `TODO.md` ("Verify and close the professional-content refresh (developer-directed) — Complete")
-- `docs/plans/2026-09-29-professional-content-refresh.md`, `docs/plans/2026-09-28-libre-franklin.md`
-- `index.html`, `src/content/professional-content.ts`, `src/content/evidence-content.ts`, `src/types/evidence.ts`
-- `src/pages/CaseStudyPage.tsx`, `src/pages/CaseStudyPage.test.tsx`, `src/test/evidence-fixtures.ts`
-- `public/davi-naizer-resume.pdf`, `public/social-preview.png`
-- Supporting Alfred evidence: `/Users/naizer/Workspace/_chaotic-focus/alfred-ios`
+- `TODO.md` ("Align project-page lists and section labels with the Resume visual language (developer-directed) — Complete")
+- `docs/plans/2026-09-30-project-page-language-alignment.md` (includes the Option C amendment); decision in `docs/DECISIONS.md` (2026-09-30)
+- `src/styles/patterns.css` (`.marker-list`, `.facet-label`, `.project-page__section > h2`), `src/pages/ResumePage.css`
+- `src/pages/CaseStudyPage.tsx`, `src/pages/ExperimentPage.tsx`, `src/components/ExperienceTimeline.tsx`
+- Earlier same-day task: `docs/plans/2026-09-30-alfred-ai-workflow-diagrams.md`
 
 ## Blockers
 
@@ -35,7 +34,8 @@ None.
 
 ## Constraints and deferred work
 
-- The website summary remains a manually curated public projection; it is aligned with, but not required to duplicate verbatim, the canonical resume summary.
+- **Uncommitted work:** the Alfred AI-workflow diagrams task and this task are both uncommitted and share `CaseStudyPage.tsx`, `CaseStudyPage.test.tsx`, `DECISIONS.md`, `TODO.md` and `HANDOFF.md`. Commit them together or split them deliberately.
+- Future candidates: split the Alfred Engineering copy into short scannable lines and surface the ownership sentence (needs the developer's approval of copy); decide whether "Continue exploring" and the Work index headings should adopt the mono `h2` or `.facet-label` styles; forced-colors and the exact 56rem/40rem breakpoints were not emulated at review.
+- A SwiftLens entry was assessed as not worth adding yet. Revisit only if the developer brings new evidence.
 - Only Alfred and UV Insect Trap are currently published; four e2e journeys skip until enough projects are published for those scenarios.
-- `public/davi-naizer-resume.pdf` is generated from the external resume-builder source, and `public/social-preview.png` is built in Figma; their source files remain outside this repository.
-- The current publish-flag, sitemap, gallery-heading, font-smoothing, and responsive review triggers remain documented in `docs/DECISIONS.md` and the relevant plans.
+- `public/davi-naizer-resume.pdf` and `public/social-preview.png` sources remain outside this repository.

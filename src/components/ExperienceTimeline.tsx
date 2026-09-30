@@ -52,7 +52,7 @@ export function ExperienceTimeline({
 
 							{entry.technologies?.length ? (
 								<section className="experience__detail">
-									<h3>Technologies</h3>
+									<h3 className="facet-label">Technologies</h3>
 									<ul className="tag-list">
 										{entry.technologies.map((technology) => (
 											<li key={technology}>{technology}</li>
@@ -63,8 +63,8 @@ export function ExperienceTimeline({
 
 							{entry.contributions?.length ? (
 								<section className="experience__detail">
-									<h3>Selected contributions</h3>
-									<ul className="experience__contributions">
+									<h3 className="facet-label">Selected contributions</h3>
+									<ul className="marker-list">
 										{entry.contributions.map((contribution) => (
 											<li key={contribution}>{contribution}</li>
 										))}

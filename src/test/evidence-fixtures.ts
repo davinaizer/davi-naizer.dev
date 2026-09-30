@@ -27,7 +27,22 @@ export const fixtureCaseStudies: readonly CaseStudy[] = [
 		decisions: ["Decision one."],
 		productAndUx: "Product and UX one.",
 		engineering: "Engineering one.",
-		aiWorkflow: "AI-assisted workflow fixture.",
+		aiWorkflow: [
+			"AI-assisted workflow fixture.",
+			"AI-assisted workflow second paragraph fixture.",
+		],
+		aiWorkflowDiagrams: [
+			{
+				filename: "fixture-route.flow",
+				title: "Fixture route: two stages",
+				nodes: [
+					{ label: "First", detail: "First detail" },
+					{ label: "Second", detail: "Second detail" },
+				],
+				activeIndex: 0,
+				caption: "Fixture diagram caption.",
+			},
+		],
 		outcomes,
 		reflection: "Reflection one.",
 		technologies: ["Fixture Tech A", "Fixture Tech B"],

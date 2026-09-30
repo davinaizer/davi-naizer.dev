@@ -103,8 +103,10 @@ Typography is the core of this design system. Three families, each with one role
 - **Scale:** Use dramatic scale shifts (e.g., the display headline vs. body) to create hierarchy rather than color.
 - **Alignment:** Stick to a rigorous left-aligned "ragged right" rag. Avoid justified text.
 - **Spacing:** Headlines have tight line-heights (0.95–1.3) to feel like architectural blocks, while body text uses generous leading (1.6) for readability. Body measure is capped at 65ch.
-- **Headings:** `h1` is the 48px serif page title (the home hero is larger). `h2` is the 24px serif title for a section or entry. Small mono labels are a separate style class and are not a heading level.
-- **Mono Labels:** Use IBM Plex Mono, uppercase and tracked, only for categories, dates, eyebrows and tags: supplementary metadata, never the only carrier of essential information. Primary navigation, buttons, the project-page back link, continuation links, and section headings (Context, Problem, Role…) are essential UI text, not supplementary labels, and are set in Libre Franklin, sentence case, not all-caps mono.
+- **Headings:** `h1` is the 48px serif page title (the home hero is larger). `h2` is the 24px serif title for a section or entry, except project-page section titles, which are `h2`s styled as mono labels (see Mono Labels). Other small mono labels are a separate style class and are not a heading level.
+- **Mono Labels:** Use IBM Plex Mono, uppercase and tracked, for categories, dates, eyebrows, tags and project-page section titles (Context, Problem, Role…), matching the Resume labels; the sidebar section nav still lists the same names in sentence case, so the title's text is never the only carrier of essential information. Primary navigation, buttons, the project-page back link and continuation links are essential UI text, set in Libre Franklin, sentence case, not all-caps mono.
+- **Facet labels:** the `h3` labels inside a section (Key decisions, Product / UX, Engineering; Resume's Technologies and Selected contributions) share one `.facet-label` style: Libre Franklin medium, body size, primary text colour, no rules or caps.
+- **Markers:** Lists of constraints, decisions, outcomes and contributions use the shared `.marker-list` pattern: one small square per item, no disc bullets and no continuous bar.
 - **Eyebrows:** Show an eyebrow above a heading only when it adds information the heading does not (for example the project type or the career period).
 
 ## Layout & Spacing
