@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-30
-version: 1.72
+version: 1.73
 status: active
 ---
 
@@ -747,6 +747,16 @@ Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-30-project-page-la
 - [x] Restyle project-page section `h2`s as the Resume mono label (uppercase, tracked, accent-soft).
 - [x] Developer-directed amendment: add a shared `.facet-label` (medium sans, primary colour, no rules) for `h3` facet labels on Work (new "Key decisions" plus Product / UX, Engineering, AI-assisted workflow) and Resume (Technologies, Selected contributions).
 - [x] Update `DECISIONS.md`, `DESIGN.md` and the plan; pass `pnpm validate`, `pnpm build` and `pnpm test:e2e` (22 passed, 4 skipped).
+- [x] Complete formal review (`PASS`) and close the task.
+
+### Replace the Alfred flat diagrams with a routing graph (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-30-alfred-routing-graph.md` (with the lightbox amendment). Governed by the `DECISIONS.md` entry "Show the Alfred AI-workflow as a routing graph image with a text version — 2026-09-30", which supersedes the Diagram Panel entry.
+
+- [x] Add the routing-graph SVG and a typed optional `aiWorkflowGraph` (image, alt, caption, steps) rendered by a `RoutingGraph` component after the first AI-assisted workflow paragraph, with a visible text version; below a 52rem container the image is hidden.
+- [x] Developer-directed amendment: open the graph in the lightbox like the gallery images; extract a shared `ImageLightbox` from `ProjectGallery`; use a `zoom-in` cursor on all lightbox triggers and the work-card hover border on the graph.
+- [x] Remove `DiagramPanel`, `diagram-panel.css`, `aiWorkflowDiagrams` and the two flat diagrams.
+- [x] Pass typecheck, scoped `biome check`, `pnpm test` (59), `pnpm build` and `pnpm test:e2e` (22 passed, 4 skipped).
 - [x] Complete formal review (`PASS`) and close the task.
 
 ---

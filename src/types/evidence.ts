@@ -16,20 +16,17 @@ export type Hero = {
 	alt: string;
 };
 
-export type DiagramNode = {
-	label: string;
-	detail: string;
-};
-
-export type Diagram = {
-	/** Monospace filename shown in the panel title bar. */
-	filename: string;
-	/** Accessible name describing the whole sequence. */
+export type WorkflowGraph = {
+	src: string;
+	/** Lightbox title. */
 	title: string;
-	nodes: readonly DiagramNode[];
-	/** Index of the node drawn with the accent border. */
-	activeIndex?: number;
+	/** Summarises every branch and exit, since the text is baked into the image. */
+	alt: string;
+	width: number;
+	height: number;
 	caption: string;
+	/** Visible text version of the graph, one entry per step. */
+	steps: readonly string[];
 };
 
 export type EvidenceReference =
@@ -73,7 +70,7 @@ export type CaseStudy = EvidenceBase & {
 	productAndUx: string;
 	engineering: string;
 	aiWorkflow?: readonly string[];
-	aiWorkflowDiagrams?: readonly Diagram[];
+	aiWorkflowGraph?: WorkflowGraph;
 	outcomes: readonly Outcome[];
 	reflection: string;
 };

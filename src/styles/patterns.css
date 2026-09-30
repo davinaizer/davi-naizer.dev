@@ -239,6 +239,47 @@
 	margin-block-start: var(--space-2);
 }
 
+.routing-graph {
+	container-type: inline-size;
+}
+
+.routing-graph__figure {
+	border: var(--border-width-default) solid var(--color-border-subtle);
+}
+
+.routing-graph__figure:hover,
+.routing-graph__figure:focus-within {
+	border-color: var(--color-accent-border);
+}
+
+.routing-graph__figure img {
+	display: block;
+	block-size: auto;
+	inline-size: 100%;
+}
+
+.routing-graph__figure figcaption {
+	border-block-start: var(--border-width-default) solid
+		var(--color-border-subtle);
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-caption);
+	padding: var(--space-1) var(--space-2);
+}
+
+.routing-graph__steps {
+	margin-block-start: var(--space-3);
+}
+
+@container (max-width: 52rem) {
+	.routing-graph__figure {
+		display: none;
+	}
+
+	.routing-graph__steps {
+		margin-block-start: 0;
+	}
+}
+
 .project-page__hero {
 	aspect-ratio: 16 / 9;
 	display: block;
@@ -289,7 +330,7 @@
 .project-page__visual-trigger {
 	background: transparent;
 	border: 0;
-	cursor: pointer;
+	cursor: zoom-in;
 	display: block;
 	inline-size: 100%;
 	padding: 0;
@@ -351,6 +392,10 @@
 	padding: 0;
 }
 
+.project-page__lightbox--wide {
+	max-inline-size: 92vw;
+}
+
 .project-page__lightbox::backdrop {
 	background: var(--color-backdrop);
 }
@@ -376,6 +421,16 @@
 	position: absolute;
 	inset-block-start: var(--space-2);
 	inset-inline-end: var(--space-2);
+	cursor: pointer;
+	padding: var(--space-1) var(--space-2);
+}
+
+/* The primary hover state is transparent, which would lose contrast over the image, so stay filled. */
+.project-page__lightbox-close.button--primary:hover,
+.project-page__lightbox-close.button--primary:focus-visible {
+	border-color: var(--color-accent-soft);
+	background: var(--color-accent-soft);
+	color: var(--color-background);
 }
 
 .project-page__lightbox-inner figcaption {
@@ -421,16 +476,6 @@
 
 	.section-nav__link {
 		border-inline-start: 0;
-	cursor: pointer;
-	padding: var(--space-1) var(--space-2);
-}
-
-/* The primary hover state is transparent, which would lose contrast over the image, so stay filled. */
-.project-page__lightbox-close.button--primary:hover,
-.project-page__lightbox-close.button--primary:focus-visible {
-	border-color: var(--color-accent-soft);
-	background: var(--color-accent-soft);
-	color: var(--color-background);
 		padding-block: 0;
 		padding-inline-start: 0;
 	}

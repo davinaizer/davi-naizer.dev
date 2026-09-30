@@ -42,7 +42,7 @@ const allCaseStudies: readonly CaseStudy[] = [
 			},
 		],
 		context:
-			"Alfred: What To Do Next is a native iOS product built around a decision-first loop: Idea -> Recommendation -> Decision -> Event/commitment. It is an independent venture, Chaotic Focus, that I run with another engineer, and it spans a C#/.NET backend with an asynchronous LLM enrichment pipeline, the iOS app, and a React/TypeScript web client. The app is in private TestFlight validation ahead of a first public release. The iOS work covered onboarding, idea capture, recommendations, planning, and platform features such as widgets and CarPlay.",
+			"Alfred is an iOS app for helping people turn an idea into something they can actually do. I built the app with another engineer through our independent venture, Chaotic Focus. I owned the iOS work, while he built the C#/.NET backend, enrichment pipeline, and React/TypeScript web client. The app is currently being tested privately through TestFlight.",
 		problem:
 			"The product was designed to help move an idea or intention toward a concrete next action. A browsing-first experience would leave the decision unresolved, so the core problem was to make recommendation, choice, and commitment understandable as one flow.",
 		role: "I built the native iOS application and the engineering workflow used to develop it. I shared product direction, architecture, and integration decisions with my co-creator, and I handled project management: planning in Notion and Trello, meeting notes, and weekly one-to-ones. My co-creator built the backend, the enrichment pipeline, and the web client.",
@@ -54,55 +54,41 @@ const allCaseStudies: readonly CaseStudy[] = [
 			"Much of the code was written with AI assistance, so the risk was drift from the architecture. I needed rules, checks, and review that did not rely on remembering the conventions.",
 		],
 		decisions: [
-			"Make the product decision-first: connect Idea -> Recommendation -> Decision -> Event/commitment instead of treating recommendations as passive browsing. This narrows exploration in exchange for a clearer next action.",
-			"Use onboarding to reach first value through value framing, lightweight preference and context capture, a first recommendation, and a commitment path. The trade-off is collecting less information up front.",
-			"Use layered mobile architecture with feature presentation, domain services, repository protocols, DTO mapping, infrastructure adapters, and routing. The additional boundaries support isolation and testing at the cost of more types and files.",
-			"Keep recommendation enrichment asynchronous at the client boundary so the app can capture intent while later results arrive through API and real-time updates. This requires explicit intermediate and refresh states.",
-			"Model recommendation readiness and commitment states explicitly so accepting, dismissing, scheduling, deferring, and refreshing are distinguishable actions rather than variations of passive browsing.",
-			"Replace early polling with SignalR/WebSocket updates for recommendation results, so the app learns when enrichment completes instead of asking repeatedly. The cost is connection handling: reconnects, retries, and duplicate deliveries.",
-			"Write down how agents may work in the repository: route each task before planning, separate planning, implementation, review, and handoff, and record durable state in docs rather than in chat history. This adds process overhead, so small contained changes take the Simplified route, which skips UX and architecture.",
+			"I connected ideas, recommendations, decisions, and scheduled events instead of treating recommendations as something to browse. This narrowed the exploration but gave each idea a clearer next step.",
+			"I kept onboarding lightweight: explain the value, capture a small amount of context, show a first recommendation, and offer a way to commit to it. The trade-off was having less information up front.",
+			"I separated screen state, domain logic, data mapping, infrastructure, and routing. It created more types and files, but made features easier to isolate and test.",
+			"Recommendation generation could take time, so I let someone capture an idea while the result arrived later through the API and real-time updates. That meant the app also needed clear waiting, completion, and refresh states.",
+			"I kept accepting, dismissing, scheduling, deferring, and refreshing as distinct actions. This made it clearer where someone was in the process, although it added more state for the app to manage.",
+			"I replaced the first polling implementation with SignalR/WebSocket updates, so the app learns when a recommendation is ready instead of asking repeatedly. The trade-off was handling reconnects, retries, and duplicate deliveries.",
+			"I wrote down how coding agents may work in the repository: route the task first, separate planning from implementation and review, and keep durable state in the project docs. The process adds overhead, so small, contained changes take a shorter route that skips UX and architecture work.",
 		],
 		productAndUx:
 			"The design took someone from onboarding and a few preferences to an idea, a recommendation, and a commitment. It gave one recommendation a clear rationale while keeping other options available. This was the product direction, not a finding from user validation.",
 		engineering:
-			"View models held the screen state; use cases and dependency injection kept business logic decoupled from presentation; repositories, DTO mapping, and API services handled data access. Idea capture checked for empty details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed generating, awaiting, ready, and error states. The first version polled for results; I replaced that with SignalR/WebSocket updates. The client reconnects automatically, retries after five seconds, and de-duplicates completion results. Authentication and deep links connected entry and return paths to application state. A person could accept or dismiss a recommendation, and scheduling one carried the idea and recommendation into event creation. Platform work included widgets, CarPlay, push notifications, location and maps, Sign in with Apple, and a Lock Screen widget where you speak an idea and Alfred suggests events. I owned the iOS app; my co-creator owned the API and enrichment services.",
+			"I kept screen state in view models and moved business rules into use cases, with repositories and API services handling data access. Idea capture checked for missing details and possible duplicates before submitting. Recommendation generation could take time, so the feed showed waiting, ready, and error states. I replaced the first polling implementation with SignalR/WebSocket updates, including automatic reconnection, a five-second retry, and duplicate-result handling. Accepting or dismissing a recommendation updated the idea, while scheduling carried it into event creation. I also worked on authentication, deep links, widgets, CarPlay, notifications, maps, and a Lock Screen widget for speaking an idea. I owned the iOS app; my co-creator owned the API and enrichment services.",
 		aiWorkflow: [
-			"Much of Alfred's code was written with AI coding agents, so I built the rules they work under. Every task starts with a router that classifies it: Simplified for small contained changes, Full for user-facing or cross-cutting features, and Diagnostic when the cause of a problem is unclear. Small changes take the short path, and the longer routes are used only when a task's complexity or uncertainty calls for them. Each route runs through separate stages, and each stage has its own written instructions for the agent (a \"skill\"): plan, UX, architecture, implementation, review, and handoff. A stage that lacks the previous stage's output sends the task back to the router. Only the implementation stage changes code; the handoff stage only updates documentation.",
-			"Work is not finished until the repository's verification script passes, and a review checks the change against the project's architecture rules, for example that all navigation goes through a single router. If verification fails twice, the task goes back to the auditor or the router instead of getting another attempt. Progress is kept in repository documents rather than chat history, so a task can resume in a fresh session. A validation script checks each skill's structure, required guardrails, and evaluation coverage, and each skill has evaluation cases. I set the scope, acceptance criteria, and checks, and reviewed what the agents produced.",
-			"I designed the skills for Codex, working from its documentation on skills, instructions, and invocation. I later compared the result with GSD, an open-source agent workflow framework. Instead of adopting it wholesale, I read it against Alfred's architecture and kept phase sequencing, durable state, fresh-context handoffs, and bounded re-entry after failed verification. I rejected its large command set, auto-approval, and parallel implementation, because each would add a second authority over routing and verification and more process than small tasks need.",
+			"Much of Alfred's code was written with AI coding agents, so I wrote down the rules they work under. A router sends small changes through a short path, user-facing or cross-cutting work through a fuller UX and architecture path, and unclear problems through diagnosis first. Planning, implementation, review, and handoff stay separate, and only implementation may change code.",
+			"A change is not finished until the repository's verification script passes and a review checks it against the architecture rules. If verification fails twice, the task returns to diagnosis or routing instead of getting another attempt. Progress stays in project documents rather than chat history, so the work can resume in a fresh session. I set the scope, acceptance criteria, and checks, then reviewed what the agents produced.",
+			"I designed these Codex skills from its documentation, then compared the result with the open-source GSD workflow. I kept its useful ideas around phases, durable state, fresh-context handoffs, and returning to an earlier stage after failed verification. I left out its larger command set, auto-approval, and parallel implementation because they would add more process and a second authority over routing and verification.",
 		],
-		aiWorkflowDiagrams: [
-			{
-				filename: "simplified-route.flow",
-				title: "Simplified route: five stages from routing to handoff",
-				nodes: [
-					{ label: "Route", detail: "Router classifies the task" },
-					{ label: "Plan", detail: "Scope and acceptance criteria" },
-					{ label: "Implement", detail: "Approved plan only" },
-					{ label: "Review", detail: "Architecture rules checked" },
-					{ label: "Handoff", detail: "Documentation updated" },
-				],
-				activeIndex: 0,
-				caption:
-					"Simplified route, used for small contained changes. The verification script runs at the end of Implement, and Review checks that it passed.",
-			},
-			{
-				filename: "full-route.flow",
-				title:
-					"Full route: six stages, adding UX and architecture before implementation",
-				nodes: [
-					{ label: "Route", detail: "Router classifies the task" },
-					{ label: "UX", detail: "User flow and states" },
-					{ label: "Architecture", detail: "Boundaries and sequencing" },
-					{ label: "Implement", detail: "Approved plan only" },
-					{ label: "Review", detail: "Architecture rules checked" },
-					{ label: "Handoff", detail: "Documentation updated" },
-				],
-				activeIndex: 0,
-				caption:
-					"Full route, used for user-facing or cross-cutting work. A Diagnostic route adds an auditor stage that classifies an unclear problem before any plan.",
-			},
-		],
+		aiWorkflowGraph: {
+			src: "/images/alfred/alfred-routing-graph.svg",
+			title: "Alfred agent workflow routing",
+			alt: "Routing graph of the Alfred agent workflow. A prompt-only request goes to prompt-validator, which never executes it. Every other request goes to workflow-selector, which routes in priority order: a Diagnostic trigger goes to system-auditor, visible behaviour, flow or state goes to ux-ui-designer and then architect, and small, contained, low-risk work (the default) goes to plan-packet. The auditor can send work to developer for a contained fix, to plan-packet, to architect for a structural redesign, or end with a report-only audit. Approved work reaches developer, which runs the verification script, then code-reviewer, then session-handoff. The reviewer returns changes by flaw type, and a developer scope flaw returns to plan-packet or architect. A second failed verification goes to system-auditor if scope is unchanged, or to workflow-selector if it changed. The same routing follows as a list.",
+			width: 1770,
+			height: 790,
+			caption:
+				"Routing in the Alfred agent workflow. Arrows show the normal flow and dashed lines show re-entry. Diagnostic wins when any trigger is present.",
+			steps: [
+				"A prompt-only request goes to prompt-validator, which tightens the prompt and asks questions and never executes it. Every other request goes to workflow-selector.",
+				"workflow-selector routes in priority order: a Diagnostic trigger (for example flaky behaviour, a regression, concurrency, or an unclear fault boundary) goes to system-auditor; visible behaviour, flow, or state goes to ux-ui-designer and then architect; small, contained, low-risk work, the default, goes to plan-packet.",
+				"system-auditor classifies the problem and edits nothing. It sends a contained fix to developer, work that needs a packet to plan-packet, a structural redesign to architect, or ends with a report-only audit.",
+				"plan-packet fixes scope, acceptance criteria, and verification. Once approved, developer implements the packet and runs the verification script.",
+				"code-reviewer checks the invariants and that verification ran. On approval, session-handoff updates the documentation and ends the task.",
+				"When the reviewer requests changes, the work returns by flaw type: implementation to developer, planning to plan-packet, architecture to architect, a routing mistake to system-auditor, missing context to workflow-selector. A scope flaw found by developer returns to plan-packet or architect.",
+				"If verification fails twice, the task goes to system-auditor when scope is unchanged, or to workflow-selector when scope changed.",
+			],
+		},
 		outcomes: [
 			{
 				statement:
@@ -114,7 +100,7 @@ const allCaseStudies: readonly CaseStudy[] = [
 			},
 			{
 				statement:
-					"I set up an agent workflow with routing rules, role-specific skills, structured handoffs, and a validation script. It kept AI-assisted changes inside the architecture and checked them before review.",
+					"I set up an agent workflow that checked AI-assisted changes against the repository's architecture and verification rules before review.",
 				detail:
 					"The evidence is the repository itself: the governance documents, the skills and their evaluation cases, and the validation script. I have no measurement of defects avoided or time saved.",
 			},
@@ -374,7 +360,7 @@ const allProjects: readonly Project[] = [
 			"I tried a funnel, but it restricted airflow; widening the vanes did not help, so I removed it.",
 		],
 		solution:
-			"I designed the enclosure in Onshape and printed it in PLA on a Bambu Lab A1, with a larger fan, internal filter, screw mounts, snap and torsional snap joints, and internal cable routing.",
+			"I modelled the enclosure in Onshape and printed it in PLA. The larger fan improved airflow, while the internal filter, cable route, screw mounts, and snap joints made the prototype easier to assemble and use.",
 		outcomes: [
 			{
 				statement: "Household use suggested the trap was catching mosquitoes.",

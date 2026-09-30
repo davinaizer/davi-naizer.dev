@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
 updatedAt: 2026-09-30
-version: 1.40
+version: 1.41
 status: active
 order: ASC
 ---
@@ -18,7 +18,19 @@ order: ASC
 
 **Review triggers:** Reconsider if the sentence-case nav beside uppercase headings reads as inconsistent, if the primary-colour sans facet labels read as too weak beside the mono `h2`s, or if long facets (Engineering) still need structure beyond a label, or if the unaligned "Continue exploring" and Work headings look out of place.
 
+## Show the Alfred AI-workflow as a routing graph image with a text version — 2026-09-30
+
+**Decision:** Case studies can carry an optional `aiWorkflowGraph` (image source, alt text, dimensions, caption, and a `steps` list), rendered after the first "AI-assisted workflow" paragraph. The graph is an SVG (`public/images/alfred/alfred-routing-graph.svg`, source of truth `docs/design/alfred-routing-graph.svg`) showing the routing decisions, the auditor outcomes, the shared finish and the re-entry paths. The `steps` render as a visible `.marker-list` ordered list, so the routing logic is not only in the picture. When the containing column is narrower than 52rem, the image is hidden (`@container`) and the list stands alone, so nothing scrolls horizontally. Only the SVG ships; the 3540px PNG stays in `docs/design/` as a reference.
+
+**Rationale:** The two flat Diagram Panels showed stage order but not where and why work branches, which is the point of the workflow. A branching graph with dashed re-entry cannot be expressed by the linear panel, so the panel and its component, styles, field and tests were removed rather than kept alongside. Drawing the graph as one image avoids a diagram dependency.
+
+**Consequence:** Text inside the image is fixed in size and not selectable. It is small on most screens: at a 862px column the labels render at about half scale. The image is therefore a button that opens it in the existing lightbox, widened to 92vw (about 0.72 scale at a 1440px viewport), the same interaction as the gallery images. The lightbox dialog was extracted from `ProjectGallery` into a shared `ImageLightbox` component, used by both the gallery and the new `RoutingGraph` component. The graph uses fallback fonts and must be regenerated if the alfred-ios governance sources change. `aiWorkflow` paragraphs are unchanged.
+
+**Review triggers:** Reconsider if the labels are still too small in the lightbox (for example a vertical variant or scrolling at natural size), if the governance sources change, or if a second case study needs a graph.
+
 ## Show AI-workflow diagrams in case studies with a Diagram Panel — 2026-09-30
+
+**Status:** Superseded 2026-09-30 by "Show the Alfred AI-workflow as a routing graph image with a text version". The `DiagramPanel` component, `diagram-panel.css` and `aiWorkflowDiagrams` were removed.
 
 **Decision:** Case studies can carry `aiWorkflowDiagrams`, rendered by a `DiagramPanel` component inside the "AI-assisted workflow" subsection. The panel is a bordered `<figure>` with a monospace filename bar, an ordered list of nodes, and a caption. No fill, radius, shadow, gradient or motion. The active node is marked by border width (`--border-width-accent`) with the accent colour as reinforcement; inactive nodes use `--color-border-strong`. Below the container width of 52rem the nodes stack vertically instead of scrolling. Its styles live in `src/styles/diagram-panel.css`. `aiWorkflow` becomes a list of paragraphs so a diagram can sit after the first.
 

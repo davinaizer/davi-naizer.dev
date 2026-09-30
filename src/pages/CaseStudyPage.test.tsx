@@ -95,16 +95,20 @@ describe("CaseStudyPage", () => {
 		for (const paragraph of first.aiWorkflow ?? []) {
 			expect(within(decisionsSection).getByText(paragraph)).toBeInTheDocument();
 		}
-		for (const diagram of first.aiWorkflowDiagrams ?? []) {
-			const flow = within(decisionsSection).getByRole("list", {
-				name: diagram.title,
-			});
-			expect(within(flow).getAllByRole("listitem")).toHaveLength(
-				diagram.nodes.length,
-			);
+		if (first.aiWorkflowGraph) {
+			const graph = first.aiWorkflowGraph;
 			expect(
-				within(decisionsSection).getByText(diagram.caption),
+				within(decisionsSection).getByRole("img", { name: graph.alt }),
+			).toHaveAttribute("src", graph.src);
+			expect(
+				within(decisionsSection).getByText(graph.caption),
 			).toBeInTheDocument();
+			const steps = within(decisionsSection).getByRole("list", {
+				name: "Routing graph as text",
+			});
+			expect(within(steps).getAllByRole("listitem")).toHaveLength(
+				graph.steps.length,
+			);
 		}
 
 		const technologies = screen.getByRole("list", { name: "Technologies" });

@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router";
 import { routes, workProjectPath, workSectionPath } from "../app/routes.ts";
-import DiagramPanel from "../components/DiagramPanel.tsx";
 import ProjectGallery from "../components/ProjectGallery.tsx";
 import ProjectPageLayout, {
 	type ProjectPageSection,
 } from "../components/ProjectPageLayout.tsx";
+import RoutingGraph from "../components/RoutingGraph.tsx";
 import { caseStudies } from "../content/evidence-content.ts";
 import { professionalContent } from "../content/professional-content.ts";
 import NotFoundPage from "./NotFoundPage.tsx";
@@ -19,6 +19,7 @@ function CaseStudyPage() {
 	}
 
 	const [aiLead, ...aiRest] = caseStudy.aiWorkflow ?? [];
+	const graph = caseStudy.aiWorkflowGraph;
 	const nextCaseStudy = caseStudies[currentIndex + 1];
 	const relatedExperience = (caseStudy.relatedExperienceSlugs ?? [])
 		.map((experienceSlug) =>
@@ -74,9 +75,7 @@ function CaseStudyPage() {
 						<>
 							<h3 className="facet-label">AI-assisted workflow</h3>
 							<p>{aiLead}</p>
-							{caseStudy.aiWorkflowDiagrams?.map((diagram) => (
-								<DiagramPanel diagram={diagram} key={diagram.filename} />
-							))}
+							{graph ? <RoutingGraph graph={graph} /> : null}
 							{aiRest.map((paragraph) => (
 								<p key={paragraph}>{paragraph}</p>
 							))}

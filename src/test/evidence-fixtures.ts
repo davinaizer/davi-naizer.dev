@@ -31,18 +31,15 @@ export const fixtureCaseStudies: readonly CaseStudy[] = [
 			"AI-assisted workflow fixture.",
 			"AI-assisted workflow second paragraph fixture.",
 		],
-		aiWorkflowDiagrams: [
-			{
-				filename: "fixture-route.flow",
-				title: "Fixture route: two stages",
-				nodes: [
-					{ label: "First", detail: "First detail" },
-					{ label: "Second", detail: "Second detail" },
-				],
-				activeIndex: 0,
-				caption: "Fixture diagram caption.",
-			},
-		],
+		aiWorkflowGraph: {
+			src: "/fixtures/routing-graph.svg",
+			title: "Fixture routing graph",
+			alt: "Fixture routing graph alt text",
+			width: 400,
+			height: 200,
+			caption: "Fixture graph caption.",
+			steps: ["Fixture first step.", "Fixture second step."],
+		},
 		outcomes,
 		reflection: "Reflection one.",
 		technologies: ["Fixture Tech A", "Fixture Tech B"],
