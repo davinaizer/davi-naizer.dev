@@ -421,6 +421,16 @@
 
 	.section-nav__link {
 		border-inline-start: 0;
+	cursor: pointer;
+	padding: var(--space-1) var(--space-2);
+}
+
+/* The primary hover state is transparent, which would lose contrast over the image, so stay filled. */
+.project-page__lightbox-close.button--primary:hover,
+.project-page__lightbox-close.button--primary:focus-visible {
+	border-color: var(--color-accent-soft);
+	background: var(--color-accent-soft);
+	color: var(--color-background);
 		padding-block: 0;
 		padding-inline-start: 0;
 	}
