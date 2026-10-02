@@ -239,6 +239,53 @@ const allCaseStudies: readonly CaseStudy[] = [
 
 const allProjects: readonly Project[] = [
 	{
+		slug: "real-time-event-map",
+		published: false,
+		title: "Real-time Event Map",
+		summary:
+			"A time-boxed React and TypeScript exercise in live event delivery, client-side filtering, and geospatial rendering.",
+		visualsHeading: "Live event dashboard",
+		visualsIntro:
+			"The interface brought stream status, filters, and the live spatial view together without hiding the map behind another screen.",
+		visuals: [
+			{
+				src: "/images/real-time-event-map/event-detection-dashboard.webp",
+				alt: "A dark event dashboard with venue, severity, and event-type filters above an OpenStreetMap view of London containing coloured live-event markers.",
+				title: "Filtering a live event stream",
+				caption:
+					"The connected stream fed the map while the three client-side filters narrowed the visible markers without reopening the connection.",
+				layout: "portrait",
+			},
+		],
+		context:
+			"I built this from a supplied brief and API as a time-boxed frontend take-home. The brief defined the live-map problem and required states; I chose the frontend structure, libraries, state boundaries, delivery sequence, and what to leave out.",
+		purpose:
+			"Explore how a small React application could turn a live event stream into a map that stayed understandable while data arrived continuously.",
+		problem:
+			"The interface needed to load venue boundaries, subscribe to server-sent events, place detections on a map, filter them by venue, type, and severity, and make loading, empty, disconnected, and reconnecting states visible. The live stream was the source of truth, with no database or historical state to rely on.",
+		solution:
+			"I used local React state and focused hooks: one hook loaded venues and another owned the EventSource lifecycle, JSON parsing, duplicate rejection, connection status, cleanup, and a 500-event in-memory window. React Leaflet rendered the map, fitted it to the selected venue boundaries, and displayed severity-coded markers. The filters derived the visible events in the client rather than reopening the stream.",
+		role: "I made the architecture, scope, library, and trade-off decisions and implemented the submitted application. AI assistance was constrained to research, pairing, review, debugging, and acting as a rubber duck; it did not own or edit the application code.",
+		decisions: [
+			"I kept state in React and focused hooks instead of adding a global state library. The application was small enough for one clear venue-loading boundary and one clear stream owner.",
+			"I selected React Leaflet over OpenLayers because I had used Leaflet before and it was a proportional way to deliver the spatial view within the exercise. I kept the map behind a component boundary so the choice did not spread through the application.",
+			"I filtered events in the client even though the stream accepted filter parameters. This kept one connection alive and avoided gaps caused by reconnecting whenever a filter changed.",
+			"I relied on native EventSource reconnection and exposed connecting, connected, reconnecting, and disconnected states. A brief event gap was an accepted limitation rather than a reason to add offline reconciliation.",
+			"I capped the in-memory stream at 500 unique events instead of allowing it to grow indefinitely. Local observation suggested the stream could reach about 30 events per second, but that was not a benchmark or a basis for broader scaling claims.",
+			"I built in slices—venues, map, SSE, filters, failure states, and then small refinements. I extracted marker rendering and memoised venue filtering, while deferring broader batching because the limited profiling did not justify more performance infrastructure.",
+		],
+		reflection:
+			"The exercise gave me practical experience with named SSE events, EventSource cleanup and browser-managed reconnection, and connecting a live data lifecycle to a geospatial interface. The strongest part was keeping the solution bounded while still making connection and empty states visible. The main gap is verification: there is no automated test runner, incoming payloads are asserted as TypeScript types rather than validated at runtime, and the responsive, accessibility, and sustained-rendering behaviour was not measured comprehensively. I would address those boundaries before treating the application as production-ready, rather than adding the optional analytics view first.",
+		technologies: [
+			"React",
+			"TypeScript",
+			"Server-Sent Events",
+			"EventSource",
+			"React Leaflet",
+			"Vite",
+		],
+	},
+	{
 		slug: "atelier-florae",
 		published: false,
 		title: "Atelier Florae: From Brand to Product",

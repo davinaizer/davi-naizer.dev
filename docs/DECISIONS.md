@@ -1,12 +1,22 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-30
-version: 1.41
+updatedAt: 2026-10-02
+version: 1.42
 status: active
 order: ASC
 ---
 
 # Decisions
+
+## Use Experiments for bounded learning projects; classify the anonymised take-home as an Experiment — 2026-10-02
+
+**Decision:** Experiments may include bounded projects that provide useful evidence through learning, discovery, trial and error, or focused technical implementation but do not support the fuller product, contribution, and outcome narrative required of a Case Study. Classify the time-boxed React and TypeScript take-home as an Experiment titled **Real-time Event Map**. Preserve its origin as a supplied brief and API while omitting the organisation name, branding, identifying URLs, repository/demo links, and any implication of employment, production use, business impact, hiring success, or company endorsement. Keep the initial entry unpublished pending a separate editorial and visual publication review.
+
+**Rationale:** The implementation adds distinct recent React and TypeScript evidence through server-sent events, browser-managed reconnection, client-side filtering, bounded in-memory state, and geospatial rendering. Its strongest evidence is the developer's choices, implementation sequence, trade-offs, limitations, and learning. It does not have production outcomes, user evidence, or an employment contribution boundary strong enough for a full professional Case Study. Treating it as an Experiment preserves that value without overstating the work or pretending the supplied problem was self-initiated.
+
+**Consequence:** `src/content/evidence-content.ts` contains an unpublished `real-time-event-map` `Project` grounded in the final implementation, contemporaneous notes, and Git history. It has no related employment entry, external code/demo link, or outcome claim. The supplied screenshot is stored as a public-safe lossless WebP gallery visual with Leaflet/OpenStreetMap attribution intact. The existing `Project` contract, publish filtering, routing, and sitemap behaviour are unchanged. Plan: `docs/plans/2026-10-02-real-time-event-map-experiment.md`.
+
+**Review triggers:** Reconsider the classification if Experiments become too broad to remain understandable, visitor evidence shows that supplied exercises are confused with self-initiated work, publication review identifies an anonymity or visual problem, or stronger product, evaluation, testing, or outcome evidence makes a Case Study defensible.
 
 ## Align project-page lists and section labels with the Resume visual language — 2026-09-30
 

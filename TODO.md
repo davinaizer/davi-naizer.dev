@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-08-07
-updatedAt: 2026-09-30
-version: 1.73
+updatedAt: 2026-10-02
+version: 1.74
 status: active
 ---
 
@@ -758,6 +758,16 @@ Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-09-30-alfred-routing-
 - [x] Remove `DiagramPanel`, `diagram-panel.css`, `aiWorkflowDiagrams` and the two flat diagrams.
 - [x] Pass typecheck, scoped `biome check`, `pnpm test` (59), `pnpm build` and `pnpm test:e2e` (22 passed, 4 skipped).
 - [x] Complete formal review (`PASS`) and close the task.
+
+### Add an anonymised Real-time Event Map experiment (developer-directed) — Complete
+
+Delivered and reviewed with `PASS`. Plan: `docs/plans/2026-10-02-real-time-event-map-experiment.md`. Governed by the `DECISIONS.md` entry "Use Experiments for bounded learning projects; classify the anonymised take-home as an Experiment — 2026-10-02".
+
+- [x] Add an unpublished `Real-time Event Map` Experiment grounded in the take-home's final code, `NOTES.md`, and chronological Git history.
+- [x] Preserve the supplied-brief versus authored-work boundary; remove the organisation name, identifying URLs, repository/demo links, employment connection, and unsupported production or outcome claims.
+- [x] Add the developer-supplied dashboard screenshot as a lossless WebP gallery visual with accurate alt text and retained Leaflet/OpenStreetMap attribution.
+- [x] Keep the entry unpublished and absent from Work, routing, and the sitemap without changing the content contract or application architecture.
+- [x] Pass `pnpm validate` (14 test files, 59 tests) and `pnpm build`; complete formal review (`PASS`) and close the task.
 
 ---
 
